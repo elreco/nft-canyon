@@ -5,9 +5,11 @@ import avt from '../../public/images/avatar/avt-2.jpg'
 import coin from '../../public/images/logo/coin.svg'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 const HeaderStyle2 = () => {
-  const { pathname } = useLocation()
+  const router = useRouter()
+  const pathname = router.pathname
 
   const headerRef = useRef(null)
   useEffect(() => {
@@ -16,28 +18,28 @@ const HeaderStyle2 = () => {
       window.removeEventListener('scroll', isSticky)
     }
   })
-  const isSticky = (e) => {
+  const isSticky = () => {
     const header = document.querySelector('.js-header')
     const scrollTop = window.scrollY
     scrollTop >= 300
-      ? header.classList.add('is-fixed')
-      : header.classList.remove('is-fixed')
+      ? header?.classList.add('is-fixed')
+      : header?.classList.remove('is-fixed')
     scrollTop >= 400
-      ? header.classList.add('is-small')
-      : header.classList.remove('is-small')
+      ? header?.classList.add('is-small')
+      : header?.classList.remove('is-small')
   }
 
-  const menuLeft = useRef(null)
-  const btnToggle = useRef(null)
+  const menuLeft = useRef<HTMLDivElement>(null)
+  const btnToggle = useRef<HTMLDivElement>(null)
 
   const menuToggle = () => {
-    menuLeft.current.classList.toggle('active')
-    btnToggle.current.classList.toggle('active')
+    menuLeft?.current?.classList?.toggle('active')
+    btnToggle?.current?.classList?.toggle('active')
   }
 
   const [activeIndex, setActiveIndex] = useState(null)
-  const handleOnClick = (index) => {
-    setActiveIndex(index)
+  const handleOnClick = (index: unknown) => {
+    setActiveIndex(index as null)
   }
 
   return (

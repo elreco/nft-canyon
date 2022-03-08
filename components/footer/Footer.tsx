@@ -208,12 +208,12 @@ const Footer = () => {
           </div>
         </div>
       </footer>
-      {isVisible && <Link onClick={scrollToTop} to="#" id="scroll-top"></Link>}
+      {isVisible && <a onClick={scrollToTop} href="#" id="scroll-top"></a>}
 
       <div
         className="modal fade popup"
         id="popup_bid"
-        tabIndex="-1"
+        tab-index="-1"
         role="dialog"
         aria-hidden="true"
       >

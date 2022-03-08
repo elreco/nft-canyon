@@ -19,33 +19,33 @@ const Header = () => {
       window.removeEventListener('scroll', isSticky)
     }
   })
-  const isSticky = (e) => {
+  const isSticky = () => {
     const header = document.querySelector('.js-header')
     const scrollTop = window.scrollY
     scrollTop >= 300
-      ? header.classList.add('is-fixed')
-      : header.classList.remove('is-fixed')
+      ? header?.classList.add('is-fixed')
+      : header?.classList.remove('is-fixed')
     scrollTop >= 400
-      ? header.classList.add('is-small')
-      : header.classList.remove('is-small')
+      ? header?.classList.add('is-small')
+      : header?.classList.remove('is-small')
   }
 
-  const menuLeft = useRef(null)
-  const btnToggle = useRef(null)
-  const btnSearch = useRef(null)
+  const menuLeft = useRef<HTMLDivElement>(null)
+  const btnToggle = useRef<HTMLDivElement>(null)
+  const btnSearch = useRef<HTMLDivElement>(null)
 
   const menuToggle = () => {
-    menuLeft.current.classList.toggle('active')
-    btnToggle.current.classList.toggle('active')
+    menuLeft?.current?.classList.toggle('active')
+    btnToggle?.current?.classList.toggle('active')
   }
 
   const searchBtn = () => {
-    btnSearch.current.classList.toggle('active')
+    btnSearch?.current?.classList.toggle('active')
   }
 
   const [activeIndex, setActiveIndex] = useState(null)
-  const handleOnClick = (index) => {
-    setActiveIndex(index)
+  const handleOnClick = (index: unknown) => {
+    setActiveIndex(index as null)
   }
 
   return (
@@ -63,7 +63,7 @@ const Header = () => {
                           className="logo-dark"
                           id="logo_header"
                           src={logodark}
-                          srcSet={`${logodark2x}`}
+                          src-set={`${logodark2x}`}
                           alt="nft canyon"
                         />
                       </a>
@@ -99,7 +99,9 @@ const Header = () => {
                                     : 'menu-item'
                                 }
                               >
-                                <a to={submenu.links}>{submenu.sub}</a>
+                                <Link href={submenu.links}>
+                                  <a>{submenu.sub}</a>
+                                </Link>
                               </li>
                             ))}
                           </ul>
@@ -131,7 +133,7 @@ const Header = () => {
                           placeholder="Search..."
                           name="s"
                           title="Search for"
-                          required=""
+                          required
                         />
                         <button
                           className="search search-submit"
