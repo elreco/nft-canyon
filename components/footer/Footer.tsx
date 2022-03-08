@@ -6,11 +6,11 @@ import Image from 'next/image'
 const Footer = () => {
   const accountList = [
     {
-      title: 'Authors',
+      title: 'My website',
       link: '/authors-01'
     },
     {
-      title: 'Collection',
+      title: 'My Collection',
       link: '/wallet-connect'
     },
     {
@@ -28,7 +28,7 @@ const Footer = () => {
       link: '/help-center'
     },
     {
-      title: 'Live Auctions',
+      title: 'Documentation',
       link: '/live-auctions'
     },
     {

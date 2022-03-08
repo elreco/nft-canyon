@@ -32,15 +32,10 @@ const Header = () => {
 
   const menuLeft = useRef<HTMLDivElement>(null)
   const btnToggle = useRef<HTMLDivElement>(null)
-  const btnSearch = useRef<HTMLDivElement>(null)
 
   const menuToggle = () => {
     menuLeft?.current?.classList.toggle('active')
     btnToggle?.current?.classList.toggle('active')
-  }
-
-  const searchBtn = () => {
-    btnSearch?.current?.classList.toggle('active')
   }
 
   const [activeIndex, setActiveIndex] = useState(null)
@@ -111,47 +106,12 @@ const Header = () => {
                   </ul>
                 </nav>
                 <div className="flat-search-btn flex">
-                  <div className="header-search flat-show-search" id="s1">
-                    <a
-                      href="#"
-                      className="show-search header-search-trigger"
-                      onClick={searchBtn}
-                    >
-                      <i className="far fa-search"></i>
-                    </a>
-                    <div className="top-search" ref={btnSearch}>
-                      <form
-                        action="#"
-                        method="get"
-                        role="search"
-                        className="search-form"
-                      >
-                        <input
-                          type="search"
-                          id="s"
-                          className="search-field"
-                          placeholder="Search..."
-                          name="s"
-                          title="Search for"
-                          required
-                        />
-                        <button
-                          className="search search-submit"
-                          type="submit"
-                          title="Search"
-                        >
-                          <i className="icon-fl-search-filled"></i>
-                        </button>
-                      </form>
-                    </div>
-                  </div>
                   <div className="sc-btn-top mg-r-12" id="site-header">
-                    <a
-                      href="/wallet-connect"
-                      className="sc-button header-slider style style-1 wallet fl-button pri-1"
-                    >
-                      <span>Wallet connect</span>
-                    </a>
+                    <Link href="/wallet-connect">
+                      <a className="sc-button header-slider style style-1 wallet fl-button pri-1">
+                        <span>Wallet connect</span>
+                      </a>
+                    </Link>
                   </div>
 
                   <div className="admin_active" id="header_admin">

@@ -1,16 +1,14 @@
 import type { NextPage } from 'next'
 import Header from '../components/header/Header'
 import Footer from '../components/footer/Footer'
-import Slider from '../components/slider/Slider'
 
-const Home: NextPage = () => {
+const WalletConnect: NextPage = () => {
   return (
-    <div className="home-7">
+    <div>
       <Header />
-      <Slider />
       <Footer />
     </div>
   )
 }
 
-export default Home
+export default WalletConnect

@@ -6,22 +6,12 @@ const menus = [
   },
   {
     id: 2,
-    name: 'Explore',
+    name: 'Demo',
     links: '#'
   },
   {
     id: 3,
-    name: 'Activity',
-    links: '#'
-  },
-  {
-    id: 4,
-    name: 'Community',
-    links: '#'
-  },
-  {
-    id: 5,
-    name: 'Page',
+    name: 'Features',
     links: '#',
     namesub: [
       {
@@ -75,6 +65,11 @@ const menus = [
         links: '/faq'
       }
     ]
+  },
+  {
+    id: 4,
+    name: 'Pricing',
+    links: '#'
   },
   {
     id: 7,
