@@ -1232,7 +1232,7 @@
 
 "@sanity/client@^3.2.0":
   version "3.2.0"
-  resolved "https://registry.npmjs.org/@sanity/client/-/client-3.2.0.tgz#a056b48541e03f08b2a6aba841c85db6c2ff5e1f"
+  resolved "https://registry.yarnpkg.com/@sanity/client/-/client-3.2.0.tgz#a056b48541e03f08b2a6aba841c85db6c2ff5e1f"
   integrity sha512-qhjyscSwpm8bZ7L6tezIJ0eAYSMUvSILt09NsayPhGIvPynraAKNgArI950/orVYylI8a8NQ1yOzuo0prWsO5A==
   dependencies:
     "@sanity/eventsource" "^3.0.1"
