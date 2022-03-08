@@ -5,7 +5,7 @@ import menus from "./menu";
 import logodark2x from '../../public/images/logo/logo_dark@2x.png'
 import logodark from '../../public/images/logo/logo_dark.png'
 import imgsun from '../../public/images/icon/sun.png'
-import avt from '../../public/images/avatar/avt-2.jpg'
+import avt from '../../public/images/avatar/avt-2.jpg';
 import Image from 'next/image';
 
 const Header = () => {
