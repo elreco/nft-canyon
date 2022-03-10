@@ -5,6 +5,7 @@ import schemaTypes from 'all:part:@sanity/base/schema-type'
 
 // We import object and document schemas
 import user from './user'
+import tx from './tx'
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -15,8 +16,9 @@ export default createSchema({
   types: schemaTypes.concat([
     // The following are document types which will appear
     // in the studio.
-    user
+    user,
     // When added to this list, object types can be used as
     // { type: 'typename' } in other document schemas
+    tx
   ])
 })

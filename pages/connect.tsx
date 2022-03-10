@@ -39,6 +39,7 @@ const WalletConnect: NextPage = () => {
   ])
 
   const { address, connectWallet } = useWeb3()
+  // // if address and no local storage <button type="button" onClick={() => disconnectWallet()}>Reconnect</button>
 
   useEffect(() => {
     if (!address) return
@@ -57,7 +58,7 @@ const WalletConnect: NextPage = () => {
           fontSize: '15px'
         }
       })
-
+      // save to localStorage
       router.push('/dashboard')
     })()
   }, [address, router])

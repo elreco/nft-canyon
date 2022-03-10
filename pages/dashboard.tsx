@@ -2,8 +2,10 @@ import type { NextPage } from 'next'
 import Header from '../components/header/Header'
 import Footer from '../components/Footer'
 import Payment from '../components/Payment'
+import { useWeb3 } from '@3rdweb/hooks'
 
 const Dashboard: NextPage = () => {
+  const { disconnectWallet } = useWeb3()
   return (
     <div className="home-7">
       <Header />
