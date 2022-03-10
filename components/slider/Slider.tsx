@@ -35,7 +35,7 @@ const Slider = () => {
                 The 1st CMS platform to create your mint web app.
               </p>
               <div className="flat-bt-slider flex style2">
-                <Link href="/explore-01">
+                <Link href="/connect">
                   <a className="sc-button header-slider style style-1 rocket fl-button pri-1">
                     <span>Get Started</span>
                   </a>

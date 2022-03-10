@@ -506,6 +506,9 @@
 /* / style-2 / */
 .sc-box-icon-inner.style-2 {
   margin-left: -30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .style-2 .sc-box-icon {
@@ -563,19 +566,19 @@
   margin-bottom: 22px;
 }
 
-.style-2 .sc-box-icon:nth-child(3) {
+/* .style-2 .sc-box-icon:nth-child(3) {
   padding-top: 48px;
 }
 
 .style-2 .sc-box-icon:nth-child(3) .img {
   margin-bottom: 26px;
-}
+} */
 
-.style-2 .sc-box-icon:nth-child(4) {
+.style-2 .sc-box-icon:nth-child(2) {
   padding-top: 51px;
 }
 
-.style-2 .sc-box-icon:nth-child(4) .img {
+.style-2 .sc-box-icon:nth-child(2) .img {
   margin-bottom: 32px;
 }
 

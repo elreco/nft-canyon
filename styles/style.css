@@ -3304,3 +3304,16 @@ header {
   top: 0px;
   color: #fff;
 }
+
+#nprogress .bar {
+  background: var(--primary-color3)!important;
+}
+
+#nprogress .spinner-icon {
+  border-top-color: var(--primary-color3)!important;
+  border-left-color: var(--primary-color3)!important;
+}
+
+.cursor {
+  cursor: pointer!important;
+}

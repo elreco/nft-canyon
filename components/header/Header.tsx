@@ -1,24 +1,27 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useRef, useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import menus from './menu'
 import logodark2x from '../../public/images/logo/logo_dark@2x.png'
 import logodark from '../../public/images/logo/logo_dark.png'
-import imgsun from '../../public/images/icon/sun.png'
-import avt from '../../public/images/avatar/avt-2.jpg'
 import Image from 'next/image'
+import { useWeb3 } from '@3rdweb/hooks'
+import { Toaster } from 'react-hot-toast'
 
 const Header = () => {
   const router = useRouter()
   const pathname = router.pathname
-
+  const { address } = useWeb3()
   const headerRef = useRef(null)
+
   useEffect(() => {
     window.addEventListener('scroll', isSticky)
     return () => {
       window.removeEventListener('scroll', isSticky)
     }
   })
+
   const isSticky = () => {
     const header = document.querySelector('.js-header')
     const scrollTop = window.scrollY
@@ -43,8 +46,11 @@ const Header = () => {
     setActiveIndex(index as null)
   }
 
+  // set loading with timeout on useEffect
+
   return (
     <header id="header_main" className="header_1 js-header" ref={headerRef}>
+      <Toaster position="top-center" reverseOrder={false} />
       <div className="themesflat-container">
         <div className="row">
           <div className="col-md-12">
@@ -106,58 +112,32 @@ const Header = () => {
                   </ul>
                 </nav>
                 <div className="flat-search-btn flex">
-                  <div className="sc-btn-top mg-r-12" id="site-header">
-                    <Link href="/wallet-connect">
-                      <a className="sc-button header-slider style style-1 wallet fl-button pri-1">
-                        <span>Wallet connect</span>
-                      </a>
-                    </Link>
-                  </div>
+                  {!address && (
+                    <div className="sc-btn-top mg-r-12" id="site-header">
+                      <Link href="/connect">
+                        <a className="sc-button header-slider style style-1 rocket fl-button pri-1">
+                          <span>Get Started</span>
+                        </a>
+                      </Link>
+                    </div>
+                  )}
 
-                  <div className="admin_active" id="header_admin">
-                    <div className="header_avatar">
-                      <div className="price">
-                        <span>
-                          2.45 <strong>ETH</strong>{' '}
-                        </span>
-                      </div>
-                      <Image className="avatar" src={avt} alt="avatar" />
-                      <div className="avatar_popup mt-20">
-                        <div className="d-flex align-items-center copy-text justify-content-between">
-                          <span> 13b9ebda035r178... </span>
-                          <a href="#" className="ml-2">
-                            <i className="fal fa-copy"></i>
-                          </a>
+                  {address && (
+                    <div id="header_admin">
+                      <div className="header_avatar">
+                        <div className="price">
+                          <strong>
+                            {address.slice(0, 4)}...{address.slice(-4)}
+                          </strong>
                         </div>
-                        <div className="d-flex align-items-center mt-10">
-                          <Image className="coin" src={imgsun} alt="/" />
-                          <div className="info ml-10">
-                            <p className="text-sm font-book text-gray-400">
-                              Balance
-                            </p>
-                            <p className="w-full text-sm font-bold text-green-500">
-                              16.58 ETH
-                            </p>
-                          </div>
-                        </div>
-                        <div className="hr"></div>
-                        <div className="links mt-20">
-                          <a>
-                            <i className="fab fa-accusoft"></i>{' '}
-                            <span> My items</span>
-                          </a>
-                          <a className="mt-10" href="/edit-profile">
-                            <i className="fas fa-pencil-alt"></i>{' '}
-                            <span> Edit Profile</span>
-                          </a>
-                          <a className="mt-10" href="/login" id="logout">
-                            <i className="fal fa-sign-out"></i>{' '}
-                            <span> Logout</span>
-                          </a>
-                        </div>
+                        <img
+                          className="avatar"
+                          src={`https://avatars.dicebear.com/api/identicon/${address}.svg`}
+                          alt="avatar"
+                        />
                       </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
             </div>
