@@ -2,15 +2,18 @@ import type { NextPage } from 'next'
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Header from '../components/header/Header'
-import Footer from '../components/footer/Footer'
+import Footer from '../components/Footer'
 import { type ConnectorOptions, useWeb3 } from '@3rdweb/hooks'
 import toast from 'react-hot-toast'
+import sanityClient from '../lib/sanityClient'
+import { useRouter } from 'next/router'
 
 import img1 from '../public/images/icon/connect-1.png'
 import img4 from '../public/images/icon/connect-4.png'
 import img5 from '../public/images/icon/connect-5.png'
 
 const WalletConnect: NextPage = () => {
+  const router = useRouter()
   const [data] = useState([
     {
       img: img1,
@@ -40,22 +43,24 @@ const WalletConnect: NextPage = () => {
   useEffect(() => {
     if (!address) return
     ;(async () => {
-      const userDoc = {
-        _type: 'users',
+      await sanityClient.createIfNotExists({
+        _type: 'user',
         _id: address,
         userName: 'Unnamed',
         walletAddress: address
-      }
-      toast.success(`Welcome back!`, {
+      })
+
+      toast.success(`Welcome back! 👋`, {
         style: {
           background: '#04111d',
-          color: '#fff'
+          color: '#fff',
+          fontSize: '15px'
         }
       })
-      // const result = await client.createIfNotExists(userDoc)
-      // redirect to website admin
+
+      router.push('/dashboard')
     })()
-  }, [address])
+  }, [address, router])
 
   return (
     <div>

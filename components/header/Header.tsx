@@ -123,7 +123,11 @@ const Header = () => {
                   )}
 
                   {address && (
-                    <div id="header_admin">
+                    <div
+                      id="header_admin"
+                      className="cursor"
+                      onClick={() => router.push('/dashboard')}
+                    >
                       <div className="header_avatar">
                         <div className="price">
                           <strong>

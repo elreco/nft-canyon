@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import logodark from '../../public/images/logo/logo_dark.png'
+import logodark from '../public/images/logo/logo_dark.png'
 import Image from 'next/image'
 
 const Footer = () => {

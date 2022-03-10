@@ -3306,14 +3306,14 @@ header {
 }
 
 #nprogress .bar {
-  background: var(--primary-color3)!important;
+  background: var(--primary-color3) !important;
 }
 
 #nprogress .spinner-icon {
-  border-top-color: var(--primary-color3)!important;
-  border-left-color: var(--primary-color3)!important;
+  border-top-color: var(--primary-color3) !important;
+  border-left-color: var(--primary-color3) !important;
 }
 
 .cursor {
-  cursor: pointer!important;
+  cursor: pointer !important;
 }
