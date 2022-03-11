@@ -1,14 +1,10 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Header from '../components/header/Header'
 import Footer from '../components/Footer'
-import {
-  type ConnectorOptions,
-  type ConnectorType,
-  useWeb3
-} from '@3rdweb/hooks'
+import { type ConnectorOptions, useWeb3 } from '@3rdweb/hooks'
 import toast from 'react-hot-toast'
 import sanityClient from '../lib/sanityClient'
 import { useRouter } from 'next/router'
@@ -16,27 +12,23 @@ import { useRouter } from 'next/router'
 import img1 from '../public/images/icon/connect-1.png'
 
 const WalletConnect: NextPage = () => {
-  const title = 'NFT Canyon - Connect'
+  const title = 'NFT Canyon'
 
-  const { address, connectWallet, disconnectWallet } = useWeb3()
+  const { address, connectWallet } = useWeb3()
   const router = useRouter()
   const [data] = useState([
     {
       img: img1,
       title: 'Meta Mask',
       description:
-        'A crypto wallet & gateway to blockchain apps Your key to the world of crypto',
+        'A crypto wallet & gateway to blockchain apps. Your key to the world of crypto!',
       name: 'injected' as keyof ConnectorOptions
     }
   ])
 
-  if (localStorage.getItem('walletAddress')) {
-    router.push('/dashboard')
-  }
-
-  const connect = async (connector: ConnectorType) => {
-    await connectWallet(connector)
-    if (address) {
+  useEffect(() => {
+    if (!address) return
+    ;(async () => {
       await sanityClient.createIfNotExists({
         _type: 'user',
         _id: address,
@@ -51,18 +43,10 @@ const WalletConnect: NextPage = () => {
           fontSize: '15px'
         }
       })
-
-      localStorage.setItem('walletAddress', address)
-
       router.push('/dashboard')
       return
-    }
-  }
-
-  const disconnect = () => {
-    disconnectWallet()
-    return
-  }
+    })()
+  }, [address, router])
 
   return (
     <>
@@ -101,11 +85,7 @@ const WalletConnect: NextPage = () => {
                 {data.map((item, index) => (
                   <div
                     onClick={() => {
-                      if (address) {
-                        disconnect()
-                      } else {
-                        connect(item.name)
-                      }
+                      connectWallet(item.name)
                     }}
                     key={index}
                     className="sc-box-icon cursor"
@@ -114,7 +94,7 @@ const WalletConnect: NextPage = () => {
                       <Image src={item.img} alt="" />
                     </div>
                     <h4 className="heading">
-                      <a href="#" onClick={() => connect(item.name)}>
+                      <a href="#" onClick={() => connectWallet(item.name)}>
                         {item.title}
                       </a>{' '}
                     </h4>

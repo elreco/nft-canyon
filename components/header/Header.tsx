@@ -12,8 +12,9 @@ import { Toaster } from 'react-hot-toast'
 const Header = () => {
   const router = useRouter()
   const pathname = router.pathname
-  const { address } = useWeb3()
+  const { address, balance } = useWeb3()
   const headerRef = useRef(null)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     window.addEventListener('scroll', isSticky)
@@ -21,6 +22,14 @@ const Header = () => {
       window.removeEventListener('scroll', isSticky)
     }
   })
+
+  useEffect(() => {
+    if (!balance) {
+      setIsLoading(true)
+    } else {
+      setIsLoading(false)
+    }
+  }, [balance, address])
 
   const isSticky = () => {
     const header = document.querySelector('.js-header')
@@ -110,7 +119,7 @@ const Header = () => {
                   </ul>
                 </nav>
                 <div className="flat-search-btn flex">
-                  {!address && (
+                  {!isLoading && !address && (
                     <div className="sc-btn-top mg-r-12" id="site-header">
                       <Link href="/connect">
                         <a className="sc-button header-slider style style-1 rocket fl-button pri-1">
@@ -120,7 +129,7 @@ const Header = () => {
                     </div>
                   )}
 
-                  {address && (
+                  {!isLoading && address && (
                     <div
                       id="header_admin"
                       className="cursor"
@@ -138,6 +147,13 @@ const Header = () => {
                           alt="avatar"
                         />
                       </div>
+                    </div>
+                  )}
+                  {isLoading && (
+                    <div className="sc-btn-top mg-r-12" id="site-header">
+                      <a className="sc-button header-slider style style-1 rocket fl-button pri-1">
+                        <span>Chargement...</span>
+                      </a>
                     </div>
                   )}
                 </div>
