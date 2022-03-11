@@ -46,8 +46,6 @@ const Header = () => {
     setActiveIndex(index as null)
   }
 
-  // set loading with timeout on useEffect
-
   return (
     <header id="header_main" className="header_1 js-header" ref={headerRef}>
       <Toaster position="top-center" reverseOrder={false} />

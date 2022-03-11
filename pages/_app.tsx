@@ -10,13 +10,7 @@ import 'nprogress/nprogress.css'
 
 const supportedChainIds = [1, 4]
 const connectors = {
-  injected: {},
-  walletconnect: {},
-  walletlink: {
-    appName: 'NFT Canyon',
-    url: 'http://localhost:3000',
-    darkMode: true
-  }
+  injected: {}
 }
 
 Router.events.on('routeChangeStart', () => NProgress.start())

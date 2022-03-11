@@ -1,18 +1,24 @@
 import type { NextPage } from 'next'
-import { useState, useEffect } from 'react'
+import Head from 'next/head'
+import { useState } from 'react'
 import Image from 'next/image'
 import Header from '../components/header/Header'
 import Footer from '../components/Footer'
-import { type ConnectorOptions, useWeb3 } from '@3rdweb/hooks'
+import {
+  type ConnectorOptions,
+  type ConnectorType,
+  useWeb3
+} from '@3rdweb/hooks'
 import toast from 'react-hot-toast'
 import sanityClient from '../lib/sanityClient'
 import { useRouter } from 'next/router'
 
 import img1 from '../public/images/icon/connect-1.png'
-import img4 from '../public/images/icon/connect-4.png'
-import img5 from '../public/images/icon/connect-5.png'
 
 const WalletConnect: NextPage = () => {
+  const title = 'NFT Canyon - Connect'
+
+  const { address, connectWallet, disconnectWallet } = useWeb3()
   const router = useRouter()
   const [data] = useState([
     {
@@ -21,29 +27,16 @@ const WalletConnect: NextPage = () => {
       description:
         'A crypto wallet & gateway to blockchain apps Your key to the world of crypto',
       name: 'injected' as keyof ConnectorOptions
-    },
-    {
-      img: img4,
-      title: 'Wallet Connect',
-      description:
-        'WalletConnect is the web3 standard to connect blockchain wallets to dapps. Your key to the world of crypto',
-      name: 'walletconnect' as keyof ConnectorOptions
-    },
-    {
-      img: img5,
-      title: 'Coinbase Wallet',
-      description:
-        'Your key to the world of crypto Your key to the world of crypto Your key to the world of crypto',
-      name: 'walletlink' as keyof ConnectorOptions
     }
   ])
 
-  const { address, connectWallet } = useWeb3()
-  // // if address and no local storage <button type="button" onClick={() => disconnectWallet()}>Reconnect</button>
+  if (localStorage.getItem('walletAddress')) {
+    router.push('/dashboard')
+  }
 
-  useEffect(() => {
-    if (!address) return
-    ;(async () => {
+  const connect = async (connector: ConnectorType) => {
+    await connectWallet(connector)
+    if (address) {
       await sanityClient.createIfNotExists({
         _type: 'user',
         _id: address,
@@ -58,13 +51,26 @@ const WalletConnect: NextPage = () => {
           fontSize: '15px'
         }
       })
-      // save to localStorage
+
+      localStorage.setItem('walletAddress', address)
+
       router.push('/dashboard')
-    })()
-  }, [address, router])
+      return
+    }
+  }
+
+  const disconnect = () => {
+    disconnectWallet()
+    return
+  }
 
   return (
-    <div>
+    <>
+      <Head>
+        <title>{title}</title>
+        <meta property="og:title" content={title} />
+        <meta name="twitter:title" content={title} />
+      </Head>
       <Header />
       <section className="flat-title-page inner">
         <div className="overlay"></div>
@@ -94,7 +100,13 @@ const WalletConnect: NextPage = () => {
               <div className="sc-box-icon-inner style-2">
                 {data.map((item, index) => (
                   <div
-                    onClick={() => connectWallet(item.name)}
+                    onClick={() => {
+                      if (address) {
+                        disconnect()
+                      } else {
+                        connect(item.name)
+                      }
+                    }}
                     key={index}
                     className="sc-box-icon cursor"
                   >
@@ -102,7 +114,7 @@ const WalletConnect: NextPage = () => {
                       <Image src={item.img} alt="" />
                     </div>
                     <h4 className="heading">
-                      <a href="#" onClick={() => connectWallet(item.name)}>
+                      <a href="#" onClick={() => connect(item.name)}>
                         {item.title}
                       </a>{' '}
                     </h4>
@@ -115,7 +127,7 @@ const WalletConnect: NextPage = () => {
         </div>
       </div>
       <Footer />
-    </div>
+    </>
   )
 }
 
