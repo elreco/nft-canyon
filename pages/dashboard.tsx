@@ -6,13 +6,14 @@ import Payment from '../components/Payment'
 import { useEffect, useState } from 'react'
 import { useWeb3 } from '@3rdweb/hooks'
 import { useRouter } from 'next/router'
+import sanityClient from '../lib/sanityClient'
 
 const Dashboard: NextPage = () => {
   const title = 'NFT Canyon - Dashboard'
   const { address, balance } = useWeb3()
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(true)
-
+  
   useEffect(() => {
     if (!balance) {
       setIsLoading(true)
@@ -21,6 +22,8 @@ const Dashboard: NextPage = () => {
       if (!address) {
         router.push('/')
         return
+      } else {
+
       }
     }
   }, [balance, address, router])
@@ -41,11 +44,13 @@ const Dashboard: NextPage = () => {
               <div className="col-md-12">
                 <div className="page-title-heading mg-bt-12">
                   <h1 className="heading text-center">My Dashboard</h1>
-                  <Payment />
                 </div>
               </div>
             </div>
           </div>
+        </section>
+        <section> 
+          <Payment />
         </section>
         <Footer />
       </div>

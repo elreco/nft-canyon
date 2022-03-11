@@ -122,8 +122,8 @@ const Header = () => {
                   {!isLoading && !address && (
                     <div className="sc-btn-top mg-r-12" id="site-header">
                       <Link href="/connect">
-                        <a className="sc-button header-slider style style-1 rocket fl-button pri-1">
-                          <span>Get Started</span>
+                        <a className="sc-button header-slider style style-1 wallet fl-button pri-1">
+                          <span>Connect Wallet</span>
                         </a>
                       </Link>
                     </div>
