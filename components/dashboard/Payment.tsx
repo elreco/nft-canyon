@@ -3,9 +3,9 @@ import toast from 'react-hot-toast'
 import sanityClient from '../../lib/sanityClient'
 import { useWeb3 } from '@3rdweb/hooks'
 
-const Payment = ({ fetchCurrentUser }) => {
+const Payment = ({ fetchCurrentUser }) => {
   const { address } = useWeb3()
-  
+
   const startPayment = async () => {
     const addr = '0xe0C5123B0FD1A7D94bB8D84bBAF1026B699C6dC6'
     try {
@@ -32,27 +32,21 @@ const Payment = ({ fetchCurrentUser }) => {
         value: ethers.utils.parseEther('0.01')
       })
       // save tx to user profile
-      sanityClient
-        .patch(address) // Document ID to patch
-        .set({ plan: 1 }) // Shallow merge
-        .commit() // Perform the patch and return a promise
-      // fetchCurrentUser
+      await sanityClient.patch(address).set({ plan: 1 }).commit()
       fetchCurrentUser()
     } catch (err: any) {
-      let message = "Insufficient funds: you probably don't have enough eth to make this transaction 😕"
+      let message =
+        "Insufficient funds: you probably don't have enough eth to make this transaction 😕"
       if (err.code === 4001) {
-        message = "Your transaction has been canceled 😕"
+        message = 'Your transaction has been canceled 😕'
       }
-      toast.error(
-        message,
-        {
-          style: {
-            background: '#04111d',
-            color: '#fff',
-            fontSize: '15px'
-          }
+      toast.error(message, {
+        style: {
+          background: '#04111d',
+          color: '#fff',
+          fontSize: '15px'
         }
-      )
+      })
     }
   }
 

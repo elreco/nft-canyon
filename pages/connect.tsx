@@ -27,7 +27,9 @@ const WalletConnect: NextPage = () => {
   ])
 
   useEffect(() => {
-    if (!address) return
+    if (!address) {
+      return
+    }
     ;(async () => {
       await sanityClient.createIfNotExists({
         _type: 'user',
@@ -85,7 +87,10 @@ const WalletConnect: NextPage = () => {
                 {data.map((item, index) => (
                   <div
                     onClick={() => {
-                      connectWallet(item.name)
+                      window.ethereum
+                        ? connectWallet(item.name)
+                        : (window.location.href =
+                            'https://metamask.io/download/')
                     }}
                     key={index}
                     className="sc-box-icon cursor"
@@ -94,7 +99,15 @@ const WalletConnect: NextPage = () => {
                       <Image src={item.img} alt="" />
                     </div>
                     <h4 className="heading">
-                      <a href="#" onClick={() => connectWallet(item.name)}>
+                      <a
+                        href="#"
+                        onClick={() =>
+                          window.ethereum
+                            ? connectWallet(item.name)
+                            : (window.location.href =
+                                'https://metamask.io/download/')
+                        }
+                      >
                         {item.title}
                       </a>{' '}
                     </h4>

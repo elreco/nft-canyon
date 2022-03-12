@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react'
 import { useWeb3 } from '@3rdweb/hooks'
 import { useRouter } from 'next/router'
 import sanityClient from '../lib/sanityClient'
+import Web3 from 'web3'
 
 const Dashboard: NextPage = () => {
   const title = 'NFT Canyon - Dashboard'
@@ -15,24 +16,30 @@ const Dashboard: NextPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [currentUser, setCurrentUser] = useState<User>(null)
 
-  const fetchCurrentUser = () => {
-    return currentUser // get user with address
-    // setCurrentUser
-  }
-  
-  useEffect(() => {
-    if (!balance) {
-      setIsLoading(true)
-    } else {
-      setIsLoading(false)
-      if (!address) {
-        router.push('/')
-        return
-      } else {
-        fetchCurrentUser()
-        // fetchCurrentUser thanks to address
-      }
+  const fetchCurrentUser = async (): Promise<void> => {
+    if (address) {
+      const currentUser = (await sanityClient.getDocument(address)) as User
+      setCurrentUser(currentUser)
     }
+    return
+  }
+
+  useEffect(() => {
+    ;(async () => {
+      setIsLoading(true)
+
+      const web3 = new Web3(window.ethereum)
+      const connected = await web3.eth.getAccounts()
+      if (connected.length) {
+        if (address) {
+          const currentUser = (await sanityClient.getDocument(address)) as User
+          setCurrentUser(currentUser)
+        }
+      } else {
+        router.push('/')
+      }
+      setIsLoading(false)
+    })()
   }, [balance, address, router])
 
   return (
@@ -56,7 +63,7 @@ const Dashboard: NextPage = () => {
             </div>
           </div>
         </section>
-        <section> 
+        <section>
           <Payment fetchCurrentUser={fetchCurrentUser} />
         </section>
         <Footer />
