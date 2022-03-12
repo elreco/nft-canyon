@@ -1,6 +1,6 @@
 import { ethers } from 'ethers'
 import toast from 'react-hot-toast'
-import sanityClient from '../lib/sanityClient'
+import sanityClient from '../../lib/sanityClient'
 import { useWeb3 } from '@3rdweb/hooks'
 
 const Payment = () => {
