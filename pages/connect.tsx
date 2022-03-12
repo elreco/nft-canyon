@@ -16,7 +16,7 @@ const WalletConnect: NextPage = () => {
 
   const { address, connectWallet } = useWeb3()
   const router = useRouter()
-  const [data] = useState([
+  const [data] = useState<WalletOptions[]>([
     {
       img: img1,
       title: 'Meta Mask',

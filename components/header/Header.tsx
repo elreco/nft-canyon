@@ -14,7 +14,7 @@ const Header = () => {
   const pathname = router.pathname
   const { address, balance } = useWeb3()
   const headerRef = useRef(null)
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
 
   useEffect(() => {
     window.addEventListener('scroll', isSticky)

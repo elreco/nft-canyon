@@ -12,7 +12,13 @@ const Dashboard: NextPage = () => {
   const title = 'NFT Canyon - Dashboard'
   const { address, balance } = useWeb3()
   const router = useRouter()
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [currentUser, setCurrentUser] = useState<User>(null)
+
+  const fetchCurrentUser = () => {
+    return currentUser // get user with address
+    // setCurrentUser
+  }
   
   useEffect(() => {
     if (!balance) {
@@ -23,7 +29,8 @@ const Dashboard: NextPage = () => {
         router.push('/')
         return
       } else {
-
+        fetchCurrentUser()
+        // fetchCurrentUser thanks to address
       }
     }
   }, [balance, address, router])
@@ -50,7 +57,7 @@ const Dashboard: NextPage = () => {
           </div>
         </section>
         <section> 
-          <Payment />
+          <Payment fetchCurrentUser={fetchCurrentUser} />
         </section>
         <Footer />
       </div>
