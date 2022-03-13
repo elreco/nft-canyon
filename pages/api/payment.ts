@@ -16,13 +16,15 @@ export default async function payment(
     const { transactionHash } = JSON.parse(req.body)
     try {
       const hash = await web3.eth.getTransaction(transactionHash)
+      if (hash.to !== process.env.NEXT_PUBLIC_ADDRESS) {
+        return res.status(500).json({ message: `Couldn't update payment` })
+      }
       const user = await sanityClient(process.env.TOKEN || '')
         .patch(hash.from.toLowerCase())
         .set({ plan: 1, transactionHash })
         .commit()
       return res.status(200).json(user)
     } catch (err) {
-      console.error(err)
       return res.status(500).json({ message: `Couldn't update payment`, err })
     }
   }

@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { ethers } from 'ethers'
 import toast from 'react-hot-toast'
-import { contractAbi, contractAddress } from '../../lib/contract/constants'
 import { type SetStateAction, type Dispatch, useEffect, useState } from 'react'
 import isWalletConnected from '../../lib/isWalletConnected'
 
@@ -20,46 +19,22 @@ const Payment = ({
     })()
   })
 
-  const getContract = () => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum)
-    const signer = provider.getSigner()
-    const transactionContract = new ethers.Contract(
-      contractAddress,
-      contractAbi,
-      signer
-    )
-
-    return transactionContract
-  }
-
   const makePayment = async () => {
     setIsLoading(true)
     try {
-      const transactionContract = getContract()
-      const to = await transactionContract.getReceiver()
-      const value = await transactionContract.getAmount()
-
-      await window.ethereum.request({
-        method: 'eth_sendTransaction',
-        params: [
-          {
-            to,
-            value: value._hex,
-            from: account,
-            gas: '0x5208'
-          }
-        ]
+      await window.ethereum.send('eth_requestAccounts')
+      const provider = new ethers.providers.Web3Provider(window.ethereum)
+      const signer = provider.getSigner()
+      const tx = await signer.sendTransaction({
+        to: process.env.NEXT_PUBLIC_ADDRESS,
+        value: ethers.utils.parseEther('0.01')
       })
-
-      const transactionHash = await transactionContract.sendMoney(
-        'Payment for NFT Canyon'
-      )
-      await transactionHash.wait()
+      await tx.wait()
 
       const userData = await fetch('/api/payment', {
         method: 'POST',
         body: JSON.stringify({
-          transactionHash: transactionHash.hash
+          transactionHash: tx.hash
         })
       })
 
