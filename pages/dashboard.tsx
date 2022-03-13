@@ -18,7 +18,7 @@ const Dashboard: NextPage = () => {
 
   const fetchCurrentUser = async (): Promise<void> => {
     if (address) {
-      const currentUser = (await sanityClient.getDocument(address)) as User
+      const currentUser = (await sanityClient(process.env.NEXT_PUBLIC_TOKEN || '').getDocument(address)) as User
       setCurrentUser(currentUser)
     }
     return
@@ -32,7 +32,7 @@ const Dashboard: NextPage = () => {
       const connected = await web3.eth.getAccounts()
       if (connected.length) {
         if (address) {
-          const currentUser = (await sanityClient.getDocument(address)) as User
+          const currentUser = (await sanityClient(process.env.NEXT_PUBLIC_TOKEN || '').getDocument(address)) as User
           setCurrentUser(currentUser)
         }
       } else {

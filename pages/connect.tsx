@@ -31,12 +31,15 @@ const WalletConnect: NextPage = () => {
       return
     }
     ;(async () => {
-      await sanityClient.createIfNotExists({
-        _type: 'user',
-        _id: address,
-        userName: 'Unnamed',
-        walletAddress: address
-      })
+      await fetch('/api/user', {
+        method: 'POST',
+        body: JSON.stringify({
+          _type: 'user',
+          _id: address,
+          userName: 'Unnamed',
+          walletAddress: address
+        })
+      });
 
       toast.success(`Welcome back! 👋`, {
         style: {
