@@ -1,33 +1,20 @@
 import type { NextPage } from 'next'
-import Head from 'next/head'
-import Header from '../components/header/Header'
-import Footer from '../components/Footer'
-import Payment from '../components/dashboard/Payment'
+import Header from '../../components/header/Header'
+import Footer from '../../components/Footer'
+import Payment from '../../components/dashboard/Payment'
 import { useEffect, useState } from 'react'
 import { useWeb3 } from '@3rdweb/hooks'
 import { useRouter } from 'next/router'
-import sanityClient from '../lib/sanityClient'
-import isWalletConnected from '../lib/isWalletConnected'
+import sanityClient from '../../lib/sanityClient'
+import isWalletConnected from '../../lib/isWalletConnected'
+import Head from 'next/head'
 
-const Dashboard: NextPage = () => {
+const Layout: NextPage = ({ children }) => {
   const title = 'NFT Canyon - Dashboard'
   const { address } = useWeb3()
   const router = useRouter()
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [currentUser, setCurrentUser] = useState<User>(null)
-
-  const fetchCurrentUser = async (): Promise<void> => {
-    const account = await isWalletConnected()
-    if (account) {
-      const currentUser = (await sanityClient(
-        process.env.NEXT_PUBLIC_TOKEN || ''
-      ).getDocument(account)) as User
-      setCurrentUser(currentUser)
-    } else {
-      router.push('/')
-      return
-    }
-  }
 
   useEffect(() => {
     ;(async () => {
@@ -42,8 +29,6 @@ const Dashboard: NextPage = () => {
         process.env.NEXT_PUBLIC_TOKEN || ''
       ).getDocument(account)) as User
       setCurrentUser(currentUser)
-      console.log(account)
-      console.log(currentUser)
       setIsLoading(false)
       return
     })()
@@ -72,9 +57,10 @@ const Dashboard: NextPage = () => {
         </section>
         {!isLoading && (
           <section>
-            {currentUser?.plan !== 1 && (
+            {currentUser && currentUser.plan !== 1 && (
               <Payment setCurrentUser={setCurrentUser} />
             )}
+            {currentUser && currentUser.plan > 0 && children}
           </section>
         )}
         <Footer />
@@ -83,4 +69,4 @@ const Dashboard: NextPage = () => {
   )
 }
 
-export default Dashboard
+export default Layout

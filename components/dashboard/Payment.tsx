@@ -3,6 +3,8 @@ import { ethers } from 'ethers'
 import toast from 'react-hot-toast'
 import { type SetStateAction, type Dispatch, useEffect, useState } from 'react'
 import isWalletConnected from '../../lib/isWalletConnected'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSpinner, faRocket } from '@fortawesome/free-solid-svg-icons'
 
 const Payment = ({
   setCurrentUser
@@ -11,6 +13,9 @@ const Payment = ({
 }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [account, setAccount] = useState<string>('')
+  const [btnMessage, setBtnMessage] = useState<string>(
+    'Confirm the transaction on MetaMask'
+  )
 
   useEffect(() => {
     ;(async () => {
@@ -25,10 +30,13 @@ const Payment = ({
       await window.ethereum.send('eth_requestAccounts')
       const provider = new ethers.providers.Web3Provider(window.ethereum)
       const signer = provider.getSigner()
+      console.log('transaction')
+
       const tx = await signer.sendTransaction({
         to: process.env.NEXT_PUBLIC_ADDRESS,
         value: ethers.utils.parseEther('0.01')
       })
+      setBtnMessage('Transaction is being processed. Please wait...')
       await tx.wait()
 
       const userData = await fetch('/api/payment', {
@@ -48,6 +56,7 @@ const Payment = ({
           fontSize: '15px'
         }
       })
+      setBtnMessage('Confirm the transaction on MetaMask')
       setIsLoading(false)
     } catch (error: any) {
       let message =
@@ -67,7 +76,7 @@ const Payment = ({
   }
 
   return (
-    <div className="tf-section tf-item-details">
+    <div className="tf-section">
       <div className="themesflat-container">
         <div className="row justify-content-center">
           <div className="col-xl-6 col-md-12">
@@ -96,17 +105,24 @@ const Payment = ({
                 To activate your NFT Canyon, you need to pay{' '}
                 <strong>0.2 ETH</strong> to start your own NFT Minting website!
               </p>
+
               <button
                 type="button"
                 disabled={isLoading}
                 onClick={makePayment}
-                className="sc-button loadmore style rocket fl-button pri-3"
+                className="style fl-button pri-3"
               >
-                <span>
-                  {isLoading
-                    ? 'Transaction is being process...'
-                    : 'Create my NFT Website'}
-                </span>
+                {isLoading ? (
+                  <>
+                    <FontAwesomeIcon spin icon={faSpinner} className="mr-3" />{' '}
+                    {btnMessage}
+                  </>
+                ) : (
+                  <>
+                    <FontAwesomeIcon icon={faRocket} className="mr-3" /> Create
+                    my NFT Website
+                  </>
+                )}
               </button>
             </div>
           </div>

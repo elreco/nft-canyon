@@ -3581,6 +3581,8 @@ section.today-picks {
   -moz-border-radius: 21px;
   border-radius: 21px;
   position: absolute;
+  padding: 21px;
+  background: var(--bg-section);
 }
 
 .tab-authors .author-profile .infor-profile {
