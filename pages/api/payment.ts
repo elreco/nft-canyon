@@ -1,11 +1,12 @@
+import type { NextApiRequest, NextApiResponse } from 'next'
 import sanityClient from '../../lib/sanityClient'
 
-export default async function payment(req, res) {
+export default async function payment(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     const { _id, name, email, comment } = JSON.parse(req.body)
     try {
       
-      await sanityClient(process.env.TOKEN).create({
+      await sanityClient(process.env.TOKEN || '').create({
         _type: 'comment',
         post: {
           _type: 'reference',

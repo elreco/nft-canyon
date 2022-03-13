@@ -1,10 +1,10 @@
-// This Next.js template already is configured to write with this Sanity Client
+import type { NextApiRequest, NextApiResponse } from 'next'
 import sanityClient from '../../lib/sanityClient'
 
-export default async function user(req, res) {
+export default async function user(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     try {
-      await sanityClient(process.env.TOKEN).create(JSON.parse(req.body))
+      await sanityClient(process.env.TOKEN || '').create(JSON.parse(req.body))
     } catch (err) {
       console.error(err)
       return res.status(500).json({ message: `Couldn't create user`, err })
