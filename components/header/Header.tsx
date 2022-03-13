@@ -8,6 +8,7 @@ import logodark from '../../public/images/logo/logo_dark.png'
 import Image from 'next/image'
 import { useWeb3 } from '@3rdweb/hooks'
 import { Toaster } from 'react-hot-toast'
+import Web3 from 'web3'
 
 const Header = () => {
   const router = useRouter()
@@ -24,11 +25,13 @@ const Header = () => {
   })
 
   useEffect(() => {
-    if (!balance) {
+    ;(async () => {
       setIsLoading(true)
-    } else {
+      const web3 = new Web3(window.ethereum)
+      await web3.eth.getAccounts()
       setIsLoading(false)
-    }
+      return
+    })()
   }, [balance, address])
 
   const isSticky = () => {

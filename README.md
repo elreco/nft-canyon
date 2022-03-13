@@ -32,3 +32,13 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Smart Contract
+
+Go to alchemy and modify the `smart_contract/hardhat.config.js``
+
+- `npx hardhat run ./scripts/deploy.js --network rinkeby`
+
+- Copy paste the address value to `.env`
+
+- Copy paste from `smart_contract/artifacts/contracts/Transactions.sol/Transactions.json` to  `lib/contract/Transactions.json` or `lib/contract/Transactions-rinkeby.json`

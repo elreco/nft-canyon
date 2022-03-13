@@ -48,6 +48,7 @@ const WalletConnect: NextPage = () => {
           fontSize: '15px'
         }
       })
+      
       router.push('/dashboard')
       return
     })()

@@ -4,6 +4,7 @@ interface Window {
 }
 
 type User = {
+  plan: number
   walletAddress?: string
 } | null
 

@@ -19,6 +19,11 @@ export default {
       type: 'number',
     },
     {
+      name: 'transactionHash',
+      title: 'Transaction Hash',
+      type: 'string',
+    },
+    {
       name: "tx",
       title: "Transactions",
       type: "tx"

@@ -27,18 +27,18 @@ const Dashboard: NextPage = () => {
   useEffect(() => {
     ;(async () => {
       setIsLoading(true)
-
       const web3 = new Web3(window.ethereum)
       const connected = await web3.eth.getAccounts()
       if (connected.length) {
         if (address) {
           const currentUser = (await sanityClient(process.env.NEXT_PUBLIC_TOKEN || '').getDocument(address)) as User
           setCurrentUser(currentUser)
+          setIsLoading(false)
         }
       } else {
         router.push('/')
       }
-      setIsLoading(false)
+      
     })()
   }, [balance, address, router])
 
@@ -64,7 +64,7 @@ const Dashboard: NextPage = () => {
           </div>
         </section>
         <section>
-          <Payment fetchCurrentUser={fetchCurrentUser} />
+          {!isLoading && currentUser?.plan !== 1 && (<Payment fetchCurrentUser={fetchCurrentUser} />)}
         </section>
         <Footer />
       </div>
