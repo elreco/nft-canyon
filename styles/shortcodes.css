@@ -3615,7 +3615,7 @@ section.today-picks {
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
 }
 
 .tab-authors .author-profile .widget-social ul,

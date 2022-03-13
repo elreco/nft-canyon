@@ -14,7 +14,7 @@ import isWalletConnected from '../lib/isWalletConnected'
 const WalletConnect: NextPage = () => {
   const title = 'NFT Canyon'
 
-  const { address, connectWallet } = useWeb3()
+  const { connectWallet } = useWeb3()
   const router = useRouter()
   const [data] = useState<WalletOptions[]>([
     {
@@ -55,7 +55,16 @@ const WalletConnect: NextPage = () => {
       router.push('/dashboard')
       return
     })()
-  }, [address, router])
+  }, [router])
+
+  useEffect(() => {
+    window.ethereum.on('accountsChanged', async () => {
+      const account = await isWalletConnected()
+      if (account) {
+        router.push('/dashboard')
+      }
+    })
+  })
 
   return (
     <>

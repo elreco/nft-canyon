@@ -8,13 +8,11 @@ import logodark from '../../public/images/logo/logo_dark.png'
 import Image from 'next/image'
 import { Toaster } from 'react-hot-toast'
 import isWalletConnected from '../../lib/isWalletConnected'
-import { useWeb3 } from '@3rdweb/hooks'
 
 const Header = () => {
   const router = useRouter()
   const pathname = router.pathname
   const headerRef = useRef(null)
-  const { address } = useWeb3()
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [account, setAccount] = useState<string>('')
 
@@ -31,7 +29,7 @@ const Header = () => {
       setAccount(account)
       setIsLoading(false)
     })()
-  }, [address])
+  }, [])
 
   const isSticky = () => {
     const header = document.querySelector('.js-header')
