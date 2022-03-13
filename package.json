@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "@3rdweb/hooks": "^1.9.2",
-    "@alch/alchemy-web3": "^1.2.5",
     "@sanity/client": "^3.2.0",
     "@types/nprogress": "^0.2.0",
     "@types/swiper": "^6.0.0",

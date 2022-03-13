@@ -6,16 +6,17 @@ import menus from './menu'
 import logodark2x from '../../public/images/logo/logo_dark@2x.png'
 import logodark from '../../public/images/logo/logo_dark.png'
 import Image from 'next/image'
-import { useWeb3 } from '@3rdweb/hooks'
 import { Toaster } from 'react-hot-toast'
-import Web3 from 'web3'
+import isWalletConnected from '../../lib/isWalletConnected'
+import { useWeb3 } from '@3rdweb/hooks'
 
 const Header = () => {
   const router = useRouter()
   const pathname = router.pathname
-  const { address, balance } = useWeb3()
   const headerRef = useRef(null)
+  const { address } = useWeb3()
   const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [account, setAccount] = useState<string>('')
 
   useEffect(() => {
     window.addEventListener('scroll', isSticky)
@@ -26,13 +27,11 @@ const Header = () => {
 
   useEffect(() => {
     ;(async () => {
-      setIsLoading(true)
-      const web3 = new Web3(window.ethereum)
-      await web3.eth.getAccounts()
+      const account = await isWalletConnected()
+      setAccount(account)
       setIsLoading(false)
-      return
     })()
-  }, [balance, address])
+  }, [address])
 
   const isSticky = () => {
     const header = document.querySelector('.js-header')
@@ -122,7 +121,7 @@ const Header = () => {
                   </ul>
                 </nav>
                 <div className="flat-search-btn flex">
-                  {!isLoading && !address && (
+                  {!isLoading && !account && (
                     <div className="sc-btn-top mg-r-12" id="site-header">
                       <Link href="/connect">
                         <a className="sc-button header-slider style style-1 wallet fl-button pri-1">
@@ -132,7 +131,7 @@ const Header = () => {
                     </div>
                   )}
 
-                  {!isLoading && address && (
+                  {!isLoading && account && (
                     <div
                       id="header_admin"
                       className="cursor"
@@ -141,12 +140,12 @@ const Header = () => {
                       <div className="header_avatar">
                         <div className="price">
                           <strong>
-                            {address.slice(0, 4)}...{address.slice(-4)}
+                            {account.slice(0, 4)}...{account.slice(-4)}
                           </strong>
                         </div>
                         <img
                           className="avatar"
-                          src={`https://avatars.dicebear.com/api/identicon/${address}.svg`}
+                          src={`https://avatars.dicebear.com/api/identicon/${account}.svg`}
                           alt="avatar"
                         />
                       </div>
@@ -155,7 +154,7 @@ const Header = () => {
                   {isLoading && (
                     <div className="sc-btn-top mg-r-12" id="site-header">
                       <a className="sc-button header-slider style style-1 rocket fl-button pri-1">
-                        <span>Chargement...</span>
+                        <span>Loading...</span>
                       </a>
                     </div>
                   )}

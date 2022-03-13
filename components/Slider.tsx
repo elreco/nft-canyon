@@ -2,13 +2,17 @@
 import Link from 'next/link'
 import { Autoplay } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { useWeb3 } from '@3rdweb/hooks'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import isWalletConnected from '../lib/isWalletConnected'
 
 const Slider = () => {
-
-  const { address } = useWeb3()
-  useEffect(() => {address})
+  const [account, setAccount] = useState<string>('')
+  useEffect(() => {
+    ;(async () => {
+      const account = await isWalletConnected()
+      setAccount(account)
+    })()
+  })
 
   return (
     <div>
@@ -41,9 +45,9 @@ const Slider = () => {
                 The 1st CMS platform to create your mint web app.
               </p>
               <div className="flat-bt-slider flex style2">
-                <Link href={address ? '/dashboard' : '/connect'}>
+                <Link href={account ? '/dashboard' : '/connect'}>
                   <a className="sc-button header-slider style style-1 rocket fl-button pri-1">
-                    <span>{address ? 'My dashboard' : 'Get Started'}</span>
+                    <span>{account ? 'My dashboard' : 'Get Started'}</span>
                   </a>
                 </Link>
               </div>

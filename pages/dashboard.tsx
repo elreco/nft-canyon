@@ -7,40 +7,47 @@ import { useEffect, useState } from 'react'
 import { useWeb3 } from '@3rdweb/hooks'
 import { useRouter } from 'next/router'
 import sanityClient from '../lib/sanityClient'
-import Web3 from 'web3'
+import isWalletConnected from '../lib/isWalletConnected'
 
 const Dashboard: NextPage = () => {
   const title = 'NFT Canyon - Dashboard'
-  const { address, balance } = useWeb3()
+  const { address } = useWeb3()
   const router = useRouter()
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [currentUser, setCurrentUser] = useState<User>(null)
 
   const fetchCurrentUser = async (): Promise<void> => {
-    if (address) {
-      const currentUser = (await sanityClient(process.env.NEXT_PUBLIC_TOKEN || '').getDocument(address)) as User
+    const account = await isWalletConnected()
+    if (account) {
+      const currentUser = (await sanityClient(
+        process.env.NEXT_PUBLIC_TOKEN || ''
+      ).getDocument(account)) as User
       setCurrentUser(currentUser)
+    } else {
+      router.push('/')
+      return
     }
-    return
   }
 
   useEffect(() => {
     ;(async () => {
-      setIsLoading(true)
-      const web3 = new Web3(window.ethereum)
-      const connected = await web3.eth.getAccounts()
-      if (connected.length) {
-        if (address) {
-          const currentUser = (await sanityClient(process.env.NEXT_PUBLIC_TOKEN || '').getDocument(address)) as User
-          setCurrentUser(currentUser)
-          setIsLoading(false)
-        }
-      } else {
+      const account = await isWalletConnected()
+
+      if (!account) {
         router.push('/')
+        return
       }
-      
+
+      const currentUser = (await sanityClient(
+        process.env.NEXT_PUBLIC_TOKEN || ''
+      ).getDocument(account)) as User
+      setCurrentUser(currentUser)
+      console.log(account)
+      console.log(currentUser)
+      setIsLoading(false)
+      return
     })()
-  }, [balance, address, router])
+  }, [address, router])
 
   return (
     <>
@@ -63,9 +70,13 @@ const Dashboard: NextPage = () => {
             </div>
           </div>
         </section>
-        <section>
-          {!isLoading && currentUser?.plan !== 1 && (<Payment fetchCurrentUser={fetchCurrentUser} />)}
-        </section>
+        {!isLoading && (
+          <section>
+            {currentUser?.plan !== 1 && (
+              <Payment setCurrentUser={setCurrentUser} />
+            )}
+          </section>
+        )}
         <Footer />
       </div>
     </>

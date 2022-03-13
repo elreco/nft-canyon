@@ -6,10 +6,10 @@ import Header from '../components/header/Header'
 import Footer from '../components/Footer'
 import { type ConnectorOptions, useWeb3 } from '@3rdweb/hooks'
 import toast from 'react-hot-toast'
-import sanityClient from '../lib/sanityClient'
 import { useRouter } from 'next/router'
 
 import img1 from '../public/images/icon/connect-1.png'
+import isWalletConnected from '../lib/isWalletConnected'
 
 const WalletConnect: NextPage = () => {
   const title = 'NFT Canyon'
@@ -27,19 +27,22 @@ const WalletConnect: NextPage = () => {
   ])
 
   useEffect(() => {
-    if (!address) {
-      return
-    }
     ;(async () => {
+      const account = await isWalletConnected()
+
+      if (!account) {
+        return
+      }
+
       await fetch('/api/user', {
         method: 'POST',
         body: JSON.stringify({
           _type: 'user',
-          _id: address,
+          _id: account,
           userName: 'Unnamed',
-          walletAddress: address
+          walletAddress: account
         })
-      });
+      })
 
       toast.success(`Welcome back! 👋`, {
         style: {
@@ -48,7 +51,7 @@ const WalletConnect: NextPage = () => {
           fontSize: '15px'
         }
       })
-      
+
       router.push('/dashboard')
       return
     })()

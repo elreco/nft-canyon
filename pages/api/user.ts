@@ -3,6 +3,7 @@ import sanityClient from '../../lib/sanityClient'
 
 export default async function user(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
+    console.log(process.env.TOKEN)
     try {
       await sanityClient(process.env.TOKEN || '').create(JSON.parse(req.body))
     } catch (err) {
