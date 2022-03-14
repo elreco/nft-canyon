@@ -15,8 +15,9 @@ jobs:
         run: |
           cd studio
           npm install
+          npm install @sanity/cli
       - name: Deploy Sanity Studio
         run: |
           set -e
           cd studio
-          SANITY_AUTH_TOKEN="${{ secrets.SANITY_STUDIO_DEPLOY }}" npx sanity deploy
+          SANITY_AUTH_TOKEN="${{ secrets.SANITY_AUTH_TOKEN }}" npx sanity deploy
