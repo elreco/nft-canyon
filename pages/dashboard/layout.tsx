@@ -10,11 +10,11 @@ import router from 'next/router'
 const Layout: NextPage = ({ children }) => {
   const title = 'NFT Canyon - Dashboard'
   const [currentUser, setCurrentUser] = useState<User>(null)
-  
+
   useEffect(() => {
     const user = getCurrentUser()
     if (!user) {
-      router.push("/")
+      router.push('/')
       return
     }
     setCurrentUser(user)
@@ -41,16 +41,11 @@ const Layout: NextPage = ({ children }) => {
             </div>
           </div>
         </section>
-          <section>
-            {currentUser && currentUser.plan !== 1 && 
-              <Payment />
-            }
-            {currentUser &&
-              currentUser.plan &&
-              currentUser.plan > 0 &&
-              children}
-          </section>
-    
+        <section>
+          {currentUser && currentUser.plan !== 1 && <Payment />}
+          {currentUser && currentUser.plan && currentUser.plan > 0 && children}
+        </section>
+
         <Footer />
       </div>
     </>

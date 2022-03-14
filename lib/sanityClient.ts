@@ -3,17 +3,17 @@ import type { GetStaticPaths, GetStaticProps } from 'next/types'
 
 export const updateCurrentUser = (userData: User): void => {
   if (userData === null) {
-    localStorage.removeItem("currentUser")
+    localStorage.removeItem('currentUser')
     return
   }
-  if (localStorage.getItem("currentUser")) {
-    localStorage.removeItem("currentUser")
+  if (localStorage.getItem('currentUser')) {
+    localStorage.removeItem('currentUser')
   }
-  localStorage.setItem("currentUser", JSON.stringify(userData))
+  localStorage.setItem('currentUser', JSON.stringify(userData))
 }
 
 export const getCurrentUser = (): User => {
-  const user = localStorage.getItem("currentUser")
+  const user = localStorage.getItem('currentUser')
   const currentUser = user ? JSON.parse(user) : null
   return currentUser as User
 }

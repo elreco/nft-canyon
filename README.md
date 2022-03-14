@@ -41,4 +41,4 @@ Go to alchemy and modify the `smart_contract/hardhat.config.js``
 
 - Copy paste the address value to `.env`
 
-- Copy paste from `smart_contract/artifacts/contracts/Transactions.sol/Transactions.json` to  `lib/contract/Transactions.json` or `lib/contract/Transactions-rinkeby.json`
+- Copy paste from `smart_contract/artifacts/contracts/Transactions.sol/Transactions.json` to `lib/contract/Transactions.json` or `lib/contract/Transactions-rinkeby.json`
