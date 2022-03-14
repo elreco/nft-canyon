@@ -12,6 +12,7 @@ export default {
       name: 'walletAddress',
       title: 'Wallet Address',
       type: 'string',
+      validation: Rule => Rule.required(),
     },
     {
       name: 'plan', // 0 : not paid yet, 1: premium, 2: {TBD}
@@ -23,10 +24,5 @@ export default {
       title: 'Transaction Hash',
       type: 'string',
     },
-    {
-      name: "tx",
-      title: "Transactions",
-      type: "tx"
-    }
   ],
 }
