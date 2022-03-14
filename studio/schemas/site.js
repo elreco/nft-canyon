@@ -25,6 +25,16 @@ export default {
 			title: 'Owner',
       validation: Rule => Rule.required(),
       to: [{type: 'user' }]
+    },
+    {
+		  name: 'contractMintFunction',
+			title: 'Contract Mint Function',
+      type: 'string',
+    },
+    {
+		  name: 'maxMintNumber',
+			title: 'Max Mint Number',
+      type: 'number',
     }
   ],
 }

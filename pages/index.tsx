@@ -4,7 +4,7 @@ import Header from '../components/header/Header'
 import Footer from '../components/Footer'
 import Slider from '../components/Slider'
 
-const Home: NextPage = () => {
+const Index: NextPage = () => {
   const title = 'NFT Canyon - Your NFT Minting Website'
   return (
     <>
@@ -22,4 +22,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default Index

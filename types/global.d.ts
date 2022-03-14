@@ -4,7 +4,9 @@ interface Window {
 }
 
 type User = {
-  plan: number
+  plan?: number
+  userName: string
+  transactionHash?: string
   walletAddress?: string
 } | null
 
@@ -13,4 +15,15 @@ type WalletOptions = {
   description: string
   title: string
   name: ConnectorOptions
+}
+
+type Site = {
+  slug: {
+    _type: string
+    current: string
+  }
+  name: string
+  owner: User
+  contractMintFunction: string
+  maxMintNumber: number
 }

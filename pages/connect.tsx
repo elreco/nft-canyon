@@ -11,7 +11,7 @@ import { useRouter } from 'next/router'
 import img1 from '../public/images/icon/connect-1.png'
 import isWalletConnected from '../lib/isWalletConnected'
 
-const WalletConnect: NextPage = () => {
+const Connect: NextPage = () => {
   const title = 'NFT Canyon'
 
   const { connectWallet } = useWeb3()
@@ -139,4 +139,4 @@ const WalletConnect: NextPage = () => {
   )
 }
 
-export default WalletConnect
+export default Connect

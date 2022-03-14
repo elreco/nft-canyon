@@ -66,7 +66,10 @@ const Layout: NextPage = ({ children }) => {
             {currentUser && currentUser.plan !== 1 && (
               <Payment setCurrentUser={setCurrentUser} />
             )}
-            {currentUser && currentUser.plan > 0 && children}
+            {currentUser &&
+              currentUser.plan &&
+              currentUser.plan > 0 &&
+              children}
           </section>
         )}
         <Footer />
