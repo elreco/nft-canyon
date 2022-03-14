@@ -1,6 +1,23 @@
 import sanityClient from '@sanity/client'
 import type { GetStaticPaths, GetStaticProps } from 'next/types'
 
+export const updateCurrentUser = (userData: User): void => {
+  if (userData === null) {
+    localStorage.removeItem("currentUser")
+    return
+  }
+  if (localStorage.getItem("currentUser")) {
+    localStorage.removeItem("currentUser")
+  }
+  localStorage.setItem("currentUser", JSON.stringify(userData))
+}
+
+export const getCurrentUser = (): User => {
+  const user = localStorage.getItem("currentUser")
+  const currentUser = user ? JSON.parse(user) : null
+  return currentUser as User
+}
+
 export const siteStaticProps: GetStaticProps = async ({ params }) => {
   const site = params?.site
   const data = (await client(process.env.NEXT_PUBLIC_TOKEN || '').fetch(
@@ -21,7 +38,7 @@ export const siteStaticPaths: GetStaticPaths = async (ctx) => {
 
   const paths = [
     ...subdomains.map((item) => {
-      return { params: { site: item.slug.current.toString() } }
+      return { params: { site: item?.slug.current.toString() } }
     })
   ]
 

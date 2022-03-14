@@ -29,7 +29,7 @@ const Header = () => {
       setAccount(account)
       setIsLoading(false)
     })()
-  }, [])
+  })
 
   const isSticky = () => {
     const header = document.querySelector('.js-header')

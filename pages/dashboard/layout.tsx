@@ -2,43 +2,23 @@ import type { NextPage } from 'next'
 import Header from '../../components/header/Header'
 import Footer from '../../components/Footer'
 import Payment from '../../components/dashboard/Payment'
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
-import sanityClient from '../../lib/sanityClient'
-import isWalletConnected from '../../lib/isWalletConnected'
+import { getCurrentUser } from '../../lib/sanityClient'
 import Head from 'next/head'
+import { useEffect, useState } from 'react'
+import router from 'next/router'
 
 const Layout: NextPage = ({ children }) => {
   const title = 'NFT Canyon - Dashboard'
-  const router = useRouter()
-  const [isLoading, setIsLoading] = useState<boolean>(true)
   const [currentUser, setCurrentUser] = useState<User>(null)
-
+  
   useEffect(() => {
-    ;(async () => {
-      const account = await isWalletConnected()
-      if (!account) {
-        setCurrentUser(null)
-        router.push('/')
-      } else {
-        const currentUser = (await sanityClient(
-          process.env.NEXT_PUBLIC_TOKEN || ''
-        ).getDocument(account)) as User
-        setCurrentUser(currentUser)
-      }
-      setIsLoading(false)
-    })()
-  }, [router])
-
-  useEffect(() => {
-    window.ethereum.once('accountsChanged', async () => {
-      const account = await isWalletConnected()
-      if (!account) {
-        router.push('/')
-        return
-      }
-    })
-  })
+    const user = getCurrentUser()
+    if (!user) {
+      router.push("/")
+      return
+    }
+    setCurrentUser(user)
+  }, [])
 
   return (
     <>
@@ -61,17 +41,16 @@ const Layout: NextPage = ({ children }) => {
             </div>
           </div>
         </section>
-        {!isLoading && (
           <section>
-            {currentUser && currentUser.plan !== 1 && (
-              <Payment setCurrentUser={setCurrentUser} />
-            )}
+            {currentUser && currentUser.plan !== 1 && 
+              <Payment />
+            }
             {currentUser &&
               currentUser.plan &&
               currentUser.plan > 0 &&
               children}
           </section>
-        )}
+    
         <Footer />
       </div>
     </>

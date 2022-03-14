@@ -26,4 +26,4 @@ type Site = {
   owner: User
   contractMintFunction: string
   maxMintNumber: number
-}
+} | null

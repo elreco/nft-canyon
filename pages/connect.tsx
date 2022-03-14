@@ -55,14 +55,6 @@ const Connect: NextPage = () => {
       router.push('/dashboard')
       return
     })()
-  }, [router])
-
-  window.ethereum.once('accountsChanged', async () => {
-    const account = await isWalletConnected()
-    if (account) {
-      router.push('/dashboard')
-      return
-    }
   })
 
   return (

@@ -3,14 +3,14 @@ import Link from 'next/link'
 import { Autoplay } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { useEffect, useState } from 'react'
-import isWalletConnected from '../lib/isWalletConnected'
+import { getCurrentUser } from '../lib/sanityClient'
 
 const Slider = () => {
   const [account, setAccount] = useState<string>('')
   useEffect(() => {
     ;(async () => {
-      const account = await isWalletConnected()
-      setAccount(account)
+      const user = getCurrentUser()
+      setAccount(user?.walletAddress || '')
     })()
   })
 

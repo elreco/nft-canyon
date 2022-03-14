@@ -1,16 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 import { ethers } from 'ethers'
 import toast from 'react-hot-toast'
-import { type SetStateAction, type Dispatch, useEffect, useState } from 'react'
-import isWalletConnected from '../../lib/isWalletConnected'
+import { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner, faRocket } from '@fortawesome/free-solid-svg-icons'
+import { getCurrentUser, updateCurrentUser } from '../../lib/sanityClient'
 
-const Payment = ({
-  setCurrentUser
-}: {
-  setCurrentUser: Dispatch<SetStateAction<User>>
-}) => {
+const Payment = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [account, setAccount] = useState<string>('')
   const [btnMessage, setBtnMessage] = useState<string>(
@@ -19,8 +15,8 @@ const Payment = ({
 
   useEffect(() => {
     ;(async () => {
-      const account = await isWalletConnected()
-      setAccount(account)
+      const user = getCurrentUser()
+      setAccount(user?.walletAddress || '')
     })()
   })
 
@@ -30,7 +26,6 @@ const Payment = ({
       await window.ethereum.send('eth_requestAccounts')
       const provider = new ethers.providers.Web3Provider(window.ethereum)
       const signer = provider.getSigner()
-      console.log('transaction')
 
       const tx = await signer.sendTransaction({
         to: process.env.NEXT_PUBLIC_ADDRESS,
@@ -47,7 +42,7 @@ const Payment = ({
       })
 
       const user = (await userData.json()) as User
-      setCurrentUser(user)
+      updateCurrentUser(user)
 
       toast.success('You have successfully subscribed to NFT Canyon!', {
         style: {
