@@ -29,7 +29,7 @@ const Payment = () => {
 
       const tx = await signer.sendTransaction({
         to: process.env.NEXT_PUBLIC_ADDRESS,
-        value: ethers.utils.parseEther('0.01')
+        value: ethers.utils.parseEther('0.2')
       })
       setBtnMessage('Transaction is being processed. Please wait...')
       await tx.wait()
