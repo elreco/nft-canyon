@@ -28,13 +28,14 @@ const Layout: NextPage = ({ children }) => {
       }
       setIsLoading(false)
     })()
-  })
+  }, [router])
 
   useEffect(() => {
-    window.ethereum.on('accountsChanged', async () => {
+    window.ethereum.once('accountsChanged', async () => {
       const account = await isWalletConnected()
       if (!account) {
         router.push('/')
+        return
       }
     })
   })

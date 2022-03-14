@@ -57,13 +57,12 @@ const WalletConnect: NextPage = () => {
     })()
   }, [router])
 
-  useEffect(() => {
-    window.ethereum.on('accountsChanged', async () => {
-      const account = await isWalletConnected()
-      if (account) {
-        router.push('/dashboard')
-      }
-    })
+  window.ethereum.once('accountsChanged', async () => {
+    const account = await isWalletConnected()
+    if (account) {
+      router.push('/dashboard')
+      return
+    }
   })
 
   return (
