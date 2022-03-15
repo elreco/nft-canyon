@@ -14,6 +14,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css'
 import isWalletConnected from '../lib/isWalletConnected'
 import router from 'next/router'
 import sanityClient, { updateCurrentUser } from '../lib/sanityClient'
+import toast from 'react-hot-toast'
 config.autoAddCss = false
 
 type NextPageWithLayout = NextPage & {
@@ -35,18 +36,33 @@ Router.events.on('routeChangeError', () => NProgress.done())
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   useEffect(() => {
-    window.ethereum.once('accountsChanged', async () => {
+    const accountChangedListener = async () => {
       const account = await isWalletConnected()
+      console.log(account)
       if (account) {
         const currentUser = (await sanityClient(
           process.env.NEXT_PUBLIC_TOKEN || ''
         ).getDocument(account)) as User
         updateCurrentUser(currentUser)
+
+        toast.success(`Welcome back! 👋`, {
+          style: {
+            background: '#04111d',
+            color: '#fff',
+            fontSize: '15px'
+          }
+        })
+        router.push('/dashboard')
+        return
       } else {
         updateCurrentUser(null)
         router.push('/')
+        return
       }
-    })
+    }
+    window.ethereum.on('accountsChanged', accountChangedListener)
+    return () =>
+      window.ethereum.removeListener('accountsChanged', accountChangedListener)
   })
 
   const getLayout = Component.getLayout ?? ((page) => page)

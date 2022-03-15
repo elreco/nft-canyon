@@ -1,15 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Image from 'next/image'
 import { type ConnectorOptions, useWeb3 } from '@3rdweb/hooks'
-import toast from 'react-hot-toast'
-import { useRouter } from 'next/router'
 
 import img1 from '../public/images/icon/connect-1.png'
-import isWalletConnected from '../lib/isWalletConnected'
 
-const ConnectWallet = ({ redirect }: { redirect: string }) => {
+const ConnectWallet = () => {
   const { connectWallet } = useWeb3()
-  const router = useRouter()
   const [data] = useState<WalletOptions[]>([
     {
       img: img1,
@@ -19,37 +15,6 @@ const ConnectWallet = ({ redirect }: { redirect: string }) => {
       name: 'injected' as keyof ConnectorOptions
     }
   ])
-
-  useEffect(() => {
-    ;(async () => {
-      const account = await isWalletConnected()
-
-      if (!account) {
-        return
-      }
-
-      await fetch('/api/user', {
-        method: 'POST',
-        body: JSON.stringify({
-          _type: 'user',
-          _id: account,
-          userName: 'Unnamed',
-          walletAddress: account
-        })
-      })
-
-      toast.success(`Welcome back! 👋`, {
-        style: {
-          background: '#04111d',
-          color: '#fff',
-          fontSize: '15px'
-        }
-      })
-
-      router.push(redirect)
-      return
-    })()
-  })
 
   return (
     <>

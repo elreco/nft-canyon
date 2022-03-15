@@ -11,7 +11,7 @@ const Home = (props: Site) => {
         <meta property="og:title" content={title} />
         <meta name="twitter:title" content={title} />
       </Head>
-      <div className="home-7">{props.slug.current}</div>
+      <div className="home-7">{props?.slug.current}</div>
     </>
   )
 }

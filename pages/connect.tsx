@@ -3,9 +3,22 @@ import Head from 'next/head'
 import Header from '../components/header/Header'
 import Footer from '../components/Footer'
 import ConnectWallet from '../components/ConnectWallet'
+import { useEffect } from 'react'
+import isWalletConnected from '../lib/isWalletConnected'
+import router from 'next/router'
 
 const Connect: NextPage = () => {
   const title = 'NFT Canyon - Connect Wallet'
+
+  useEffect(() => {
+    ;(async () => {
+      const account = await isWalletConnected()
+      if (account) {
+        router.push('/dashboard')
+        return
+      }
+    })()
+  })
 
   return (
     <>
@@ -27,7 +40,7 @@ const Connect: NextPage = () => {
           </div>
         </div>
       </section>
-      <ConnectWallet redirect="/dashboard" />
+      <ConnectWallet />
       <Footer />
     </>
   )
