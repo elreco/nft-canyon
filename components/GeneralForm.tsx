@@ -1,9 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-import { AppProps } from 'next/app'
 import { ChangeEvent, useRef, useState } from 'react'
 
 const GeneralForm = (props: { site: Site }) => {
-  const [site, setSite] = useState(props.site)
+  const [site, setSite] = useState<Site>(props.site)
   const form = useRef<HTMLFormElement>(null)
   const [image, setImage] = useState<string>('')
 
@@ -40,6 +39,7 @@ const GeneralForm = (props: { site: Site }) => {
                 <input
                   type="file"
                   onChange={onImageChange}
+                  required
                   className="inputfile form-control"
                   name="file"
                 />
@@ -47,12 +47,19 @@ const GeneralForm = (props: { site: Site }) => {
             </div>
             <div className="col-lg-6">
               <h4 className="title-create-item">Website name</h4>
-              <input type="text" placeholder="e.g. Azuki" />
+              <input required type="text" placeholder="e.g. Azuki" />
+              <div className="invalid-feedback">
+                Example invalid feedback text
+              </div>
             </div>
           </div>
 
-          <h4 className="title-create-item">Description</h4>
-          <input type="text" placeholder="e.g. Azuki" />
+          <h4 className="title-create-item">Preview website url</h4>
+          <input
+            type="text"
+            value={`${site?.slug}.${process.env.NEXT_PUBLIC_ROOT_URL}`}
+            disabled
+          />
 
           <div className="row-form style-3">
             <div className="inner-row-form">

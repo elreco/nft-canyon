@@ -10,7 +10,7 @@ export function middleware(req: NextRequest) {
   // (in the case of "test.vercel.app", "vercel.app" is the root URL)
   const currentHost =
     process.env.NODE_ENV == 'production'
-      ? hostname?.replace(`.${process.env.ROOT_URL}`, '')
+      ? hostname?.replace(`.${process.env.NEXT_PUBLIC_ROOT_URL}`, '')
       : process.env.CURR_HOST
 
   if (!currentHost || currentHost === 'www') {

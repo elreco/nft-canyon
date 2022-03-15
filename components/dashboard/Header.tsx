@@ -12,7 +12,7 @@ const Header = () => {
     return site
       ? window
           .open(
-            `https://${site.slug.current}.${process.env.ROOT_URL}`,
+            `https://${site.slug.current}.${process.env.NEXT_PUBLIC_ROOT_URL}`,
             '_blank'
           )
           ?.focus()
@@ -60,9 +60,9 @@ const Header = () => {
           {site && (
             <a
               className="font-lg"
-              href={`https://${site?.slug.current}.${process.env.ROOT_URL}`}
+              href={`https://${site?.slug.current}.${process.env.NEXT_PUBLIC_ROOT_URL}`}
             >
-              {site?.slug.current}.{process.env.ROOT_URL}
+              {site?.slug.current}.{process.env.NEXT_PUBLIC_ROOT_URL}
             </a>
           )}
         </div>
