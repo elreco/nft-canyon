@@ -41,7 +41,7 @@ const Header = () => {
   }, [])
 
   return (
-    <div className="flat-tabs tab-authors">
+    <div className="flat-tabs tab-authors  authors-2">
       <div className="author-profile flex">
         <div className="feature-profile">
           <img

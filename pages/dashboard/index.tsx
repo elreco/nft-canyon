@@ -2,6 +2,7 @@ import Layout from './layout'
 import Head from 'next/head'
 import DashboardHeader from '../../components/dashboard/Header'
 import { type ReactElement } from 'react'
+import GeneralForm from '../../components/GeneralForm'
 
 const Dashboard = () => {
   const title = 'NFT Canyon - Dashboard'
@@ -13,12 +14,10 @@ const Dashboard = () => {
         <meta property="og:title" content={title} />
         <meta name="twitter:title" content={title} />
       </Head>
-      <section className="tf-section authors authors-2">
+      <section className="tf-section authors">
         <div className="themesflat-container">
           <DashboardHeader />
-          <div className="row">
-            <div className="col-md-12">test</div>
-          </div>
+          <GeneralForm />
         </div>
       </section>
     </>

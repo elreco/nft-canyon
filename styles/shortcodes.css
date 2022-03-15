@@ -4540,7 +4540,7 @@ section.today-picks {
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   margin-bottom: 25px;
   border: none;
 }

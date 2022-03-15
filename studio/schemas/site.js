@@ -4,6 +4,12 @@ export default {
   type: 'document',
   fields: [
     {
+      name: 'logo',
+      title: 'Logo',
+      type: 'image',
+      validation: Rule => Rule.required(),
+    },
+    {
       name: 'slug',
       title: 'Slug',
       type: 'slug',
@@ -35,6 +41,33 @@ export default {
 		  name: 'maxMintNumber',
 			title: 'Max Mint Number',
       type: 'number',
+    },
+    {
+      title: 'Members',
+      name: 'members',
+      type: 'array',
+      of: [{
+        type: 'reference',
+        to: [{type: 'member'}]
+      }]
+    },
+    {
+      title: 'Milestones',
+      name: 'milestones',
+      type: 'array',
+      of: [{
+        type: 'reference',
+        to: [{type: 'milestone'}]
+      }]
+    },
+    {
+      title: 'Questions',
+      name: 'questions',
+      type: 'array',
+      of: [{
+        type: 'reference',
+        to: [{type: 'question'}]
+      }]
     }
   ],
 }
