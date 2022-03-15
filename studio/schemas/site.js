@@ -43,6 +43,21 @@ export default {
       type: 'number',
     },
     {
+      name: 'linkedin',
+      title: 'LinkedIn',
+      type: 'string',
+    },
+    {
+      name: 'twitter',
+      title: 'Twitter',
+      type: 'string',
+    },
+    {
+      name: 'instagram',
+      title: 'Instagram',
+      type: 'string',
+    },
+    {
       title: 'Members',
       name: 'members',
       type: 'array',

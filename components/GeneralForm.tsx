@@ -52,7 +52,7 @@ const GeneralForm = (props: { site: Site }) => {
           </div>
 
           <h4 className="title-create-item">Description</h4>
-          <textarea placeholder="e.g. “This is very limited item”"></textarea>
+          <input type="text" placeholder="e.g. Azuki" />
 
           <div className="row-form style-3">
             <div className="inner-row-form">
