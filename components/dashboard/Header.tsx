@@ -1,13 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import toast from 'react-hot-toast'
-import { useEffect, useState } from 'react'
 import Menu from './Menu'
-import sanityClient, { getCurrentUser } from '../../lib/sanityClient'
 
-const Header = () => {
-  const [currentUser, setCurrentUser] = useState<User>(null)
-  const [site, setSite] = useState<Site>(null)
-
+const Header = ({ site, currentUser }: { site: Site; currentUser: User }) => {
   const viewWebsite = () => {
     return site
       ? window
@@ -24,21 +19,6 @@ const Header = () => {
           }
         })
   }
-
-  useEffect(() => {
-    const user = getCurrentUser()
-    setCurrentUser(user)
-    ;(async () => {
-      if (user) {
-        const siteData = await sanityClient(
-          process.env.NEXT_PUBLIC_TOKEN || ''
-        ).fetch('*[_type == "site" && owner._ref == $id]', {
-          id: user.walletAddress
-        })
-        setSite(siteData[0])
-      }
-    })()
-  }, [])
 
   return (
     <div className="flat-tabs tab-authors  authors-2">
@@ -57,13 +37,15 @@ const Header = () => {
             Welcome to your dashboard, you can fully manage your NFT Minting
             website here.
           </p>
-          {site && (
+          {site ? (
             <a
               className="font-lg"
               href={`https://${site?.slug.current}.${process.env.NEXT_PUBLIC_ROOT_URL}`}
             >
               {site?.slug.current}.{process.env.NEXT_PUBLIC_ROOT_URL}
             </a>
+          ) : (
+            'Fill in the form below to see your website URL'
           )}
         </div>
         <div className="widget-social style-3">

@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner, faRocket } from '@fortawesome/free-solid-svg-icons'
 import { getCurrentUser, updateCurrentUser } from '../../lib/sanityClient'
+import router from 'next/router'
 
 const Payment = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -53,6 +54,7 @@ const Payment = () => {
       })
       setBtnMessage('Confirm the transaction on MetaMask')
       setIsLoading(false)
+      router.reload()
     } catch (error: any) {
       let message =
         "Insufficient funds: you probably don't have enough eth to make this transaction 😕"

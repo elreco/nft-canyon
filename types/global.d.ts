@@ -26,4 +26,8 @@ type Site = {
   owner: User
   contractMintFunction: string
   maxMintNumber: number
+  instagram?: string
+  twitter?: string
+  opensea?: string
+  discord?: string
 } | null

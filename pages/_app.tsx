@@ -38,12 +38,20 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   useEffect(() => {
     const accountChangedListener = async () => {
       const account = await isWalletConnected()
-      console.log(account)
+
       if (account) {
-        const currentUser = (await sanityClient(
-          process.env.NEXT_PUBLIC_TOKEN || ''
-        ).getDocument(account)) as User
-        updateCurrentUser(currentUser)
+        const res = await fetch('/api/user', {
+          method: 'POST',
+          body: JSON.stringify({
+            _type: 'users',
+            _id: account,
+            userName: 'Unnamed',
+            walletAddress: account
+          })
+        })
+        const userData = (await res.json()) as User
+
+        updateCurrentUser(userData)
 
         toast.success(`Welcome back! 👋`, {
           style: {

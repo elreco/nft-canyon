@@ -43,8 +43,13 @@ export default {
       type: 'number',
     },
     {
-      name: 'linkedin',
-      title: 'LinkedIn',
+      name: 'discord',
+      title: 'Discord',
+      type: 'string',
+    },
+    {
+      name: 'opensea',
+      title: 'OpenSea',
       type: 'string',
     },
     {
