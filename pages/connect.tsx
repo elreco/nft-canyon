@@ -3,22 +3,11 @@ import Head from 'next/head'
 import Header from '../components/header/Header'
 import Footer from '../components/Footer'
 import ConnectWallet from '../components/ConnectWallet'
-import { useEffect } from 'react'
-import isWalletConnected from '../lib/isWalletConnected'
-import router from 'next/router'
+import { withIronSessionSsr } from 'iron-session/next'
+import { sessionOptions } from '../lib/session'
 
 const Connect: NextPage = () => {
   const title = 'NFT Canyon - Connect Wallet'
-
-  useEffect(() => {
-    ;(async () => {
-      const account = await isWalletConnected()
-      if (account) {
-        router.push('/dashboard')
-        return
-      }
-    })()
-  })
 
   return (
     <>
@@ -27,7 +16,7 @@ const Connect: NextPage = () => {
         <meta property="og:title" content={title} />
         <meta name="twitter:title" content={title} />
       </Head>
-      <Header />
+      <Header currentUser={null} />
       <section className="flat-title-page inner">
         <div className="overlay"></div>
         <div className="themesflat-container">
@@ -45,5 +34,22 @@ const Connect: NextPage = () => {
     </>
   )
 }
+
+export const getServerSideProps = withIronSessionSsr(
+  async function getServerSideProps({ req }) {
+    if (req.session.user) {
+      return {
+        redirect: {
+          permanent: false,
+          destination: '/dashboard'
+        }
+      }
+    }
+    return {
+      props: {}
+    }
+  },
+  sessionOptions
+)
 
 export default Connect

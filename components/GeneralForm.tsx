@@ -1,11 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ChangeEvent, useRef, useState } from 'react'
+import toast from 'react-hot-toast'
 
 const GeneralForm = (props: { site: Site }) => {
   const form = useRef<HTMLFormElement>(null)
   const [site, setSite] = useState<Site>(props.site)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const [image, setImage] = useState<string>('')
-  const [slug, setSlug] = useState<string | undefined>(site?.slug?.current)
+  const [slug, setSlug] = useState<string>(site?.slug?.current || '')
 
   const onNameUpdate = (e: ChangeEvent<HTMLInputElement>) => {
     setSlug(e.target.value.toLowerCase().replace(/\s+/g, '-').slice(0, 200))
@@ -19,12 +23,21 @@ const GeneralForm = (props: { site: Site }) => {
 
   const submit = async (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setIsLoading(true)
     const res = await fetch('/api/site', {
       method: 'POST',
       body: form.current && new FormData(form.current)
     })
     const json = await res.json()
     setSite(json)
+    setIsLoading(false)
+    toast.success('You have successfully updated your NFT Canyon website!', {
+      style: {
+        background: '#04111d',
+        color: '#fff',
+        fontSize: '15px'
+      }
+    })
   }
 
   return (
@@ -117,8 +130,19 @@ const GeneralForm = (props: { site: Site }) => {
           </div>
 
           <div className="text-right">
-            <button className="tf-button-submit mg-t-20" type="submit">
-              Update Website
+            <button
+              disabled={isLoading}
+              className="tf-button-submit mg-t-20"
+              type="submit"
+            >
+              {isLoading ? (
+                <>
+                  <FontAwesomeIcon spin icon={faSpinner} className="mr-3" />{' '}
+                  Loading
+                </>
+              ) : (
+                'Update Website'
+              )}
             </button>
           </div>
         </form>

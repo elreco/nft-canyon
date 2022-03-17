@@ -1,8 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import sanityClient from '../../lib/sanityClient'
-import formidable from 'formidable'
+import formidable, { Fields, File, Files } from 'formidable'
 import { basename } from 'path'
 import { createReadStream } from 'fs'
+import { withIronSessionApiRoute } from 'iron-session/next'
+import { sessionOptions } from '../../lib/session'
 
 export const config = {
   api: {
@@ -10,19 +12,22 @@ export const config = {
   }
 }
 
-export default async function site(req: NextApiRequest, res: NextApiResponse) {
+export default withIronSessionApiRoute(siteRoute, sessionOptions)
+
+async function siteRoute(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     const form = formidable({})
-    form.parse(req, async (err, fields, files) => {
+    form.parse(req, async (err: any, fields: Fields, files: Files) => {
       if (err) {
         return res.status(500).json({ message: `Couldn't create site`, err })
       }
-      console.log(files.logo.filepath)
+      const filePath = files.logo as File
+      const readStream = createReadStream(filePath.filepath) as any
       const logo = await sanityClient(process.env.TOKEN || '').assets.upload(
         'image',
-        createReadStream(files?.logo?.filepath),
+        readStream as ReadableStream,
         {
-          filename: 'test'
+          filename: basename(filePath.filepath)
         }
       )
 
@@ -31,6 +36,9 @@ export default async function site(req: NextApiRequest, res: NextApiResponse) {
         _id: fields.slug as string,
         _type: 'site',
         ...fields,
+        owner: {
+          _id: req.session.user?.walletAddress
+        },
         slug: {
           current: fields.slug
         },
@@ -42,7 +50,7 @@ export default async function site(req: NextApiRequest, res: NextApiResponse) {
           }
         }
       }
-      console.log(body)
+
       const site = await sanityClient(process.env.TOKEN || '').createOrReplace(
         body
       )

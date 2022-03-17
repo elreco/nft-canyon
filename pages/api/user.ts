@@ -1,12 +1,21 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import sanityClient from '../../lib/sanityClient'
+import { sessionOptions } from '../../lib/session'
+import { withIronSessionApiRoute } from 'iron-session/next'
 
-export default async function user(req: NextApiRequest, res: NextApiResponse) {
+export default withIronSessionApiRoute(userRoute, sessionOptions)
+
+async function userRoute(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     try {
-      const user = await sanityClient(
+      const userBody = JSON.parse(req.body)
+      const user = (await sanityClient(
         process.env.TOKEN || ''
-      ).createIfNotExists(JSON.parse(req.body))
+      ).createIfNotExists(userBody)) as User
+
+      req.session.user = user
+      await req.session.save()
+
       return res.status(200).json(user)
     } catch (err) {
       return res.status(500).json({ message: `Couldn't create user`, err })

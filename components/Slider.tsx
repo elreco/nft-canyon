@@ -2,17 +2,10 @@
 import Link from 'next/link'
 import { Autoplay } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { useEffect, useState } from 'react'
-import { getCurrentUser } from '../lib/sanityClient'
+import { useState } from 'react'
 
-const Slider = () => {
-  const [account, setAccount] = useState<string>('')
-  useEffect(() => {
-    ;(async () => {
-      const user = getCurrentUser()
-      setAccount(user?.walletAddress || '')
-    })()
-  })
+const Slider = ({ currentUser }: { currentUser: User }) => {
+  const [account] = useState<string>(currentUser?.walletAddress || '')
 
   return (
     <div>

@@ -13,7 +13,6 @@ import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import isWalletConnected from '../lib/isWalletConnected'
 import router from 'next/router'
-import { updateCurrentUser } from '../lib/sanityClient'
 import toast from 'react-hot-toast'
 config.autoAddCss = false
 
@@ -36,11 +35,11 @@ Router.events.on('routeChangeError', () => NProgress.done())
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   useEffect(() => {
-    const accountChangedListener = async () => {
+    const accountChangedListener = async (redirect: boolean = true) => {
       const account = await isWalletConnected()
 
       if (account) {
-        const res = await fetch('/api/user', {
+        await fetch('/api/user', {
           method: 'POST',
           body: JSON.stringify({
             _type: 'users',
@@ -49,9 +48,6 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
             walletAddress: account
           })
         })
-        const userData = (await res.json()) as User
-
-        updateCurrentUser(userData)
 
         toast.success(`Welcome back! 👋`, {
           style: {
@@ -60,14 +56,21 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
             fontSize: '15px'
           }
         })
-        router.push('/dashboard')
+        if (redirect) {
+          router.push('/dashboard')
+        }
         return
       } else {
-        updateCurrentUser(null)
-        router.push('/')
+        await fetch('/api/logout', {
+          method: 'POST'
+        })
+        if (redirect) {
+          router.push('/')
+        }
         return
       }
     }
+    accountChangedListener(false)
     window.ethereum.on('accountsChanged', accountChangedListener)
     return () =>
       window.ethereum.removeListener('accountsChanged', accountChangedListener)

@@ -1,25 +1,19 @@
 /* eslint-disable @next/next/no-img-element */
 import { ethers } from 'ethers'
 import toast from 'react-hot-toast'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner, faRocket } from '@fortawesome/free-solid-svg-icons'
-import { getCurrentUser, updateCurrentUser } from '../../lib/sanityClient'
 import router from 'next/router'
 
-const Payment = () => {
+const PaymentForm = ({ currentUser }: { currentUser: User }) => {
   const [isLoading, setIsLoading] = useState(false)
-  const [account, setAccount] = useState<string>('')
+  const [account, setAccount] = useState<string>(
+    currentUser?.walletAddress || ''
+  )
   const [btnMessage, setBtnMessage] = useState<string>(
     'Confirm the transaction on MetaMask'
   )
-
-  useEffect(() => {
-    ;(async () => {
-      const user = getCurrentUser()
-      setAccount(user?.walletAddress || '')
-    })()
-  })
 
   const makePayment = async () => {
     setIsLoading(true)
@@ -43,7 +37,6 @@ const Payment = () => {
       })
 
       const user = (await userData.json()) as User
-      updateCurrentUser(user)
 
       toast.success('You have successfully subscribed to NFT Canyon!', {
         style: {
@@ -129,4 +122,4 @@ const Payment = () => {
   )
 }
 
-export default Payment
+export default PaymentForm

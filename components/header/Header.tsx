@@ -7,28 +7,18 @@ import logodark2x from '../../public/images/logo/logo_dark@2x.png'
 import logodark from '../../public/images/logo/logo_dark.png'
 import Image from 'next/image'
 import { Toaster } from 'react-hot-toast'
-import isWalletConnected from '../../lib/isWalletConnected'
 
-const Header = () => {
+const Header = ({ currentUser }: { currentUser: User }) => {
   const router = useRouter()
   const pathname = router.pathname
   const headerRef = useRef(null)
-  const [isLoading, setIsLoading] = useState<boolean>(true)
-  const [account, setAccount] = useState<string>('')
+  const [account] = useState<string>(currentUser?.walletAddress || '')
 
   useEffect(() => {
     window.addEventListener('scroll', isSticky)
     return () => {
       window.removeEventListener('scroll', isSticky)
     }
-  })
-
-  useEffect(() => {
-    ;(async () => {
-      const account = await isWalletConnected()
-      setAccount(account)
-      setIsLoading(false)
-    })()
   })
 
   const isSticky = () => {
@@ -119,7 +109,7 @@ const Header = () => {
                   </ul>
                 </nav>
                 <div className="flat-search-btn flex">
-                  {!isLoading && !account && (
+                  {!account && (
                     <div className="sc-btn-top mg-r-12" id="site-header">
                       <Link href="/connect">
                         <a className="sc-button header-slider style style-1 wallet fl-button pri-1">
@@ -129,7 +119,7 @@ const Header = () => {
                     </div>
                   )}
 
-                  {!isLoading && account && (
+                  {account && (
                     <div
                       id="header_admin"
                       className="cursor"
@@ -147,13 +137,6 @@ const Header = () => {
                           alt="avatar"
                         />
                       </div>
-                    </div>
-                  )}
-                  {isLoading && (
-                    <div className="sc-btn-top mg-r-12" id="site-header">
-                      <a className="sc-button header-slider style style-1 rocket fl-button pri-1">
-                        <span>Loading...</span>
-                      </a>
                     </div>
                   )}
                 </div>

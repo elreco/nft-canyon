@@ -1,29 +1,21 @@
-import Layout from './layout'
 import Head from 'next/head'
-import Header from '../../components/dashboard/Header'
-import { useEffect, useState, type ReactElement } from 'react'
+import DashboardHeader from '../../components/dashboard/Header'
 import GeneralForm from '../../components/GeneralForm'
-import sanityClient, { getCurrentUser } from '../../lib/sanityClient'
+import sanityClient from '../../lib/sanityClient'
+import { sessionOptions } from '../../lib/session'
+import { withIronSessionSsr } from 'iron-session/next'
+import Footer from '../../components/Footer'
+import Header from '../../components/header/Header'
+import Subheader from '../../components/header/Subheader'
 
-const Dashboard = () => {
+const Dashboard = ({
+  currentUser,
+  site
+}: {
+  currentUser: User
+  site: Site
+}) => {
   const title = 'NFT Canyon - Dashboard'
-  const [currentUser, setCurrentUser] = useState<User>(null)
-  const [site, setSite] = useState<Site>(null)
-
-  useEffect(() => {
-    const user = getCurrentUser()
-    setCurrentUser(user)
-    ;(async () => {
-      if (user) {
-        const siteData = await sanityClient(
-          process.env.NEXT_PUBLIC_TOKEN || ''
-        ).fetch('*[_type == "site" && owner._ref == $id]', {
-          id: user.walletAddress
-        })
-        setSite(siteData[0])
-      }
-    })()
-  }, [])
 
   return (
     <>
@@ -32,18 +24,48 @@ const Dashboard = () => {
         <meta property="og:title" content={title} />
         <meta name="twitter:title" content={title} />
       </Head>
-      <section className="tf-section authors">
-        <div className="themesflat-container">
-          <Header site={site} currentUser={currentUser} />
-          <GeneralForm site={site} />
-        </div>
-      </section>
+      <div className="home-7">
+        <Header currentUser={currentUser} />
+        <Subheader title="My Dashboard" />
+        <section className="tf-section authors">
+          <div className="themesflat-container">
+            <DashboardHeader site={site} currentUser={currentUser} />
+            <GeneralForm site={site} />
+          </div>
+        </section>
+        <Footer />
+      </div>
     </>
   )
 }
 
-Dashboard.getLayout = function getLayout(page: ReactElement) {
-  return <Layout>{page}</Layout>
-}
+export const getServerSideProps = withIronSessionSsr(
+  async function getServerSideProps({ req }) {
+    const user = req.session.user
+
+    if (user?.plan !== 1) {
+      return {
+        redirect: {
+          permanent: false,
+          destination: '/payment'
+        }
+      }
+    }
+
+    const siteData = await sanityClient(
+      process.env.NEXT_PUBLIC_TOKEN || ''
+    ).fetch('*[_type == "site" && owner._ref == $id]', {
+      id: user?.walletAddress
+    })
+
+    return {
+      props: {
+        currentUser: user,
+        site: siteData[0]
+      }
+    }
+  },
+  sessionOptions
+)
 
 export default Dashboard
