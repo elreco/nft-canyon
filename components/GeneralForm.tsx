@@ -69,7 +69,7 @@ const GeneralForm = (props: { site: Site }) => {
                 <input
                   type="file"
                   onChange={onImageChange}
-                  required
+                  required={!site?.logo}
                   className="inputfile form-control"
                   name="logo"
                 />

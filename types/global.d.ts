@@ -22,6 +22,7 @@ type Site = {
     _type: string
     current: string
   }
+  logo: any
   name: string
   owner: User
   contractMintFunction: string

@@ -37,7 +37,7 @@ async function siteRoute(req: NextApiRequest, res: NextApiResponse) {
         _type: 'site',
         ...fields,
         owner: {
-          _id: req.session.user?.walletAddress
+          _ref: req.session.user?.walletAddress
         },
         slug: {
           current: fields.slug
