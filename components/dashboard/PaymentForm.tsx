@@ -6,11 +6,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner, faRocket } from '@fortawesome/free-solid-svg-icons'
 import router from 'next/router'
 
-const PaymentForm = ({ currentUser }: { currentUser: User }) => {
+const PaymentForm = (props: { currentUser: User }) => {
   const [isLoading, setIsLoading] = useState(false)
-  const [account, setAccount] = useState<string>(
-    currentUser?.walletAddress || ''
-  )
+  const [account] = useState<string>(props.currentUser?.walletAddress || '')
   const [btnMessage, setBtnMessage] = useState<string>(
     'Confirm the transaction on MetaMask'
   )

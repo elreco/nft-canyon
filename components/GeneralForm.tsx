@@ -24,20 +24,32 @@ const GeneralForm = (props: { site: Site }) => {
   const submit = async (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsLoading(true)
-    const res = await fetch('/api/site', {
-      method: 'POST',
-      body: form.current && new FormData(form.current)
-    })
-    const json = await res.json()
-    setSite(json)
+    try {
+      const res = await fetch('/api/site', {
+        method: 'POST',
+        body: form.current && new FormData(form.current)
+      })
+      const json = await res.json()
+      setSite(json)
+      toast.success('You have successfully updated your NFT Canyon website!', {
+        style: {
+          background: '#04111d',
+          color: '#fff',
+          fontSize: '15px'
+        }
+      })
+    } catch (err) {
+      toast.error('Something went wrong!', {
+        duration: 4000,
+        style: {
+          background: '#04111d',
+          color: '#fff',
+          fontSize: '15px'
+        }
+      })
+    }
+
     setIsLoading(false)
-    toast.success('You have successfully updated your NFT Canyon website!', {
-      style: {
-        background: '#04111d',
-        color: '#fff',
-        fontSize: '15px'
-      }
-    })
   }
 
   return (

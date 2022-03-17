@@ -1,8 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
+import { useState } from 'react'
 import toast from 'react-hot-toast'
 import Menu from './Menu'
 
-const Header = ({ site, currentUser }: { site: Site; currentUser: User }) => {
+const Header = (props: { site: Site; currentUser: User }) => {
+  const [currentUser] = useState(props.currentUser)
+  const [site] = useState(props.site)
+
   const viewWebsite = () => {
     return site
       ? window

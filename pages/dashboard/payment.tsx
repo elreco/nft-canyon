@@ -2,9 +2,11 @@ import Head from 'next/head'
 import { sessionOptions } from '../../lib/session'
 import { withIronSessionSsr } from 'iron-session/next'
 import PaymentForm from '../../components/dashboard/PaymentForm'
+import { useState } from 'react'
 
-const Payment = ({ currentUser }: { currentUser: User }) => {
+const Payment = (props: { currentUser: User }) => {
   const title = 'NFT Canyon - Dashboard'
+  const [currentUser] = useState(props.currentUser)
 
   return (
     <>

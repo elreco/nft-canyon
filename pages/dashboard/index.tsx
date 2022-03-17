@@ -7,16 +7,12 @@ import { withIronSessionSsr } from 'iron-session/next'
 import Footer from '../../components/Footer'
 import Header from '../../components/header/Header'
 import Subheader from '../../components/header/Subheader'
+import { useState } from 'react'
 
-const Dashboard = ({
-  currentUser,
-  site
-}: {
-  currentUser: User
-  site: Site
-}) => {
+const Dashboard = (props: { currentUser: User; site: Site }) => {
   const title = 'NFT Canyon - Dashboard'
-
+  const [currentUser] = useState(props.currentUser)
+  const [site] = useState(props.site)
   return (
     <>
       <Head>

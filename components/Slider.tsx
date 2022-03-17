@@ -4,8 +4,8 @@ import { Autoplay } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { useState } from 'react'
 
-const Slider = ({ currentUser }: { currentUser: User }) => {
-  const [account] = useState<string>(currentUser?.walletAddress || '')
+const Slider = (props: { currentUser: User }) => {
+  const [account] = useState<string>(props.currentUser?.walletAddress || '')
 
   return (
     <div>

@@ -5,9 +5,12 @@ import Footer from '../components/Footer'
 import Slider from '../components/Slider'
 import { withIronSessionSsr } from 'iron-session/next'
 import { sessionOptions } from '../lib/session'
+import { useState } from 'react'
 
-const Index = ({ currentUser }: { currentUser: User }) => {
+const Index = (props: { currentUser: User }) => {
   const title = 'NFT Canyon - Your NFT Minting Website'
+  const [currentUser] = useState(props.currentUser)
+
   return (
     <>
       <Head>

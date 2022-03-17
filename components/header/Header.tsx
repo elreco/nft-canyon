@@ -8,11 +8,11 @@ import logodark from '../../public/images/logo/logo_dark.png'
 import Image from 'next/image'
 import { Toaster } from 'react-hot-toast'
 
-const Header = ({ currentUser }: { currentUser: User }) => {
+const Header = (props: { currentUser: User }) => {
   const router = useRouter()
   const pathname = router.pathname
   const headerRef = useRef(null)
-  const [account] = useState<string>(currentUser?.walletAddress || '')
+  const [account] = useState<string>(props.currentUser?.walletAddress || '')
 
   useEffect(() => {
     window.addEventListener('scroll', isSticky)
