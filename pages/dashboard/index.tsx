@@ -43,6 +43,15 @@ export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req }) {
     const user = req.session.user
 
+    if (!user) {
+      return {
+        redirect: {
+          permanent: false,
+          destination: '/'
+        }
+      }
+    }
+
     if (user?.plan !== 1) {
       return {
         redirect: {
@@ -52,16 +61,16 @@ export const getServerSideProps = withIronSessionSsr(
       }
     }
 
-    const siteData = await sanityClient(
+    const siteData = (await sanityClient(
       process.env.NEXT_PUBLIC_TOKEN || ''
     ).fetch('*[_type == "site" && owner._ref == $id]', {
       id: user?.walletAddress
-    })
+    })) as Site[]
 
     return {
       props: {
         currentUser: user,
-        site: siteData[0]
+        site: siteData.length ? siteData[0] : null
       }
     }
   },

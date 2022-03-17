@@ -48,15 +48,15 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
             walletAddress: account
           })
         })
-
-        toast.success(`Welcome back! 👋`, {
-          style: {
-            background: '#04111d',
-            color: '#fff',
-            fontSize: '15px'
-          }
-        })
         if (redirect) {
+          toast.success(`Welcome back! 👋`, {
+            duration: 5000,
+            style: {
+              background: '#04111d',
+              color: '#fff',
+              fontSize: '15px'
+            }
+          })
           router.push('/dashboard')
         }
         return
@@ -74,7 +74,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     window.ethereum.on('accountsChanged', accountChangedListener)
     return () =>
       window.ethereum.removeListener('accountsChanged', accountChangedListener)
-  })
+  }, [])
 
   const getLayout = Component.getLayout ?? ((page) => page)
   return (

@@ -24,9 +24,20 @@ const Payment = ({ currentUser }: { currentUser: User }) => {
 
 export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req }) {
+    const user = req.session.user
+
+    if (!user) {
+      return {
+        redirect: {
+          permanent: false,
+          destination: '/'
+        }
+      }
+    }
+
     return {
       props: {
-        currentUser: req.session.user
+        currentUser: user
       }
     }
   },
