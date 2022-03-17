@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import sanityClient from '../../lib/sanityClient'
-import formidable, { Fields, File, Files } from 'formidable'
+import formidable, { type Fields, type File, type Files } from 'formidable'
 import { basename } from 'path'
 import { createReadStream } from 'fs'
 import { withIronSessionApiRoute } from 'iron-session/next'
