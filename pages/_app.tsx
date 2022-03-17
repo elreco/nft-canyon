@@ -13,7 +13,7 @@ import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import isWalletConnected from '../lib/isWalletConnected'
 import router from 'next/router'
-import sanityClient, { updateCurrentUser } from '../lib/sanityClient'
+import { updateCurrentUser } from '../lib/sanityClient'
 import toast from 'react-hot-toast'
 config.autoAddCss = false
 

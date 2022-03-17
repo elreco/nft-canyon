@@ -17,20 +17,23 @@ export default async function site(req: NextApiRequest, res: NextApiResponse) {
       if (err) {
         return res.status(500).json({ message: `Couldn't create site`, err })
       }
-      console.log(files.logo.path)
+      console.log(files.logo.filepath)
       const logo = await sanityClient(process.env.TOKEN || '').assets.upload(
         'image',
-        createReadStream(files.upload.path),
+        createReadStream(files?.logo?.filepath),
         {
-          filename: basename(files.logo.name)
+          filename: 'test'
         }
       )
 
       // Upload image using sanityClient.ts
       const body = {
-        _id: fields['slug[current]'] as string,
+        _id: fields.slug as string,
         _type: 'site',
         ...fields,
+        slug: {
+          current: fields.slug
+        },
         logo: {
           _type: 'image',
           asset: {
@@ -39,7 +42,7 @@ export default async function site(req: NextApiRequest, res: NextApiResponse) {
           }
         }
       }
-
+      console.log(body)
       const site = await sanityClient(process.env.TOKEN || '').createOrReplace(
         body
       )

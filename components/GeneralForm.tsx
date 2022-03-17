@@ -69,7 +69,7 @@ const GeneralForm = (props: { site: Site }) => {
           <h4 className="title-create-item">Preview website url</h4>
           <input
             type="text"
-            name="slug[current]"
+            name="slug"
             value={`${slug}.${process.env.NEXT_PUBLIC_ROOT_URL}`}
             readOnly
             defaultValue={site?.slug.current}
