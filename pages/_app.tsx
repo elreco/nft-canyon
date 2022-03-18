@@ -42,7 +42,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         await fetch('/api/user', {
           method: 'POST',
           body: JSON.stringify({
-            _type: 'users',
+            _type: 'user',
             _id: account,
             userName: 'Unnamed',
             walletAddress: account
@@ -58,14 +58,17 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
             }
           })
           router.push('/dashboard')
+          return
         }
         return
       } else {
-        await fetch('/api/logout', {
+        const res = await fetch('/api/logout', {
           method: 'POST'
         })
-        if (redirect) {
-          router.push('/')
+        const data = await res.json()
+
+        if (redirect || data.wasConnected) {
+          router.reload()
         }
         return
       }

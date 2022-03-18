@@ -36,6 +36,7 @@ export default {
 		  name: 'contractMintFunction',
 			title: 'Contract Mint Function',
       type: 'string',
+      validation: Rule => Rule.required(),
     },
     {
 		  name: 'maxMintNumber',
@@ -46,21 +47,46 @@ export default {
       name: 'discord',
       title: 'Discord',
       type: 'string',
+      validation: Rule =>
+        Rule.required().uri({
+          allowRelative: false, // Allow relative links
+          relativeOnly: false, // Force only relative links
+          scheme: ["https", "http", "mailto"], // Default is ["https", "http"]
+        }),
+      
     },
     {
       name: 'opensea',
       title: 'OpenSea',
       type: 'string',
+      validation: Rule =>
+        Rule.required().uri({
+          allowRelative: false, // Allow relative links
+          relativeOnly: false, // Force only relative links
+          scheme: ["https", "http", "mailto"], // Default is ["https", "http"]
+        }),
     },
     {
       name: 'twitter',
       title: 'Twitter',
       type: 'string',
+      validation: Rule =>
+        Rule.required().uri({
+          allowRelative: false, // Allow relative links
+          relativeOnly: false, // Force only relative links
+          scheme: ["https", "http", "mailto"], // Default is ["https", "http"]
+        }),
     },
     {
       name: 'instagram',
       title: 'Instagram',
       type: 'string',
+      validation: Rule =>
+        Rule.required().uri({
+          allowRelative: false, // Allow relative links
+          relativeOnly: false, // Force only relative links
+          scheme: ["https", "http", "mailto"], // Default is ["https", "http"]
+        }),
     },
     {
       title: 'Members',

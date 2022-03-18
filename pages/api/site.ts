@@ -5,6 +5,7 @@ import { basename } from 'path'
 import { createReadStream } from 'fs'
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { sessionOptions } from '../../lib/session'
+import { SanityImageAssetDocument } from '@sanity/client'
 
 export const config = {
   api: {
@@ -15,33 +16,35 @@ export const config = {
 export default withIronSessionApiRoute(siteRoute, sessionOptions)
 
 async function siteRoute(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === 'POST') {
-    const form = formidable({})
-    form.parse(req, async (err: any, fields: Fields, files: Files) => {
-      if (err) {
-        return res.status(500).json({ message: `Couldn't create site`, err })
-      }
-      const filePath = files.logo as File
+  const form = formidable({})
+  let logo = null as SanityImageAssetDocument | null
+
+  form.parse(req, async (err: any, fields: Fields, files: Files) => {
+    if (err) {
+      return res.status(500).json({ message: `Couldn't create site`, err })
+    }
+    const filePath = files.logo as File
+    if (filePath.size > 0) {
       const readStream = createReadStream(filePath.filepath) as any
-      const logo = await sanityClient(process.env.TOKEN || '').assets.upload(
+      logo = await sanityClient(process.env.TOKEN || '').assets.upload(
         'image',
         readStream as ReadableStream,
         {
           filename: basename(filePath.filepath)
         }
       )
+    }
 
-      // Upload image using sanityClient.ts
-      const body = {
-        _id: fields.slug as string,
-        _type: 'site',
-        ...fields,
-        owner: {
-          _ref: req.session.user?.walletAddress
-        },
-        slug: {
-          current: fields.slug
-        },
+    const body = {
+      _type: 'site',
+      ...fields,
+      owner: {
+        _ref: req.session.user?.walletAddress
+      },
+      slug: {
+        current: fields.slug
+      },
+      ...(logo && {
         logo: {
           _type: 'image',
           asset: {
@@ -49,12 +52,47 @@ async function siteRoute(req: NextApiRequest, res: NextApiResponse) {
             _ref: logo._id
           }
         }
-      }
+      })
+    }
 
-      const site = await sanityClient(process.env.TOKEN || '').createOrReplace(
-        body
-      )
-      return res.status(200).json(site)
-    })
-  }
+    try {
+      if (req.method === 'POST') {
+        const slugExists = (await sanityClient(process.env.TOKEN || '').fetch(
+          '*[_type == "site" && slug.current == $slug] {slug}',
+          { slug: fields.slug }
+        )) as Site[]
+        if (slugExists.length > 0) {
+          return res
+            .status(400)
+            .json({
+              message: 'Website already exists, please change the name.'
+            })
+        }
+
+        const site = await sanityClient(process.env.TOKEN || '').create(body)
+        return res.status(200).json(site)
+      } else if (req.method === 'PATCH') {
+        const slugExists = (await sanityClient(process.env.TOKEN || '').fetch(
+          '*[_type == "site" && slug.current == $slug && _id != $id] {slug, id}',
+          { slug: fields.slug, id: fields._id }
+        )) as Site[]
+
+        if (slugExists.length > 0) {
+          return res
+            .status(400)
+            .json({
+              message: 'Website already exists, please change the name.'
+            })
+        }
+
+        const site = await sanityClient(process.env.TOKEN || '')
+          .patch(fields._id as string)
+          .set(body)
+          .commit()
+        return res.status(200).json(site)
+      }
+    } catch (err) {
+      return res.status(500).json(err)
+    }
+  })
 }

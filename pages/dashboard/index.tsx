@@ -52,7 +52,7 @@ export const getServerSideProps = withIronSessionSsr(
       return {
         redirect: {
           permanent: false,
-          destination: '/payment'
+          destination: '/dashboard/payment'
         }
       }
     }

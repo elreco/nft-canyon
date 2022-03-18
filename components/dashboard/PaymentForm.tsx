@@ -16,13 +16,13 @@ const PaymentForm = (props: { currentUser: User }) => {
   const makePayment = async () => {
     setIsLoading(true)
     try {
-      await window.ethereum.send('eth_requestAccounts')
+      await window.ethereum.request({ method: 'eth_requestAccounts' })
       const provider = new ethers.providers.Web3Provider(window.ethereum)
       const signer = provider.getSigner()
 
       const tx = await signer.sendTransaction({
         to: process.env.NEXT_PUBLIC_ADDRESS,
-        value: ethers.utils.parseEther('0.2')
+        value: ethers.utils.parseEther('0.01')
       })
       setBtnMessage('Transaction is being processed. Please wait...')
       await tx.wait()

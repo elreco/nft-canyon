@@ -37,8 +37,7 @@ const client = (token: string) =>
     dataset: 'production',
     apiVersion: '2022-03-08',
     token,
-    useCdn: false,
-    ignoreBrowserTokenWarning: true
+    useCdn: false
   })
 
 export default client

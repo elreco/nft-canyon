@@ -24,29 +24,34 @@ const GeneralForm = (props: { site: Site }) => {
   const submit = async (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsLoading(true)
-    try {
-      const res = await fetch('/api/site', {
-        method: 'POST',
-        body: form.current && new FormData(form.current)
-      })
-      const json = await res.json()
-      setSite(json)
-      toast.success('You have successfully updated your NFT Canyon website!', {
-        style: {
-          background: '#04111d',
-          color: '#fff',
-          fontSize: '15px'
-        }
-      })
-    } catch (err) {
-      toast.error('Something went wrong!', {
-        duration: 4000,
-        style: {
-          background: '#04111d',
-          color: '#fff',
-          fontSize: '15px'
-        }
-      })
+
+    const res = await fetch('/api/site', {
+      method: site?._id ? 'PATCH' : 'POST',
+      body: form.current && new FormData(form.current)
+    })
+    const json = await res.json()
+    switch (res.status) {
+      case 400:
+        toast.error(json.message, {
+          style: {
+            background: '#04111d',
+            color: '#fff',
+            fontSize: '15px'
+          }
+        })
+        break
+      default:
+        setSite(json)
+        toast.success(
+          'You have successfully updated your NFT Canyon website!',
+          {
+            style: {
+              background: '#04111d',
+              color: '#fff',
+              fontSize: '15px'
+            }
+          }
+        )
     }
 
     setIsLoading(false)
@@ -56,13 +61,15 @@ const GeneralForm = (props: { site: Site }) => {
     <div className="create-item tf-create-item tf-section">
       <div className="flat-tabs tab-create-item">
         <form ref={form} onSubmit={submit}>
+          <input type="hidden" name="_id" defaultValue={site?._id} />
           <div className="row">
             <div className="col-lg-6">
               <h4 className="title-create-item">Your logo</h4>
               <label className="uploadFile">
                 <span className="filename">
-                  {!image && 'PNG, JPG, GIF, WEBP or MP4. Max 200mb.'}
-                  {image && (
+                  {!image ? (
+                    'PNG, JPG, GIF, WEBP or MP4. Max 200mb.'
+                  ) : (
                     <img className="image-preview p-3" src={image} alt="" />
                   )}
                 </span>
@@ -85,20 +92,16 @@ const GeneralForm = (props: { site: Site }) => {
                 placeholder="e.g. Azuki"
                 defaultValue={site?.name}
               />
-              <div className="invalid-feedback">
-                Example invalid feedback text
-              </div>
             </div>
           </div>
 
           <h4 className="title-create-item">Preview website url</h4>
           <input
             type="text"
-            name="slug"
-            value={`${slug}.${process.env.NEXT_PUBLIC_ROOT_URL}`}
+            defaultValue={`${slug}.${process.env.NEXT_PUBLIC_ROOT_URL}`}
             readOnly
-            defaultValue={site?.slug.current}
           />
+          <input type="hidden" name="slug" defaultValue={slug} />
 
           <div className="row">
             <div className="col-lg-6">
@@ -106,8 +109,7 @@ const GeneralForm = (props: { site: Site }) => {
               <input
                 name="twitter"
                 type="url"
-                placeholder="e.g. “https://twitter.com/azukizen”"
-                defaultValue={site?.twitter}
+                placeholder="e.g. “https://twitter.com/azukizen” (Optional)"
               />
             </div>
             <div className="col-lg-6">
@@ -115,7 +117,7 @@ const GeneralForm = (props: { site: Site }) => {
               <input
                 name="instagram"
                 type="url"
-                placeholder="e.g. “https://instagram.com/azuki_zen”"
+                placeholder="e.g. “https://instagram.com/azuki_zen” (Optional)"
                 defaultValue={site?.instagram}
               />
             </div>
@@ -126,7 +128,7 @@ const GeneralForm = (props: { site: Site }) => {
               <input
                 name="discord"
                 type="url"
-                placeholder="e.g. “https://discord.gg/azuki”"
+                placeholder="e.g. “https://discord.gg/azuki” (Optional)"
                 defaultValue={site?.discord}
               />
             </div>
@@ -135,7 +137,7 @@ const GeneralForm = (props: { site: Site }) => {
               <input
                 name="opensea"
                 type="url"
-                placeholder="e.g. “https://opensea.io/collection/azuki”"
+                placeholder="e.g. “https://opensea.io/collection/azuki” (Optional)"
                 defaultValue={site?.opensea}
               />
             </div>

@@ -18,6 +18,8 @@ type WalletOptions = {
 }
 
 type Site = {
+  _id: string
+  _type: string
   slug: {
     _type: string
     current: string

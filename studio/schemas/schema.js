@@ -9,7 +9,6 @@ import site from './site'
 import member from './member'
 import milestone from './milestone'
 import question from './question'
-
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
   // We name our schema
