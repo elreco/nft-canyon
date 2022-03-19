@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import DashboardHeader from '../../components/dashboard/Header'
-import GeneralForm from '../../components/GeneralForm'
+import GeneralForm from '../../components/dashboard/GeneralForm'
 import sanityClient from '../../lib/sanityClient'
 import { sessionOptions } from '../../lib/session'
 import { withIronSessionSsr } from 'iron-session/next'

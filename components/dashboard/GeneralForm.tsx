@@ -143,6 +143,51 @@ const GeneralForm = (props: { site: Site }) => {
             </div>
           </div>
 
+          <div className="row">
+            <div className="col-lg-6">
+              <h4 className="title-create-item">Smart Contract Address</h4>
+              <input
+                name="contractAddress"
+                type="text"
+                placeholder="e.g. “0xED5AF388653567Af2F388E6224dC7C4b3241C544” (Optional)"
+                defaultValue={site?.contractAddress}
+              />
+            </div>
+            <div className="col-lg-6">
+              <h4 className="title-create-item">Contract Mint Function</h4>
+              <input
+                name="contractMintFunction"
+                type="text"
+                placeholder="e.g. “mint” (Optional)"
+                defaultValue={site?.contractMintFunction}
+              />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-lg-6">
+              <h4 className="title-create-item">Max Mint Number</h4>
+              <input
+                name="maxMintNumber"
+                type="number"
+                placeholder="e.g. “2” (Optional)"
+                defaultValue={site?.maxMintNumber}
+              />
+            </div>
+            <div className="col-lg-6 form-inner">
+              <div className="row-form">
+                <label>
+                  Contract Parameter
+                  <input
+                    name="contractParameter"
+                    type="checkbox"
+                    defaultValue={site?.contractParameter ? 'isChecked' : ''}
+                  />
+                  <span className="btn-checkbox"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+
           <div className="text-right">
             <button
               disabled={isLoading}

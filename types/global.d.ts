@@ -27,8 +27,10 @@ type Site = {
   logo: any
   name: string
   owner: User
-  contractMintFunction: string
-  maxMintNumber: number
+  contractMintFunction?: string
+  maxMintNumber?: number
+  contractAddress?: string
+  contractParameter?: boolean
   instagram?: string
   twitter?: string
   opensea?: string

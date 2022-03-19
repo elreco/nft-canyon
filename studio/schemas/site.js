@@ -7,13 +7,11 @@ export default {
       name: 'logo',
       title: 'Logo',
       type: 'image',
-      validation: Rule => Rule.required(),
     },
     {
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      validation: Rule => Rule.required(),
       options: {
         source: 'name',
         slugify: input => input.toLowerCase().replace(/\s+/g, '-').slice(0, 200)
@@ -22,21 +20,28 @@ export default {
     {
       name: 'name',
       title: 'Name',
-      validation: Rule => Rule.required(),
       type: 'string',
     },
     {
 		  name: 'owner',
       type: 'reference',
 			title: 'Owner',
-      validation: Rule => Rule.required(),
       to: [{type: 'user' }]
+    },
+    {
+		  name: 'contractAddress',
+			title: 'Contract Address',
+      type: 'string',
     },
     {
 		  name: 'contractMintFunction',
 			title: 'Contract Mint Function',
       type: 'string',
-      validation: Rule => Rule.required(),
+    },
+    {
+		  name: 'contractParameter',
+			title: 'Contract Parameter',
+      type: 'boolean',
     },
     {
 		  name: 'maxMintNumber',
@@ -47,46 +52,21 @@ export default {
       name: 'discord',
       title: 'Discord',
       type: 'string',
-      validation: Rule =>
-        Rule.required().uri({
-          allowRelative: false, // Allow relative links
-          relativeOnly: false, // Force only relative links
-          scheme: ["https", "http", "mailto"], // Default is ["https", "http"]
-        }),
-      
     },
     {
       name: 'opensea',
       title: 'OpenSea',
       type: 'string',
-      validation: Rule =>
-        Rule.required().uri({
-          allowRelative: false, // Allow relative links
-          relativeOnly: false, // Force only relative links
-          scheme: ["https", "http", "mailto"], // Default is ["https", "http"]
-        }),
     },
     {
       name: 'twitter',
       title: 'Twitter',
       type: 'string',
-      validation: Rule =>
-        Rule.required().uri({
-          allowRelative: false, // Allow relative links
-          relativeOnly: false, // Force only relative links
-          scheme: ["https", "http", "mailto"], // Default is ["https", "http"]
-        }),
     },
     {
       name: 'instagram',
       title: 'Instagram',
       type: 'string',
-      validation: Rule =>
-        Rule.required().uri({
-          allowRelative: false, // Allow relative links
-          relativeOnly: false, // Force only relative links
-          scheme: ["https", "http", "mailto"], // Default is ["https", "http"]
-        }),
     },
     {
       title: 'Members',
