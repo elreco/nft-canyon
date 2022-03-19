@@ -1,15 +1,43 @@
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 const Menu = () => {
+  const router = useRouter()
   return (
     <ul className="react-tabs__tab-list">
       <Link href="/dashboard">
         <a>
-          <li className="react-tabs__tab react-tabs__tab--selected">GENERAL</li>
+          <li
+            className={`react-tabs__tab react-tabs__tab${
+              router.pathname == '/dashboard' ? '--selected' : ''
+            }`}
+          >
+            GENERAL
+          </li>
         </a>
       </Link>
-      <li className="react-tabs__tab">COLLECTION</li>
-      <li className="react-tabs__tab">PROFILE</li>
+      <Link href="/dashboard/collection">
+        <a>
+          <li
+            className={`react-tabs__tab react-tabs__tab${
+              router.pathname == '/dashboard/collection' ? '--selected' : ''
+            }`}
+          >
+            COLLECTION
+          </li>
+        </a>
+      </Link>
+      <Link href="/dashboard/profile">
+        <a>
+          <li
+            className={`react-tabs__tab react-tabs__tab${
+              router.pathname == '/dashboard/profile' ? '--selected' : ''
+            }`}
+          >
+            PROFILE
+          </li>
+        </a>
+      </Link>
     </ul>
   )
 }

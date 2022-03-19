@@ -3,13 +3,27 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ChangeEvent, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
+import sanityClient, { getAssetUrl } from '../../lib/sanityClient'
 
 const GeneralForm = (props: { site: Site }) => {
   const form = useRef<HTMLFormElement>(null)
+
   const [site, setSite] = useState<Site>(props.site)
+
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [image, setImage] = useState<string>('')
   const [slug, setSlug] = useState<string>(site?.slug?.current || '')
+
+  const defaultImage = getAssetUrl(
+    sanityClient(process.env.TOKEN || ''),
+    site?.logo
+  )
+  const [image, setImage] = useState<string>(
+    defaultImage ? defaultImage.width(200).url() : ''
+  )
+
+  const [contract, setContract] = useState<string>(
+    site?.contract ? site?.contract?.name : ''
+  )
 
   const onNameUpdate = (e: ChangeEvent<HTMLInputElement>) => {
     setSlug(e.target.value.toLowerCase().replace(/\s+/g, '-').slice(0, 200))
@@ -18,6 +32,12 @@ const GeneralForm = (props: { site: Site }) => {
   const onImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setImage(URL.createObjectURL(e.target.files[0]))
+    }
+  }
+
+  const onContractChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setContract(e.target.files[0].name)
     }
   }
 
@@ -77,6 +97,7 @@ const GeneralForm = (props: { site: Site }) => {
                   type="file"
                   onChange={onImageChange}
                   required={!site?.logo}
+                  accept="image/*"
                   className="inputfile form-control"
                   name="logo"
                 />
@@ -144,15 +165,23 @@ const GeneralForm = (props: { site: Site }) => {
           </div>
 
           <div className="row">
-            <div className="col-lg-6">
-              <h4 className="title-create-item">Smart Contract Address</h4>
-              <input
-                name="contractAddress"
-                type="text"
-                placeholder="e.g. “0xED5AF388653567Af2F388E6224dC7C4b3241C544” (Optional)"
-                defaultValue={site?.contractAddress}
-              />
+            <div className="col-lg-12">
+              <h4 className="title-create-item">Your smart contract</h4>
+              <label className="uploadFile">
+                <span className="filename">
+                  {!contract ? 'JSON file.' : contract}
+                </span>
+                <input
+                  type="file"
+                  accept=".json"
+                  onChange={onContractChange}
+                  className="inputfile form-control"
+                  name="contract"
+                />
+              </label>
             </div>
+          </div>
+          <div className="row">
             <div className="col-lg-6">
               <h4 className="title-create-item">Contract Mint Function</h4>
               <input
@@ -162,28 +191,32 @@ const GeneralForm = (props: { site: Site }) => {
                 defaultValue={site?.contractMintFunction}
               />
             </div>
-          </div>
-          <div className="row">
             <div className="col-lg-6">
               <h4 className="title-create-item">Max Mint Number</h4>
               <input
                 name="maxMintNumber"
                 type="number"
+                min="0"
+                max="99"
+                step="1"
                 placeholder="e.g. “2” (Optional)"
                 defaultValue={site?.maxMintNumber}
               />
             </div>
-            <div className="col-lg-6 form-inner">
-              <div className="row-form">
-                <label>
-                  Contract Parameter
-                  <input
-                    name="contractParameter"
-                    type="checkbox"
-                    defaultValue={site?.contractParameter ? 'isChecked' : ''}
-                  />
-                  <span className="btn-checkbox"></span>
-                </label>
+            <div className="col-lg-6 widget-filter style-1">
+              <div className="form-inner">
+                <div>
+                  <label>
+                    Your Contract Mint function includes the mint number
+                    parameter
+                    <input
+                      name="contractParameter"
+                      type="checkbox"
+                      defaultChecked={site?.contractParameter}
+                    />
+                    <span className="btn-checkbox"></span>
+                  </label>
+                </div>
               </div>
             </div>
           </div>

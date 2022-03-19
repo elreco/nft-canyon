@@ -3152,7 +3152,7 @@ header {
   display: flex;
 }
 
-.widget-filter.style-1 form label {
+.widget-filter.style-1 label {
   line-height: 26px;
   font-size: 15px;
   font-weight: 600;
@@ -3162,7 +3162,7 @@ header {
   padding-left: 40px;
 }
 
-.widget-filter.style-1 form label.mgbt-none {
+.widget-filter.style-1 label.mgbt-none {
   margin-bottom: 0;
 }
 
@@ -3191,7 +3191,7 @@ header {
   border: 1px solid #7a798a;
 }
 
-.widget-filter.style-1 form label input:checked ~ .btn-checkbox {
+.widget-filter.style-1 label input:checked ~ .btn-checkbox {
   background-color: var(--primary-color3);
   border: 1px solid var(--primary-color3);
 }
@@ -3202,7 +3202,7 @@ header {
   display: none;
 }
 
-.widget-filter.style-1 form label input:checked ~ .btn-checkbox:after {
+.widget-filter.style-1 label input:checked ~ .btn-checkbox:after {
   display: block;
 }
 

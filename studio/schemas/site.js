@@ -29,9 +29,16 @@ export default {
       to: [{type: 'user' }]
     },
     {
-		  name: 'contractAddress',
-			title: 'Contract Address',
-      type: 'string',
+		  name: 'contract',
+			title: 'Smart Contract File',
+      type: 'file',
+      fields: [
+        {
+          name: 'name',
+          type: 'string',
+          title: 'Contract Name'
+        }
+      ]
     },
     {
 		  name: 'contractMintFunction',

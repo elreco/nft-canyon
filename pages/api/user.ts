@@ -20,5 +20,21 @@ async function userRoute(req: NextApiRequest, res: NextApiResponse) {
     } catch (err) {
       return res.status(500).json({ message: `Couldn't create user`, err })
     }
+  } else if (req.method === 'PATCH') {
+    try {
+      const userBody = JSON.parse(req.body)
+
+      const user = (await sanityClient(process.env.TOKEN || '')
+        .patch(req.session.user?.walletAddress as string)
+        .set(userBody)
+        .commit()) as User
+
+      req.session.user = user
+      await req.session.save()
+
+      return res.status(200).json(user)
+    } catch (err) {
+      return res.status(500).json({ message: `Couldn't update user`, err })
+    }
   }
 }

@@ -29,7 +29,7 @@ type Site = {
   owner: User
   contractMintFunction?: string
   maxMintNumber?: number
-  contractAddress?: string
+  contract?: any
   contractParameter?: boolean
   instagram?: string
   twitter?: string

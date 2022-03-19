@@ -5,7 +5,7 @@ import { basename } from 'path'
 import { createReadStream } from 'fs'
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { sessionOptions } from '../../lib/session'
-import { SanityImageAssetDocument } from '@sanity/client'
+import { SanityAssetDocument, SanityImageAssetDocument } from '@sanity/client'
 
 export const config = {
   api: {
@@ -18,19 +18,49 @@ export default withIronSessionApiRoute(siteRoute, sessionOptions)
 async function siteRoute(req: NextApiRequest, res: NextApiResponse) {
   const form = formidable({})
   let logo = null as SanityImageAssetDocument | null
+  let contract = null as SanityAssetDocument | null
 
   form.parse(req, async (err: any, fields: Fields, files: Files) => {
     if (err) {
       return res.status(500).json({ message: `Couldn't create site`, err })
     }
-    const filePath = files.logo as File
-    if (filePath.size > 0) {
-      const readStream = createReadStream(filePath.filepath) as any
+
+    const logoPath = files.logo as File
+    if (logoPath.size > 0) {
+      if (
+        logoPath.mimetype &&
+        !['image/gif', 'image/jpeg', 'image/png'].includes(logoPath.mimetype)
+      ) {
+        return res
+          .status(403)
+          .json({ message: 'You must upload an image for the logo' })
+      }
+      const readStream = createReadStream(logoPath.filepath) as any
       logo = await sanityClient(process.env.TOKEN || '').assets.upload(
         'image',
         readStream as ReadableStream,
         {
-          filename: basename(filePath.filepath)
+          filename: basename(logoPath.filepath)
+        }
+      )
+    }
+
+    const contractPath = files.contract as File
+    if (contractPath.size > 0) {
+      if (
+        contractPath.mimetype &&
+        !['application/json'].includes(contractPath.mimetype)
+      ) {
+        return res
+          .status(403)
+          .json({ message: 'You must upload an image for the logo' })
+      }
+      const readStream = createReadStream(contractPath.filepath) as any
+      contract = await sanityClient(process.env.TOKEN || '').assets.upload(
+        'file',
+        readStream as ReadableStream,
+        {
+          filename: basename(contractPath.filepath)
         }
       )
     }
@@ -52,6 +82,16 @@ async function siteRoute(req: NextApiRequest, res: NextApiResponse) {
             _ref: logo._id
           }
         }
+      }),
+      ...(contract && {
+        contract: {
+          _type: 'file',
+          asset: {
+            _type: 'reference',
+            _ref: contract._id
+          },
+          name: contractPath.originalFilename
+        }
       })
     }
 
@@ -62,11 +102,9 @@ async function siteRoute(req: NextApiRequest, res: NextApiResponse) {
           { slug: fields.slug }
         )) as Site[]
         if (slugExists.length > 0) {
-          return res
-            .status(400)
-            .json({
-              message: 'Website already exists, please change the name.'
-            })
+          return res.status(400).json({
+            message: 'Website already exists, please change the name.'
+          })
         }
 
         const site = await sanityClient(process.env.TOKEN || '').create(body)
@@ -78,11 +116,9 @@ async function siteRoute(req: NextApiRequest, res: NextApiResponse) {
         )) as Site[]
 
         if (slugExists.length > 0) {
-          return res
-            .status(400)
-            .json({
-              message: 'Website already exists, please change the name.'
-            })
+          return res.status(400).json({
+            message: 'Website already exists, please change the name.'
+          })
         }
 
         const site = await sanityClient(process.env.TOKEN || '')
