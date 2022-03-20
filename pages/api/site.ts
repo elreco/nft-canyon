@@ -20,7 +20,7 @@ async function siteRoute(req: NextApiRequest, res: NextApiResponse) {
   let logo = null as SanityImageAssetDocument | null
   let contract = null as SanityAssetDocument | null
 
-  form.parse(req, async (err: any, fields: Fields, files: Files) => {
+  form.parse(req, async (err: any, fields, files: Files) => {
     if (err) {
       return res.status(500).json({ message: `Couldn't create site`, err })
     }
@@ -34,6 +34,11 @@ async function siteRoute(req: NextApiRequest, res: NextApiResponse) {
         return res
           .status(403)
           .json({ message: 'You must upload an image for the logo' })
+      }
+      if (logoPath.size > 100000000) {
+        return res
+          .status(403)
+          .json({ message: 'Your image must be under 100mb' })
       }
       const readStream = createReadStream(logoPath.filepath) as any
       logo = await sanityClient(process.env.TOKEN || '').assets.upload(
@@ -53,7 +58,12 @@ async function siteRoute(req: NextApiRequest, res: NextApiResponse) {
       ) {
         return res
           .status(403)
-          .json({ message: 'You must upload an image for the logo' })
+          .json({ message: 'You must upload a json file for the contract' })
+      }
+      if (contractPath.size > 20000000) {
+        return res
+          .status(403)
+          .json({ message: 'Your contract must be under 100mb' })
       }
       const readStream = createReadStream(contractPath.filepath) as any
       contract = await sanityClient(process.env.TOKEN || '').assets.upload(
@@ -65,6 +75,7 @@ async function siteRoute(req: NextApiRequest, res: NextApiResponse) {
       )
     }
 
+    const slug = fields.slug as string
     const body = {
       _type: 'site',
       ...fields,
@@ -72,7 +83,7 @@ async function siteRoute(req: NextApiRequest, res: NextApiResponse) {
         _ref: req.session.user?.walletAddress
       },
       slug: {
-        current: fields.slug
+        current: slug.toLowerCase()
       },
       ...(logo && {
         logo: {

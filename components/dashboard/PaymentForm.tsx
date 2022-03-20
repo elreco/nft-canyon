@@ -27,14 +27,12 @@ const PaymentForm = (props: { currentUser: User }) => {
       setBtnMessage('Transaction is being processed. Please wait...')
       await tx.wait()
 
-      const userData = await fetch('/api/payment', {
+      await fetch('/api/payment', {
         method: 'POST',
         body: JSON.stringify({
           transactionHash: tx.hash
         })
       })
-
-      const user = (await userData.json()) as User
 
       toast.success('You have successfully subscribed to NFT Canyon!', {
         style: {

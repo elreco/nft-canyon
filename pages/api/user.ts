@@ -36,5 +36,12 @@ async function userRoute(req: NextApiRequest, res: NextApiResponse) {
     } catch (err) {
       return res.status(500).json({ message: `Couldn't update user`, err })
     }
+  } else if (req.method === 'GET') {
+    try {
+      console.log(req.session.user)
+      return res.status(200).json(req.session.user || {})
+    } catch (err) {
+      return res.status(500).json({ message: `Couldn't get user`, err })
+    }
   }
 }

@@ -4,10 +4,10 @@ import imageUrlBuilder from '@sanity/image-url'
 import { SanityImageSource } from '@sanity/image-url/lib/types/types'
 
 export const siteStaticProps: GetStaticProps = async ({ params }) => {
-  const site = params?.site
+  const slug = params?.slug
   const data = (await client(process.env.NEXT_PUBLIC_TOKEN || '').fetch(
     '*[_type == "site" && slug.current == $slug]',
-    { slug: site }
+    { slug }
   )) as Site[]
 
   return {
@@ -23,7 +23,7 @@ export const siteStaticPaths: GetStaticPaths = async (ctx) => {
 
   const paths = [
     ...subdomains.map((item) => {
-      return { params: { site: item?.slug.current.toString() } }
+      return { params: { slug: item?.slug.current.toString().toLowerCase() } }
     })
   ]
 

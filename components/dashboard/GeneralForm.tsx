@@ -88,7 +88,7 @@ const GeneralForm = (props: { site: Site }) => {
               <label className="uploadFile">
                 <span className="filename">
                   {!image ? (
-                    'PNG, JPG, GIF, WEBP or MP4. Max 200mb.'
+                    'PNG, JPG, GIF, WEBP or MP4. Max 100mb.'
                   ) : (
                     <img className="image-preview p-3" src={image} alt="" />
                   )}

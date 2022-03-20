@@ -16,6 +16,17 @@ const Menu = () => {
           </li>
         </a>
       </Link>
+      <Link href="/dashboard/content">
+        <a>
+          <li
+            className={`react-tabs__tab react-tabs__tab${
+              router.pathname == '/dashboard/content' ? '--selected' : ''
+            }`}
+          >
+            CONTENT
+          </li>
+        </a>
+      </Link>
       <Link href="/dashboard/collection">
         <a>
           <li

@@ -1538,6 +1538,10 @@ header {
   width: 133px;
   height: 56px;
 }
+.logo-dark {
+  width: 133px;
+  height: 56px;
+}
 .main-logo img,
 .main-logo h2 {
   float: left;
