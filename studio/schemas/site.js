@@ -23,6 +23,16 @@ export default {
       type: 'string',
     },
     {
+      name: 'mainTitle',
+      title: 'Main Title',
+      type: 'string',
+    },
+    {
+      name: 'mainSubtitle',
+      title: 'Main Subtitle',
+      type: 'string',
+    },
+    {
 		  name: 'owner',
       type: 'reference',
 			title: 'Owner',
@@ -71,9 +81,32 @@ export default {
       type: 'string',
     },
     {
+      name: 'whitelistMintDate',
+      title: 'Whitelist Mint Date',
+      type: 'datetime',
+    },
+    {
+      name: 'publicMintDate',
+      title: 'Public Mint Date',
+      type: 'datetime',
+    },
+    {
+      name: 'twitter',
+      title: 'Twitter',
+      type: 'string',
+    },
+    {
       name: 'instagram',
       title: 'Instagram',
       type: 'string',
+    },
+    {
+      title: 'Collection',
+      name: 'collection',
+      type: 'array',
+      of: [{
+        type: 'image',
+      }]
     },
     {
       title: 'Members',

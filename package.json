@@ -18,6 +18,7 @@
     "@sanity/client": "^3.2.0",
     "@sanity/image-url": "^1.0.1",
     "@types/formidable": "^2.0.4",
+    "dayjs": "^1.11.0",
     "ethers": "^5.6.0",
     "formidable": "^2.0.1",
     "iron-session": "^6.1.0",
