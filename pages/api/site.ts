@@ -20,7 +20,7 @@ async function siteRoute(req: NextApiRequest, res: NextApiResponse) {
   let logo = null as SanityImageAssetDocument | null
   let contract = null as SanityAssetDocument | null
 
-  form.parse(req, async (err: any, fields, files: Files) => {
+  form.parse(req, async (err: any, fields: Fields, files: Files) => {
     if (err) {
       return res.status(500).json({ message: `Couldn't create site`, err })
     }
