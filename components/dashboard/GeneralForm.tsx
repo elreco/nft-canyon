@@ -166,7 +166,12 @@ const GeneralForm = (props: { site: Site }) => {
 
           <div className="row">
             <div className="col-lg-12">
-              <h4 className="title-create-item">Your smart contract</h4>
+              <h4 className="title-create-item mb-1">Your smart contract</h4>
+              <div className="mb-5 font-sm pl-1">
+                <a href="" target="_blank">
+                  View my contract
+                </a>
+              </div>
               <label className="uploadFile">
                 <span className="filename">
                   {!contract ? 'JSON file.' : contract}
