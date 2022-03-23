@@ -7,22 +7,22 @@ const menus = [
   {
     id: 2,
     name: 'Roadmap',
-    links: '#'
+    links: '/#roadmap'
   },
   {
     id: 3,
     name: 'Team',
-    links: '#'
+    links: '/#team'
   },
   {
     id: 4,
     name: 'Faq',
-    links: '#'
+    links: '/#faq'
   },
   {
     id: 5,
     name: 'Mint',
-    links: '#'
+    links: '/#mint'
   }
 ]
 
