@@ -3,6 +3,14 @@ import type { GetStaticPaths, GetStaticProps } from 'next/types'
 import imageUrlBuilder from '@sanity/image-url'
 import { SanityImageSource } from '@sanity/image-url/lib/types/types'
 
+const projectId = 'kgcey8h5'
+const dataset = 'production'
+
+export const getUrlFromId = (ref: string) => {
+  const [_file, id, extension] = ref.split('-')
+  return `https://cdn.sanity.io/files/${projectId}/${dataset}/${id}.${extension}`
+}
+
 export const siteStaticProps: GetStaticProps = async ({ params }) => {
   const slug = params?.slug
   const data = (await client(process.env.NEXT_PUBLIC_TOKEN || '').fetch(
@@ -35,8 +43,8 @@ export const siteStaticPaths: GetStaticPaths = async (ctx) => {
 
 const client = (token: string) =>
   sanityClient({
-    projectId: 'kgcey8h5',
-    dataset: 'production',
+    projectId,
+    dataset,
     apiVersion: '2022-03-08',
     token,
     useCdn: false

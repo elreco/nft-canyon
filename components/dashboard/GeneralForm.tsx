@@ -3,7 +3,7 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ChangeEvent, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
-import sanityClient, { getAssetUrl } from '../../lib/sanityClient'
+import sanityClient, { getAssetUrl, getUrlFromId } from '../../lib/sanityClient'
 
 const GeneralForm = (props: { site: Site }) => {
   const form = useRef<HTMLFormElement>(null)
@@ -20,17 +20,12 @@ const GeneralForm = (props: { site: Site }) => {
   const [image, setImage] = useState<string>(
     defaultImage ? defaultImage.width(200).url() : ''
   )
-  
+
   const [contract, setContract] = useState<string>(
     site?.contract ? site?.contract?.name : ''
   )
-
-  const defaultContract = getAssetUrl(
-    sanityClient(process.env.TOKEN || ''),
-    site?.contract
-  )
-  const [contractLink, setContractLink] = useState<string>(
-    defaultContract ? defaultContract?.url() : ''
+  const [contractLink] = useState<string>(
+    getUrlFromId(site?.contract?.asset?._ref)
   )
 
   const onNameUpdate = (e: ChangeEvent<HTMLInputElement>) => {
@@ -177,9 +172,10 @@ const GeneralForm = (props: { site: Site }) => {
               <h4 className="title-create-item mb-1">Your smart contract</h4>
               <div className="mb-5 font-sm pl-1">
                 {contract && (
-                <a href={contractLink} target="_blank">
-                  View my contract
-                </a>)}
+                  <a href={contractLink} rel="noreferrer" target="_blank">
+                    View my current contract
+                  </a>
+                )}
               </div>
               <label className="uploadFile">
                 <span className="filename">

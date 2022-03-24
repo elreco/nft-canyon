@@ -70,7 +70,7 @@ async function siteRoute(req: NextApiRequest, res: NextApiResponse) {
         'file',
         readStream as ReadableStream,
         {
-          filename: basename(contractPath.filepath)
+          filename: `${basename(contractPath.filepath)}.json`
         }
       )
     }
