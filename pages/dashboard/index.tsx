@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import DashboardHeader from '../../components/dashboard/Header'
 import GeneralForm from '../../components/dashboard/GeneralForm'
-import sanityClient from '../../lib/sanityClient'
+import { middleware } from './dashboard'
 import { sessionOptions } from '../../lib/session'
 import { withIronSessionSsr } from 'iron-session/next'
 import Footer from '../../components/Footer'
@@ -37,38 +37,7 @@ const Dashboard = (props: { currentUser: User; site: Site }) => {
 
 export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req }) {
-    const user = req.session.user
-
-    if (!user) {
-      return {
-        redirect: {
-          permanent: false,
-          destination: '/'
-        }
-      }
-    }
-
-    if (user?.plan !== 1) {
-      return {
-        redirect: {
-          permanent: false,
-          destination: '/dashboard/payment'
-        }
-      }
-    }
-
-    const siteData = (await sanityClient(
-      process.env.NEXT_PUBLIC_TOKEN || ''
-    ).fetch('*[_type == "site" && owner._ref == $id]', {
-      id: user?.walletAddress
-    })) as Site[]
-
-    return {
-      props: {
-        currentUser: user,
-        site: siteData.length ? siteData[0] : null
-      }
-    }
+    return middleware(req)
   },
   sessionOptions
 )

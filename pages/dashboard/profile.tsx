@@ -8,6 +8,7 @@ import Header from '../../components/header/Header'
 import Subheader from '../../components/header/Subheader'
 import { useState } from 'react'
 import ProfileForm from '../../components/dashboard/ProfileForm'
+import { middleware } from './dashboard'
 
 const Dashboard = (props: { currentUser: User; site: Site }) => {
   const title = 'NFT Canyon - Dashboard'
@@ -37,38 +38,7 @@ const Dashboard = (props: { currentUser: User; site: Site }) => {
 
 export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req }) {
-    const user = req.session.user
-
-    if (!user) {
-      return {
-        redirect: {
-          permanent: false,
-          destination: '/'
-        }
-      }
-    }
-
-    if (user?.plan !== 1) {
-      return {
-        redirect: {
-          permanent: false,
-          destination: '/dashboard/payment'
-        }
-      }
-    }
-
-    const siteData = (await sanityClient(
-      process.env.NEXT_PUBLIC_TOKEN || ''
-    ).fetch('*[_type == "site" && owner._ref == $id]', {
-      id: user?.walletAddress
-    })) as Site[]
-
-    return {
-      props: {
-        currentUser: user,
-        site: siteData.length ? siteData[0] : null
-      }
-    }
+    return middleware(req)
   },
   sessionOptions
 )

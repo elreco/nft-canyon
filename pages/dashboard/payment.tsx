@@ -3,6 +3,7 @@ import { sessionOptions } from '../../lib/session'
 import { withIronSessionSsr } from 'iron-session/next'
 import PaymentForm from '../../components/dashboard/PaymentForm'
 import { useState } from 'react'
+import { paymentMiddleware } from './dashboard'
 import Subheader from '../../components/header/Subheader'
 import Header from '../../components/header/Header'
 
@@ -30,33 +31,7 @@ const Payment = (props: { currentUser: User }) => {
 
 export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req }) {
-    const user = req.session.user
-
-    if (!user) {
-      return {
-        redirect: {
-          permanent: false,
-          destination: '/'
-        }
-      }
-    }
-
-    if (user.plan && user.plan > 0) {
-      return {
-        redirect: {
-          permanent: false,
-          destination: '/dashboard'
-        }
-      }
-    }
-
-    return {
-      props: {
-        currentUser: user
-      }
-    }
+    return paymentMiddleware(req)
   },
   sessionOptions
 )
-
-export default Payment
