@@ -4,8 +4,9 @@ import { Autoplay } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { useState } from 'react'
 
-const Slider = (props: { currentUser: User }) => {
-  const [account] = useState<string>(props.currentUser?.walletAddress || '')
+const Slider = (props: { collection: any[] }) => {
+  console.log(props.collection)
+  const [images] = useState<any[]>([{}])
 
   return (
     <section className="flat-title-page home5">
@@ -22,9 +23,9 @@ const Slider = (props: { currentUser: User }) => {
               The 1st CMS platform to create your mint web app.
             </p>
             <div className="flat-bt-slider flex style2">
-              <Link href={account ? '/dashboard' : '/connect'}>
+              <Link href="/mint">
                 <a className="sc-button header-slider style style-1 rocket fl-button pri-1">
-                  <span>{account ? 'My dashboard' : 'Get Started'}</span>
+                  <span>Mint</span>
                 </a>
               </Link>
             </div>

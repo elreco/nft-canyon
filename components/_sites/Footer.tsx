@@ -1,16 +1,19 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import sanityClient, { getAssetUrl } from '../../lib/sanityClient'
 
 const Footer = (props: { site: Site }) => {
-  const defaultLogo = getAssetUrl(
-    sanityClient(process.env.NEXT_PUBLIC_TOKEN || ''),
-    props.site?.logo
-  )
-  const [logo] = useState<string>(
-    defaultLogo ? defaultLogo.width(200).url() : ''
-  )
+  const [site] = useState(props.site)
+
+  const defaultLogo = site?.logo
+    ? getAssetUrl(sanityClient(process.env.NEXT_PUBLIC_TOKEN || ''), site?.logo)
+        .width(200)
+        .url()
+    : ''
+
+  const [logo] = useState<string>(defaultLogo)
 
   const accountList = [
     {
@@ -126,11 +129,10 @@ const Footer = (props: { site: Site }) => {
                 <div className="logo-footer" id="logo-footer">
                   <Link href="/">
                     <a>
-                      <Image
+                      <img
                         className="logo-dark"
                         id="logo_footer"
                         src={logo}
-                        layout="fill"
                         alt="nft-gaming"
                       />
                     </a>

@@ -38,6 +38,16 @@ export default {
       type: 'string',
     },
     {
+      name: 'mainColor',
+      title: 'Main Color',
+      type: 'string',
+    },
+    {
+      name: 'secondaryColor',
+      title: 'Secondary Color',
+      type: 'string',
+    },
+    {
 		  name: 'owner',
       type: 'reference',
 			title: 'Owner',
@@ -64,32 +74,17 @@ export default {
     {
 		  name: 'contractParameter',
 			title: 'Contract Parameter',
-      type: 'boolean',
+      type: 'string',
     },
     {
 		  name: 'maxMintNumber',
 			title: 'Max Mint Number',
-      type: 'number',
+      type: 'string',
     },
     {
 		  name: 'maxSupplyNumber',
 			title: 'Max Supply Number',
       type: 'number',
-    },
-    {
-      name: 'discord',
-      title: 'Discord',
-      type: 'string',
-    },
-    {
-      name: 'opensea',
-      title: 'OpenSea',
-      type: 'string',
-    },
-    {
-      name: 'twitter',
-      title: 'Twitter',
-      type: 'string',
     },
     {
       name: 'whitelistMintDate',
@@ -113,6 +108,17 @@ export default {
       type: 'string',
     },
     {
+      name: 'discord',
+      title: 'Discord',
+      type: 'string',
+    },
+    {
+      name: 'opensea',
+      title: 'OpenSea',
+      type: 'string',
+    },
+    // objects
+    {
       title: 'Collection',
       name: 'collection',
       type: 'array',
@@ -120,7 +126,6 @@ export default {
         type: 'image',
       }]
     },
-    // objects
     {
       title: 'Members',
       name: 'members',

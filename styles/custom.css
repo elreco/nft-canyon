@@ -32,3 +32,17 @@
 .font-sm {
   font-size: small;
 }
+
+.logo-dark {
+  object-fit: cover;
+}
+
+/* Websites */
+
+.website .header_1.header_2 #main-nav {
+  left: 35%;
+}
+
+.website .swiper-slide img {
+  border-radius: 25px;
+}

@@ -18,6 +18,10 @@ export const siteStaticProps: GetStaticProps = async ({ params }) => {
     { slug }
   )) as Site[]
 
+  if (data.length === 0) {
+    return { notFound: true }
+  }
+
   return {
     props: { ...data[0] },
     revalidate: 10

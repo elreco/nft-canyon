@@ -769,7 +769,7 @@ h6 a {
 /* Extra classes
 -------------------------------------------------------------- */
 .msg-success {
-  background: linear-gradient(to right, #e250e5, #4b50e6, #e250e5);
+  background: linear-gradient(to right, var(--main-color), var(--secondary-color), var(--main-color));
   background-clip: text;
   -webkit-background-clip: text;
   font-weight: 700;
@@ -1271,7 +1271,7 @@ a:focus {
 
 .hover-ecfect,
 .exp {
-  background: linear-gradient(to right, #e250e5, #4b50e6, #e250e5);
+  background: linear-gradient(to right, var(--main-color), var(--secondary-color), var(--main-color));
   background-clip: text;
   -webkit-background-clip: text;
   font-weight: 700;
@@ -1327,7 +1327,7 @@ a:focus {
   /* color */
   --primary-color: #fff;
   --primary-color2: #1f1f2c;
-  --primary-color3: #5142fc;
+  --primary-color3: var(--secondary-color);
   --primary-color4: #7a798a;
   --primary-color5: #f8f8f8;
   --primary-color6: #14141f;
@@ -1336,6 +1336,8 @@ a:focus {
   --bg-section2: #f8f8f8;
   --primary-color8: #7a798a;
   --primary-color9: #7a798a;
+  --main-color: #e250e5;
+  --secondary-color: #5142fc;
 }
 
 .is_dark {
@@ -1789,7 +1791,7 @@ header {
   }
 
   .is_dark .main-nav.active ul > li.current-menu-item > a {
-    background: linear-gradient(216.56deg, #e250e5 5.32%, #4b50e6 94.32%);
+    background: linear-gradient(216.56deg, var(--main-color) 5.32%, var(--secondary-color) 94.32%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -1801,7 +1803,7 @@ header {
 
   .is_dark .main-nav.active .current-item > a,
   .is_dark .main-nav.active ul > li > a:hover {
-    background: linear-gradient(216.56deg, #e250e5 5.32%, #4b50e6 94.32%);
+    background: linear-gradient(216.56deg, var(--main-color) 5.32%, var(--secondary-color) 94.32%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -1834,7 +1836,7 @@ header {
   }
 
   .main-nav.active .menu-item-has-children.current-menu-item .arrow:before {
-    background: linear-gradient(216.56deg, #e250e5 5.32%, #4b50e6 94.32%);
+    background: linear-gradient(216.56deg, var(--main-color) 5.32%, var(--secondary-color) 94.32%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -2230,7 +2232,7 @@ header {
   -ms-border-radius: 50%;
   -o-border-radius: 50%;
   cursor: pointer;
-  background-color: #5142fc;
+  background-color: var(--secondary-color);
 }
 .is_dark #scroll-top {
   background: #fff;
@@ -2245,7 +2247,7 @@ header {
 }
 
 .is_dark #scroll-top:after {
-  color: #5142fc;
+  color: var(--secondary-color);
 }
 
 #scroll-top:hover {
@@ -2445,7 +2447,7 @@ header {
 
 .widget-social.style-3 ul li a:hover {
   color: #fff;
-  background-color: #5142fc;
+  background-color: var(--secondary-color);
 }
 
 .widget-social.style-3 ul li {
@@ -2572,7 +2574,7 @@ header {
 }
 
 .widget-subcribe .form-subcribe input:focus {
-  border: 1px solid #5142fc;
+  border: 1px solid var(--secondary-color);
 }
 
 .widget-subcribe .form-subcribe input {

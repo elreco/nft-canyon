@@ -24,9 +24,12 @@ type Site = {
     _type: string
     current: string
   }
+  collection: any[]
   logo: any
   name: string
   owner: User
+  mainColor?: string
+  secondaryColor?: string
   contractMintFunction?: string
   maxMintNumber?: number
   contract?: any

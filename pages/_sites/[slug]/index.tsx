@@ -55,9 +55,9 @@ const Home = (props: Site) => {
         <meta property="og:title" content={title} />
         <meta name="twitter:title" content={title} />
       </Head>
-      <div className="home-5">
+      <div className="home-5 website">
         <Header site={site} currentUser={currentUser} />
-        <Slider currentUser={currentUser} />
+        <Slider collection={site?.collection || []} />
         <section className="tf-section wrap-accordion">
           <div className="container">
             <div className="row">

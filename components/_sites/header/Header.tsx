@@ -5,22 +5,50 @@ import { useRouter } from 'next/router'
 import menus from './menu'
 import { Toaster } from 'react-hot-toast'
 import sanityClient, { getAssetUrl } from '../../../lib/sanityClient'
+import { ImageUrlBuilder } from '@sanity/image-url/lib/types/builder'
 
 const Header = (props: { currentUser: User; site: Site }) => {
   const router = useRouter()
   const pathname = router.pathname
   const headerRef = useRef(null)
   const [account] = useState<string>(props.currentUser?.walletAddress || '')
-  const defaultLogo = getAssetUrl(
-    sanityClient(process.env.NEXT_PUBLIC_TOKEN || ''),
-    props.site?.logo
-  )
-  const [logo] = useState<string>(defaultLogo ? defaultLogo.url() : '')
+  const [site] = useState(props.site)
+
+  const defaultLogo = site?.logo
+    ? getAssetUrl(
+        sanityClient(process.env.NEXT_PUBLIC_TOKEN || ''),
+        site?.logo
+      ).url()
+    : ''
+
+  const [logo] = useState<string>(defaultLogo)
 
   useEffect(() => {
     window.addEventListener('scroll', isSticky)
     return () => {
       window.removeEventListener('scroll', isSticky)
+    }
+  })
+
+  useEffect(() => {
+    console.log(site?.secondaryColor)
+    if (site?.mainColor) {
+      document.documentElement.style.setProperty(
+        '--main-color',
+        site?.mainColor
+      )
+      if (!site?.secondaryColor) {
+        document.documentElement.style.setProperty(
+          '--secondary-color',
+          site?.mainColor
+        )
+      }
+    }
+    if (site?.secondaryColor) {
+      document.documentElement.style.setProperty(
+        '--secondary-color',
+        site?.secondaryColor || '#5142fc'
+      )
     }
   })
 
