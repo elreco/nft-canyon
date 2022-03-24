@@ -3,7 +3,6 @@ import React, { useRef, useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import menus from './menu'
-import Image from 'next/image'
 import { Toaster } from 'react-hot-toast'
 import sanityClient, { getAssetUrl } from '../../../lib/sanityClient'
 

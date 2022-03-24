@@ -11,8 +11,7 @@ const Header = (props: { site: Site; currentUser: User }) => {
     return site
       ? window
           .open(
-            `https://${site.slug.current}.${process.env.NEXT_PUBLIC_ROOT_URL}`,
-            '_blank'
+            `https://${site.slug.current}.${process.env.NEXT_PUBLIC_ROOT_URL}`
           )
           ?.focus()
       : toast.error('Please fill the general form to create your website 😊', {

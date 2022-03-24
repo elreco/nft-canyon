@@ -17,6 +17,7 @@ const GeneralForm = (props: { site: Site }) => {
     sanityClient(process.env.TOKEN || ''),
     site?.logo
   )
+
   const [image, setImage] = useState<string>(
     defaultImage ? defaultImage.width(200).url() : ''
   )
@@ -24,7 +25,8 @@ const GeneralForm = (props: { site: Site }) => {
   const [contract, setContract] = useState<string>(
     site?.contract ? site?.contract?.name : ''
   )
-  const [contractLink] = useState<string>(
+
+  const [contractLink, setContractLink] = useState<string>(
     getUrlFromId(site?.contract?.asset?._ref)
   )
 
@@ -65,6 +67,7 @@ const GeneralForm = (props: { site: Site }) => {
         break
       default:
         setSite(json)
+        setContractLink(getUrlFromId(json?.contract?.asset?._ref))
         toast.success(
           'You have successfully updated your NFT Canyon website!',
           {
