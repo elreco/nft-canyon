@@ -3,10 +3,23 @@ import Link from 'next/link'
 import { Autoplay } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { useState } from 'react'
+import sanityClient, { getAssetUrl } from '../../lib/sanityClient'
 
 const Slider = (props: { collection: any[] }) => {
-  console.log(props.collection)
-  const [images] = useState<any[]>([{}])
+  const [images] = useState<any[]>(props.collection)
+
+  const getImage = (number: number) => {
+    if (images[number - 1]) {
+      return getAssetUrl(
+        sanityClient(process.env.NEXT_PUBLIC_TOKEN || ''),
+        images[number - 1]
+      )
+        .width(300)
+        .url()
+    } else {
+      return `/images/box-item/img_item${number}.png`
+    }
+  }
 
   return (
     <section className="flat-title-page home5">
@@ -44,34 +57,19 @@ const Slider = (props: { collection: any[] }) => {
             speed={2000}
           >
             <SwiperSlide>
-              <img
-                src="/images/box-item/img_item1.png"
-                alt="Minting website 1"
-              />
+              <img src={getImage(1)} alt="Minting website 1" />
             </SwiperSlide>
             <SwiperSlide>
-              <img
-                src="/images/box-item/img_item2.png"
-                alt="Minting website 2"
-              />
+              <img src={getImage(2)} alt="Minting website 2" />
             </SwiperSlide>
             <SwiperSlide>
-              <img
-                src="/images/box-item/img_item3.png"
-                alt="Minting website 3"
-              />
+              <img src={getImage(3)} alt="Minting website 3" />
             </SwiperSlide>
             <SwiperSlide>
-              <img
-                src="/images/box-item/img_item2.png"
-                alt="Minting website 4"
-              />
+              <img src={getImage(4)} alt="Minting website 4" />
             </SwiperSlide>
             <SwiperSlide>
-              <img
-                src="/images/box-item/img_item3.png"
-                alt="Minting website 5"
-              />
+              <img src={getImage(5)} alt="Minting website 5" />
             </SwiperSlide>
           </Swiper>
           <Swiper
@@ -88,34 +86,19 @@ const Slider = (props: { collection: any[] }) => {
             speed={2100}
           >
             <SwiperSlide>
-              <img
-                src="/images/box-item/img_item3.png"
-                alt="Minting website 1"
-              />
+              <img src={getImage(3)} alt="Minting website 1" />
             </SwiperSlide>
             <SwiperSlide>
-              <img
-                src="/images/box-item/img_item2.png"
-                alt="Minting website 2"
-              />
+              <img src={getImage(2)} alt="Minting website 2" />
             </SwiperSlide>
             <SwiperSlide>
-              <img
-                src="/images/box-item/img_item3.png"
-                alt="Minting website 3"
-              />
+              <img src={getImage(4)} alt="Minting website 4" />
             </SwiperSlide>
             <SwiperSlide>
-              <img
-                src="/images/box-item/img_item1.png"
-                alt="Minting website 4"
-              />
+              <img src={getImage(1)} alt="Minting website 1" />
             </SwiperSlide>
             <SwiperSlide>
-              <img
-                src="/images/box-item/img_item2.png"
-                alt="Minting website 5"
-              />
+              <img src={getImage(2)} alt="Minting website 2" />
             </SwiperSlide>
           </Swiper>
           <Swiper
@@ -132,34 +115,19 @@ const Slider = (props: { collection: any[] }) => {
             speed={2200}
           >
             <SwiperSlide>
-              <img
-                src="/images/box-item/img_item2.png"
-                alt="Minting website 1"
-              />
+              <img src={getImage(5)} alt="Minting website 5" />
             </SwiperSlide>
             <SwiperSlide>
-              <img
-                src="/images/box-item/img_item1.png"
-                alt="Minting website 2"
-              />
+              <img src={getImage(4)} alt="Minting website 4" />
             </SwiperSlide>
             <SwiperSlide>
-              <img
-                src="/images/box-item/img_item3.png"
-                alt="Minting website 3"
-              />
+              <img src={getImage(1)} alt="Minting website 1" />
             </SwiperSlide>
             <SwiperSlide>
-              <img
-                src="/images/box-item/img_item2.png"
-                alt="Minting website 4"
-              />
+              <img src={getImage(2)} alt="Minting website 2" />
             </SwiperSlide>
             <SwiperSlide>
-              <img
-                src="/images/box-item/img_item1.png"
-                alt="Minting website 5"
-              />
+              <img src={getImage(3)} alt="Minting website 3" />
             </SwiperSlide>
           </Swiper>
           <Swiper
@@ -177,34 +145,19 @@ const Slider = (props: { collection: any[] }) => {
             className="end"
           >
             <SwiperSlide>
-              <img
-                src="/images/box-item/img_item2.png"
-                alt="Minting website 1"
-              />
+              <img src={getImage(2)} alt="Minting website 2" />
             </SwiperSlide>
             <SwiperSlide>
-              <img
-                src="/images/box-item/img_item1.png"
-                alt="Minting website 2"
-              />
+              <img src={getImage(3)} alt="Minting website 3" />
             </SwiperSlide>
             <SwiperSlide>
-              <img
-                src="/images/box-item/img_item3.png"
-                alt="Minting website 3"
-              />
+              <img src={getImage(4)} alt="Minting website 4" />
             </SwiperSlide>
             <SwiperSlide>
-              <img
-                src="/images/box-item/img_item2.png"
-                alt="Minting website 4"
-              />
+              <img src={getImage(1)} alt="Minting website 1" />
             </SwiperSlide>
             <SwiperSlide>
-              <img
-                src="/images/box-item/img_item1.png"
-                alt="Minting website 5"
-              />
+              <img src={getImage(5)} alt="Minting website 5" />
             </SwiperSlide>
           </Swiper>
         </div>

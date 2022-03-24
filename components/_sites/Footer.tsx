@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import sanityClient, { getAssetUrl } from '../../lib/sanityClient'
 
 const Footer = (props: { site: Site }) => {

@@ -5,7 +5,6 @@ import { useRouter } from 'next/router'
 import menus from './menu'
 import { Toaster } from 'react-hot-toast'
 import sanityClient, { getAssetUrl } from '../../../lib/sanityClient'
-import { ImageUrlBuilder } from '@sanity/image-url/lib/types/builder'
 
 const Header = (props: { currentUser: User; site: Site }) => {
   const router = useRouter()
@@ -31,7 +30,6 @@ const Header = (props: { currentUser: User; site: Site }) => {
   })
 
   useEffect(() => {
-    console.log(site?.secondaryColor)
     if (site?.mainColor) {
       document.documentElement.style.setProperty(
         '--main-color',
