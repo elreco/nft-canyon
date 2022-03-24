@@ -23,6 +23,11 @@ export default {
       type: 'string',
     },
     {
+      name: 'about',
+      title: 'About',
+      type: 'string',
+    },
+    {
       name: 'mainTitle',
       title: 'Main Title',
       type: 'string',
@@ -50,6 +55,7 @@ export default {
         }
       ]
     },
+    // contract / mint infos
     {
 		  name: 'contractMintFunction',
 			title: 'Contract Mint Function',
@@ -63,6 +69,11 @@ export default {
     {
 		  name: 'maxMintNumber',
 			title: 'Max Mint Number',
+      type: 'number',
+    },
+    {
+		  name: 'maxSupplyNumber',
+			title: 'Max Supply Number',
       type: 'number',
     },
     {
@@ -90,6 +101,7 @@ export default {
       title: 'Public Mint Date',
       type: 'datetime',
     },
+    // social networks
     {
       name: 'twitter',
       title: 'Twitter',
@@ -108,6 +120,7 @@ export default {
         type: 'image',
       }]
     },
+    // objects
     {
       title: 'Members',
       name: 'members',
