@@ -5,11 +5,12 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { useState } from 'react'
 import sanityClient, { getAssetUrl } from '../../lib/sanityClient'
 
-const Slider = (props: { collection: any[] }) => {
-  const [images] = useState<any[]>(props.collection)
+const Slider = (props: { site: Site }) => {
+  const [site] = useState<Site>(props.site)
+  const [images] = useState<any[] | undefined>(props.site?.collection)
 
   const getImage = (number: number) => {
-    if (images[number - 1]) {
+    if (images?.length && images[number - 1]) {
       return getAssetUrl(
         sanityClient(process.env.NEXT_PUBLIC_TOKEN || ''),
         images[number - 1]
@@ -17,7 +18,7 @@ const Slider = (props: { collection: any[] }) => {
         .width(300)
         .url()
     } else {
-      return `/images/box-item/img_item${number}.png`
+      return 'https://dummyimage.com/300x400'
     }
   }
 
@@ -27,13 +28,18 @@ const Slider = (props: { collection: any[] }) => {
       <div className="themesflat-container">
         <div className="wrap-heading flat-slider flex align-items-center">
           <div className="content">
-            <h2 className="heading mt-15">Create and deploy</h2>
+            <h2 className="heading mt-15">
+              {site?.mainTitle ? site.mainTitle : 'My Awesome'}
+            </h2>
             <h1 className="heading mb-style">
-              <span className="tf-text s1">Your NFT Minting</span>
+              <span className="tf-text s1">
+                {site?.mainSubtitle ? site.mainSubtitle : 'NFT Collection'}
+              </span>
             </h1>
-            <h1 className="heading">Website easily</h1>
             <p className="sub-heading mt-19 mb-40">
-              The 1st CMS platform to create your mint web app.
+              {site?.about
+                ? site.about
+                : '8000 unique NFT pieces on the metaverse.'}
             </p>
             <div className="flat-bt-slider flex style2">
               <Link href="/mint">

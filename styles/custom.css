@@ -1,3 +1,7 @@
+html {
+  scroll-padding-top: 80px;
+  scroll-behavior: smooth;
+}
 
 #nprogress .bar {
   background: var(--primary-color3) !important;
@@ -45,4 +49,8 @@
 
 .website .swiper-slide img {
   border-radius: 25px;
+}
+
+.website .menu-item.active a {
+  color: var(--main-color)
 }

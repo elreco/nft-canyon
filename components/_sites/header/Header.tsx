@@ -12,6 +12,7 @@ const Header = (props: { currentUser: User; site: Site }) => {
   const headerRef = useRef(null)
   const [account] = useState<string>(props.currentUser?.walletAddress || '')
   const [site] = useState(props.site)
+  const [active, setActive] = useState('')
 
   const defaultLogo = site?.logo
     ? getAssetUrl(
@@ -21,6 +22,26 @@ const Header = (props: { currentUser: User; site: Site }) => {
     : ''
 
   const [logo] = useState<string>(defaultLogo)
+
+  useEffect(() => {
+    setActive(router.asPath)
+    const hashChangeComplete = () => {
+      setActive(router.asPath)
+    }
+
+    router.events.on('hashChangeStart', hashChangeComplete)
+
+    return () => {
+      router.events.off('hashChangeStart', hashChangeComplete)
+    }
+  }, [router])
+
+  useEffect(() => {
+    window.addEventListener('scroll', isSticky)
+    return () => {
+      window.removeEventListener('scroll', isSticky)
+    }
+  })
 
   useEffect(() => {
     window.addEventListener('scroll', isSticky)
@@ -109,15 +130,19 @@ const Header = (props: { currentUser: User; site: Site }) => {
                 </div>
                 <nav id="main-nav" className="main-nav" ref={menuLeft}>
                   <ul id="menu-primary-menu" className="menu">
-                    {menus.map((data, index) => (
+                    {menus.map((data: Menu, index) => (
                       <li
                         key={index}
                         onClick={() => handleOnClick(index)}
                         className={`menu-item ${
-                          data.namesub ? 'menu-item-has-children' : ''
-                        } ${activeIndex === index ? 'active' : ''} `}
+                          active === data.links ? 'active' : ''
+                        } ${data.namesub ? 'menu-item-has-children' : ''} ${
+                          activeIndex === index ? 'active' : ''
+                        } `}
                       >
-                        <a href={data.links}>{data.name}</a>
+                        <Link href={data.links}>
+                          <a>{data.name}</a>
+                        </Link>
                         {data.namesub && (
                           <ul className="sub-menu">
                             {data.namesub.map((submenu) => (

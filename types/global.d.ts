@@ -17,6 +17,24 @@ type WalletOptions = {
   name: ConnectorOptions
 }
 
+type Milestone = {
+  image: any
+  description: string
+  title: string
+}
+
+type Menu = {
+  name: string
+  links: string
+  namesub?: [
+    {
+      id: number
+      links: string
+      sub: string
+    }
+  ]
+}
+
 type Site = {
   _id: string
   _type: string
@@ -28,6 +46,9 @@ type Site = {
   logo: any
   name: string
   owner: User
+  about?: string
+  mainTitle?: string
+  mainSubtitle?: string
   mainColor?: string
   secondaryColor?: string
   contractMintFunction?: string
@@ -38,4 +59,5 @@ type Site = {
   twitter?: string
   opensea?: string
   discord?: string
+  milestones?: Milestone[]
 } | null

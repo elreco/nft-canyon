@@ -3,6 +3,7 @@ import type { GetStaticPaths, GetStaticProps } from 'next/types'
 import { useEffect, useState } from 'react'
 import Footer from '../../../components/_sites/Footer'
 import Header from '../../../components/_sites/header/Header'
+import Roadmap from '../../../components/_sites/Roadmap'
 import Slider from '../../../components/_sites/Slider'
 import { siteStaticPaths, siteStaticProps } from '../../../lib/sanityClient'
 
@@ -57,32 +58,8 @@ const Home = (props: Site) => {
       </Head>
       <div className="home-5 website">
         <Header site={site} currentUser={currentUser} />
-        <Slider collection={site?.collection || []} />
-        <section className="tf-section wrap-accordion">
-          <div className="container">
-            <div className="row">
-              <div className="col-md-12">
-                <h2 className="tf-title-heading ct style-2 fs-30 mg-bt-10">
-                  Frequently Asked Questions
-                </h2>
-                <h5 className="sub-title help-center mg-bt-32 ">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Laborum obcaecati dignissimos quae quo ad iste ipsum officiis
-                  deleniti asperiores sit.
-                </h5>
-              </div>
-              <div className="col-md-12">
-                <div className="flat-accordion2">
-                  {data.map((item, index) => (
-                    <div key={index} title={item.title}>
-                      <p>{item.text}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <Slider site={site} />
+        <Roadmap milestones={site?.milestones} />
         <Footer site={site} />
       </div>
     </>
