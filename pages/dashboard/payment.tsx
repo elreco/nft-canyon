@@ -9,7 +9,7 @@ import Header from '../../components/header/Header'
 
 const Payment = (props: { currentUser: User }) => {
   const title = 'NFT Canyon - Dashboard'
-  const [currentUser] = useState(props.currentUser)
+  const [currentUser] = useState<User>(props.currentUser)
 
   return (
     <>

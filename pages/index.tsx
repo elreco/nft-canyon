@@ -8,7 +8,7 @@ import { useState } from 'react'
 
 const Index = (props: { currentUser: User }) => {
   const title = 'NFT Canyon - Your NFT Minting Website'
-  const [currentUser] = useState(props.currentUser)
+  const [currentUser] = useState<User>(props.currentUser)
 
   return (
     <>

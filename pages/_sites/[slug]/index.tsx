@@ -8,37 +8,10 @@ import Slider from '../../../components/_sites/Slider'
 import { siteStaticPaths, siteStaticProps } from '../../../lib/sanityClient'
 
 const Home = (props: Site) => {
-  const title = 'NFT Canyon - Your NFT Minting Website'
   const [currentUser, setCurrentUser] = useState<User>(null)
-  const [site] = useState(props)
-  const [data] = useState([
-    {
-      key: '0',
-      show: 'show',
-      title: 'What is an NFT?',
-      text: 'NFTs or non-fungible tokens, are cryptographic assets on blockchain with unique identification codes and metadata that distinguish them from each other. NFTs are unique and not mutually interchangeable, which means no two NFTs are the same.'
-    },
-    {
-      key: '1',
-      title: 'Customer support is available ?',
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.'
-    },
-    {
-      key: '2',
-      title: 'How do I find my transaction hash?',
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.'
-    },
-    {
-      key: '3',
-      title: 'What are gas fees on Axies?',
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.'
-    },
-    {
-      key: '4',
-      title: 'What is the effective staking amount?',
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.'
-    }
-  ])
+  const [site] = useState<Site>(props)
+  const title = site?.name
+  console.log(site)
 
   useEffect(() => {
     const fetchUser = async () => {

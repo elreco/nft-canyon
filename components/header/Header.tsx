@@ -40,11 +40,6 @@ const Header = (props: { currentUser: User }) => {
     btnToggle?.current?.classList.toggle('active')
   }
 
-  const [activeIndex, setActiveIndex] = useState(null)
-  const handleOnClick = (index: unknown) => {
-    setActiveIndex(index as null)
-  }
-
   return (
     <header id="header_main" className="header_1 js-header" ref={headerRef}>
       <Toaster position="top-center" reverseOrder={false} />
@@ -80,10 +75,9 @@ const Header = (props: { currentUser: User }) => {
                     {menus.map((data, index) => (
                       <li
                         key={index}
-                        onClick={() => handleOnClick(index)}
                         className={`menu-item ${
                           data.namesub ? 'menu-item-has-children' : ''
-                        } ${activeIndex === index ? 'active' : ''} `}
+                        } `}
                       >
                         <a href={data.links}>{data.name}</a>
                         {data.namesub && (

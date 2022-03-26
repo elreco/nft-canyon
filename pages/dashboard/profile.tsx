@@ -12,8 +12,8 @@ import { middleware } from './dashboard'
 
 const Dashboard = (props: { currentUser: User; site: Site }) => {
   const title = 'NFT Canyon - Dashboard'
-  const [currentUser] = useState(props.currentUser)
-  const [site] = useState(props.site)
+  const [currentUser] = useState<User>(props.currentUser)
+  const [site] = useState<Site>(props.site)
   return (
     <>
       <Head>

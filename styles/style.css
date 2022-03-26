@@ -2192,7 +2192,7 @@ header {
 /* Footer
 -------------------------------------------------------------- */
 #footer {
-  padding: 80px 0 80px;
+  padding: 10px 0 10px;
   background: var(--bg-section);
 }
 

@@ -7,7 +7,7 @@ import { faSpinner, faRocket } from '@fortawesome/free-solid-svg-icons'
 import router from 'next/router'
 
 const PaymentForm = (props: { currentUser: User }) => {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const [account] = useState<string>(props.currentUser?.walletAddress || '')
   const [btnMessage, setBtnMessage] = useState<string>(
     'Confirm the transaction on MetaMask'

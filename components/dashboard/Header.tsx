@@ -4,8 +4,8 @@ import toast from 'react-hot-toast'
 import Menu from './Menu'
 
 const Header = (props: { site: Site; currentUser: User }) => {
-  const [currentUser] = useState(props.currentUser)
-  const [site] = useState(props.site)
+  const [currentUser] = useState<User>(props.currentUser)
+  const [site] = useState<Site>(props.site)
 
   const viewWebsite = () => {
     return site

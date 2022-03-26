@@ -11,8 +11,7 @@ const Header = (props: { currentUser: User; site: Site }) => {
   const pathname = router.pathname
   const headerRef = useRef(null)
   const [account] = useState<string>(props.currentUser?.walletAddress || '')
-  const [site] = useState(props.site)
-  const [active, setActive] = useState('')
+  const [site] = useState<Site>(props.site)
 
   const defaultLogo = site?.logo
     ? getAssetUrl(
@@ -21,27 +20,7 @@ const Header = (props: { currentUser: User; site: Site }) => {
       ).url()
     : ''
 
-  const [logo] = useState<string>(defaultLogo)
-
-  useEffect(() => {
-    setActive(router.asPath)
-    const hashChangeComplete = () => {
-      setActive(router.asPath)
-    }
-
-    router.events.on('hashChangeStart', hashChangeComplete)
-
-    return () => {
-      router.events.off('hashChangeStart', hashChangeComplete)
-    }
-  }, [router])
-
-  useEffect(() => {
-    window.addEventListener('scroll', isSticky)
-    return () => {
-      window.removeEventListener('scroll', isSticky)
-    }
-  })
+  const [logo] = useState<string>(defaultLogo || '/images/logo/logo_dark.png')
 
   useEffect(() => {
     window.addEventListener('scroll', isSticky)
@@ -90,11 +69,6 @@ const Header = (props: { currentUser: User; site: Site }) => {
     btnToggle?.current?.classList.toggle('active')
   }
 
-  const [activeIndex, setActiveIndex] = useState(null)
-  const handleOnClick = (index: unknown) => {
-    setActiveIndex(index as null)
-  }
-
   return (
     <header
       id="header_main"
@@ -133,12 +107,9 @@ const Header = (props: { currentUser: User; site: Site }) => {
                     {menus.map((data: Menu, index) => (
                       <li
                         key={index}
-                        onClick={() => handleOnClick(index)}
                         className={`menu-item ${
-                          active === data.links ? 'active' : ''
-                        } ${data.namesub ? 'menu-item-has-children' : ''} ${
-                          activeIndex === index ? 'active' : ''
-                        } `}
+                          data.namesub ? 'menu-item-has-children' : ''
+                        }`}
                       >
                         <Link href={data.links}>
                           <a>{data.name}</a>

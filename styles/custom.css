@@ -41,6 +41,17 @@ html {
   object-fit: cover;
 }
 
+.opensea-icon {
+  background-color: white;
+  width: 22px;
+  height: 22px;
+  background: url('https://api.iconify.design/simple-icons:opensea.svg?color=white') no-repeat center center / contain;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
 /* Websites */
 
 .website .header_1.header_2 #main-nav {
@@ -53,4 +64,19 @@ html {
 
 .website .menu-item.active a {
   color: var(--main-color)
+}
+
+.website .img-wrapper {
+  width: 100%;
+  height: 30vh;
+}
+
+.website .card-media img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.website .sc-card-product .card-title {
+  justify-content: center;
 }

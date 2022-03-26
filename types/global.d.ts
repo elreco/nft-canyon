@@ -19,6 +19,7 @@ type WalletOptions = {
 
 type Milestone = {
   image: any
+  order: string
   description: string
   title: string
 }

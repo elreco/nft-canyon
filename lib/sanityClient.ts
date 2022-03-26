@@ -14,7 +14,7 @@ export const getUrlFromId = (ref: string) => {
 export const siteStaticProps: GetStaticProps = async ({ params }) => {
   const slug = params?.slug
   const data = (await client(process.env.NEXT_PUBLIC_TOKEN || '').fetch(
-    '*[_type == "site" && slug.current == $slug]',
+    '*[_type == "site" && slug.current == $slug] {..., "milestones": milestones[]->}',
     { slug }
   )) as Site[]
 

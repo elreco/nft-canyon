@@ -1,11 +1,23 @@
-import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper'
 import { useState } from 'react'
 import sanityClient, { getAssetUrl } from '../../lib/sanityClient'
+import CardModal from './CardModal'
 
 const Roadmap = (props: { milestones: Milestone[] | undefined }) => {
   const [milestones] = useState<Milestone[]>(props.milestones || [])
+  const [modalShow, setModalShow] = useState<boolean>(false)
+  const [text, setText] = useState<string>('')
+  const [title, setTitle] = useState<string>('')
+
+  const zeroPad = (num: number | string, places: number) =>
+    String(num).padStart(places, '0')
+
+  const activeModal = (milestone: Milestone) => {
+    setModalShow(true)
+    setText(milestone.description)
+    setTitle(milestone.title)
+  }
 
   const getImage = (image: any) => {
     if (image) {
@@ -20,103 +32,100 @@ const Roadmap = (props: { milestones: Milestone[] | undefined }) => {
     }
   }
 
+  const sortFunction = (a: Milestone, b: Milestone) => {
+    if (a.order < b.order) {
+      return -1
+    }
+    if (a.order > b.order) {
+      return 1
+    }
+    return 0
+  }
+
   return (
-    <section className="tf-section live-auctions" id="roadmap">
-      <div className="themesflat-container">
-        <div className="row">
-          <div className="col-md-12">
-            <div className="heading-live-auctions">
-              <h2 className="tf-title pb-20">Roadmap</h2>
-              <Link href="/">
-                <a className="exp style2">EXPLORE MORE</a>
-              </Link>
+    <>
+      <CardModal
+        show={modalShow}
+        text={text}
+        title={title}
+        onHide={() => setModalShow(false)}
+      />
+      <section className="tf-section live-auctions bg-style2" id="roadmap">
+        <div className="themesflat-container">
+          <div className="row">
+            <div className="col-md-12">
+              <div className="heading-live-auctions">
+                <h2 className="tf-title pb-20">Roadmap</h2>
+              </div>
             </div>
-          </div>
-          <div className="col-md-12">
-            <Swiper
-              modules={[Navigation, Pagination, Scrollbar, A11y]}
-              spaceBetween={30}
-              breakpoints={{
-                0: {
-                  slidesPerView: 1
-                },
-                767: {
-                  slidesPerView: 2
-                },
-                991: {
-                  slidesPerView: 3
-                },
-                1300: {
-                  slidesPerView: 4
-                }
-              }}
-              navigation
-              pagination={{ clickable: true }}
-              scrollbar={{ draggable: true }}
-            >
-              {milestones.map((milestone, index) => (
-                <SwiperSlide key={index}>
-                  <div className="swiper-container show-shadow carousel auctions">
-                    <div className="swiper-wrapper">
-                      <div className="swiper-slide">
-                        <div className="slider-item">
-                          <div className="sc-card-product">
-                            <div className="card-media">
-                              <Link href="/">
-                                <a>
-                                  <img src={getImage(milestone.image)} alt="" />
+            <div className="col-md-12">
+              <Swiper
+                modules={[Navigation, Pagination, Scrollbar, A11y]}
+                spaceBetween={30}
+                breakpoints={{
+                  0: {
+                    slidesPerView: 1
+                  },
+                  767: {
+                    slidesPerView: 2
+                  },
+                  991: {
+                    slidesPerView: 3
+                  },
+                  1300: {
+                    slidesPerView: 4
+                  }
+                }}
+                navigation
+                pagination={{ clickable: true }}
+                scrollbar={{ draggable: true }}
+              >
+                {milestones.sort(sortFunction).map((milestone, index) => (
+                  <SwiperSlide key={index}>
+                    <div className="swiper-container show-shadow carousel auctions">
+                      <div className="swiper-wrapper">
+                        <div className="swiper-slide">
+                          <div className="slider-item">
+                            <div className="sc-card-product">
+                              <div className="card-media">
+                                <a
+                                  className="cursor-pointer"
+                                  onClick={() => activeModal(milestone)}
+                                >
+                                  <div className="img-wrapper">
+                                    <img
+                                      src={getImage(milestone.image)}
+                                      alt=""
+                                    />
+                                  </div>
                                 </a>
-                              </Link>
-                              <Link href="/login">
-                                <a className="wishlist-button heart">
-                                  <span className="number-like"></span>
-                                </a>
-                              </Link>
-                              <div className="featured-countdown">
-                                <span className="slogan"></span>
-                                <span>You are good to go!</span>
-                              </div>
-                            </div>
-                            <div className="card-title">
-                              <h5>
-                                <Link href="/">
-                                  <a>{milestone.title}</a>
-                                </Link>
-                              </h5>
-                              <div className="tags">test</div>
-                            </div>
-                            <div className="meta-info">
-                              <div className="author">
-                                <div className="avatar">
-                                  {/* <img src={item.imgAuthor} alt="axies" /> */}
-                                </div>
-                                <div className="info">
-                                  <span>Creator</span>
-                                  <h6>
-                                    {' '}
-                                    <Link href="/">
-                                      <a>{milestone.description}</a>
-                                    </Link>{' '}
-                                  </h6>
+                                <div className="featured-countdown">
+                                  <span>{zeroPad(milestone.order, 2)}</span>
                                 </div>
                               </div>
-                              <div className="price">
-                                <span>Current Bid</span>
-                                <h5>12</h5>
+                              <div className="card-title mb-0">
+                                <h5>
+                                  <a
+                                    className="cursor-pointer"
+                                    onClick={() => activeModal(milestone)}
+                                  >
+                                    {milestone.title}
+                                  </a>
+                                </h5>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   )
 }
 
