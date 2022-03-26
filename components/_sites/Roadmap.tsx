@@ -1,10 +1,6 @@
 import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper'
-
-import 'swiper/scss'
-import 'swiper/scss/navigation'
-import 'swiper/scss/pagination'
 import { useState } from 'react'
 import sanityClient, { getAssetUrl } from '../../lib/sanityClient'
 
@@ -66,15 +62,14 @@ const Roadmap = (props: { milestones: Milestone[] | undefined }) => {
                         <div className="slider-item">
                           <div className="sc-card-product">
                             <div className="card-media">
-                              <Link href="/item-details-01">
-                                <img
-                                  src={getImage(milestone.image)}
-                                  alt="axies"
-                                />
+                              <Link href="/">
+                                <a>
+                                  <img src={getImage(milestone.image)} alt="" />
+                                </a>
                               </Link>
                               <Link href="/login">
                                 <a className="wishlist-button heart">
-                                  <span className="number-like">Whitelist</span>
+                                  <span className="number-like"></span>
                                 </a>
                               </Link>
                               <div className="featured-countdown">
@@ -84,8 +79,8 @@ const Roadmap = (props: { milestones: Milestone[] | undefined }) => {
                             </div>
                             <div className="card-title">
                               <h5>
-                                <Link href="/item-details-01">
-                                  {milestone.title}
+                                <Link href="/">
+                                  <a>{milestone.title}</a>
                                 </Link>
                               </h5>
                               <div className="tags">test</div>
@@ -99,8 +94,8 @@ const Roadmap = (props: { milestones: Milestone[] | undefined }) => {
                                   <span>Creator</span>
                                   <h6>
                                     {' '}
-                                    <Link href="/authors-02">
-                                      {milestone.description}
+                                    <Link href="/">
+                                      <a>{milestone.description}</a>
                                     </Link>{' '}
                                   </h6>
                                 </div>

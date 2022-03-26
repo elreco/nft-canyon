@@ -2,6 +2,10 @@ export default {
   name: 'site',
   title: 'Site',
   type: 'document',
+  fieldsets: [
+    {name: 'social', title: 'Social Networks'},
+    {name: 'contract', title: 'Contract Informations'},
+  ],
   fields: [
     {
       name: 'logo',
@@ -101,21 +105,25 @@ export default {
       name: 'twitter',
       title: 'Twitter',
       type: 'string',
+      fieldset: 'social'
     },
     {
       name: 'instagram',
       title: 'Instagram',
       type: 'string',
+      fieldset: 'social'
     },
     {
       name: 'discord',
       title: 'Discord',
       type: 'string',
+      fieldset: 'social'
     },
     {
       name: 'opensea',
       title: 'OpenSea',
       type: 'string',
+      fieldset: 'social'
     },
     // objects
     {

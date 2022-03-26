@@ -1,7 +1,7 @@
 export default {
   name: 'milestone',
   title: 'Milestone',
-  type: 'object',
+  type: 'document',
   fields: [
     {
       name: 'image',

@@ -1,13 +1,12 @@
 export default {
   name: 'member',
   title: 'Member',
-  type: 'object',
+  type: 'document',
   fields: [
     {
       name: 'pseudo',
       title: 'Pseudo',
       type: 'string',
-      validation: Rule => Rule.required(),
     },
     {
       name: 'realName',
@@ -18,7 +17,6 @@ export default {
       name: 'description',
       title: 'Description',
       type: 'text',
-      validation: Rule => Rule.required(),
     },
     {
       name: 'linkedin',
