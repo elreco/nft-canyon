@@ -20,17 +20,18 @@ type WalletOptions = {
 type Milestone = {
   image: any
   order: string
-  description: string
-  title: string
+  description?: string
+  title?: string
 }
 
 type Member = {
   pseudo: any
   realName: string
-  description: string
-  linkedin: string
-  twitter: string
-  instagram: string
+  description?: string
+  image: string
+  linkedin?: string
+  twitter?: string
+  instagram?: string
 }
 
 type Menu = {

@@ -12,7 +12,7 @@ const Home = (props: Site) => {
   const [currentUser, setCurrentUser] = useState<User>(null)
   const [site] = useState<Site>(props)
   const title = site?.name
-
+  console.log(site)
   useEffect(() => {
     const fetchUser = async () => {
       const res = await fetch('/api/user')
