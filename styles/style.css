@@ -1893,7 +1893,7 @@ header {
     border: none;
   }
   .header_1.header_2 #main-nav {
-    left: 0;
+    left: 0!important;
   }
 }
 

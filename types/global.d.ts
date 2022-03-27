@@ -24,6 +24,15 @@ type Milestone = {
   title: string
 }
 
+type Member = {
+  pseudo: any
+  realName: string
+  description: string
+  linkedin: string
+  twitter: string
+  instagram: string
+}
+
 type Menu = {
   name: string
   links: string
@@ -61,4 +70,5 @@ type Site = {
   opensea?: string
   discord?: string
   milestones?: Milestone[]
+  members?: Member[]
 } | null

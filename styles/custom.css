@@ -54,7 +54,7 @@ html {
 
 /* Websites */
 
-.website .header_1.header_2 #main-nav {
+.website .header_1.header_2 #main-nav.active {
   left: 35%;
 }
 

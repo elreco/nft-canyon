@@ -112,7 +112,7 @@ const Header = (props: { currentUser: User; site: Site }) => {
                         }`}
                       >
                         <Link href={data.links}>
-                          <a>{data.name}</a>
+                          <a onClick={menuToggle}>{data.name}</a>
                         </Link>
                         {data.namesub && (
                           <ul className="sub-menu">
@@ -126,7 +126,7 @@ const Header = (props: { currentUser: User; site: Site }) => {
                                 }
                               >
                                 <Link href={submenu.links}>
-                                  <a>{submenu.sub}</a>
+                                  <a onClick={menuToggle}>{submenu.sub}</a>
                                 </Link>
                               </li>
                             ))}

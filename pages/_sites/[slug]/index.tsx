@@ -1,17 +1,17 @@
 import Head from 'next/head'
 import type { GetStaticPaths, GetStaticProps } from 'next/types'
 import { useEffect, useState } from 'react'
+import { siteStaticPaths, siteStaticProps } from '../../../lib/sanityClient'
 import Footer from '../../../components/_sites/Footer'
 import Header from '../../../components/_sites/header/Header'
 import Roadmap from '../../../components/_sites/Roadmap'
 import Slider from '../../../components/_sites/Slider'
-import { siteStaticPaths, siteStaticProps } from '../../../lib/sanityClient'
+import Team from '../../../components/_sites/Team'
 
 const Home = (props: Site) => {
   const [currentUser, setCurrentUser] = useState<User>(null)
   const [site] = useState<Site>(props)
   const title = site?.name
-  console.log(site)
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -33,6 +33,7 @@ const Home = (props: Site) => {
         <Header site={site} currentUser={currentUser} />
         <Slider site={site} />
         <Roadmap milestones={site?.milestones} />
+        <Team members={site?.members} />
         <Footer site={site} />
       </div>
     </>
