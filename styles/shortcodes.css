@@ -1749,7 +1749,13 @@
 
 .is_dark .flat-slider .heading .s1 {
   color: #14141f;
-  background: linear-gradient(-45deg, var(--main-color), var(--secondary-color), var(--main-color), var(--secondary-color));
+  background: linear-gradient(
+    -45deg,
+    var(--main-color),
+    var(--secondary-color),
+    var(--main-color),
+    var(--secondary-color)
+  );
   background-size: 100% 100%;
   -webkit-background-clip: text;
   -webkit-text-stroke: 3px transparent;
@@ -1757,7 +1763,11 @@
 }
 
 .flat-slider .heading .fill {
-  background: linear-gradient(178.56deg, var(--main-color) 5.32%, var(--secondary-color) 94.32%);
+  background: linear-gradient(
+    178.56deg,
+    var(--main-color) 5.32%,
+    var(--secondary-color) 94.32%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -1961,7 +1971,11 @@
 .mainslider .swiper-button-next {
   width: 50px;
   height: 50px;
-  background: linear-gradient(216.56deg, var(--main-color) 5.32%, var(--secondary-color) 94.32%);
+  background: linear-gradient(
+    216.56deg,
+    var(--main-color) 5.32%,
+    var(--secondary-color) 94.32%
+  );
   border-radius: 50%;
 }
 .mainslider .swiper-button-next:after,
@@ -2354,11 +2368,19 @@ section.tf-section.live-auctions.home3 {
   bottom: -4px;
   width: 100%;
   height: 1px;
-  background: linear-gradient(216.56deg, var(--main-color) 5.32%, var(--secondary-color) 94.32%);
+  background: linear-gradient(
+    216.56deg,
+    var(--main-color) 5.32%,
+    var(--secondary-color) 94.32%
+  );
 }
 
 .live-auctions .heading-live-auctions .exp.style2::after {
-  background: linear-gradient(216.56deg, var(--main-color) 5.32%, var(--secondary-color) 94.32%);
+  background: linear-gradient(
+    216.56deg,
+    var(--main-color) 5.32%,
+    var(--secondary-color) 94.32%
+  );
 }
 
 /* Top Seller */
@@ -2689,7 +2711,11 @@ section.today-picks {
 }
 
 .shape {
-  background: linear-gradient(216.56deg, var(--main-color) 5.32%, var(--secondary-color) 94.32%);
+  background: linear-gradient(
+    216.56deg,
+    var(--main-color) 5.32%,
+    var(--secondary-color) 94.32%
+  );
 }
 
 .is_dark .shape.style2::before {
@@ -4418,7 +4444,11 @@ section.today-picks {
 }
 
 .mode_switcher a {
-  background: linear-gradient(216.56deg, var(--main-color) 5.32%, var(--secondary-color) 94.32%);
+  background: linear-gradient(
+    216.56deg,
+    var(--main-color) 5.32%,
+    var(--secondary-color) 94.32%
+  );
   border-radius: 10px;
   width: 40px;
   height: 40px;
@@ -4977,7 +5007,11 @@ button.accordion-button {
   overflow: hidden;
   border-radius: 8px;
   padding: 3px;
-  background: linear-gradient(216.56deg, var(--main-color) 5.32%, var(--secondary-color) 94.32%);
+  background: linear-gradient(
+    216.56deg,
+    var(--main-color) 5.32%,
+    var(--secondary-color) 94.32%
+  );
   margin-right: 15px;
 }
 
@@ -5853,13 +5887,21 @@ button.accordion-button {
 }
 
 .is_dark .flat-title-page.home5 .flat-slider .fill {
-  background: linear-gradient(178.56deg, var(--main-color) 5.32%, var(--secondary-color) 94.32%);
+  background: linear-gradient(
+    178.56deg,
+    var(--main-color) 5.32%,
+    var(--secondary-color) 94.32%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .flat-title-page.home5 .flat-slider .fill {
-  background: linear-gradient(178.56deg, var(--main-color) -50.68%, var(--secondary-color) 94.32%);
+  background: linear-gradient(
+    178.56deg,
+    var(--main-color) -50.68%,
+    var(--secondary-color) 94.32%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -6810,12 +6852,20 @@ button.accordion-button {
 
 .is_dark .flat-title-page .swiper-button-prev,
 .is_dark .flat-title-page .swiper-button-next {
-  background: linear-gradient(216.56deg, var(--main-color) 5.32%, var(--secondary-color) 94.32%);
+  background: linear-gradient(
+    216.56deg,
+    var(--main-color) 5.32%,
+    var(--secondary-color) 94.32%
+  );
 }
 
 .is_dark .flat-title-page .swiper-button-prev:hover,
 .is_dark .flat-title-page .swiper-button-next:hover {
-  background: linear-gradient(216.56deg, var(--main-color) 5.32%, var(--secondary-color) 94.32%);
+  background: linear-gradient(
+    216.56deg,
+    var(--main-color) 5.32%,
+    var(--secondary-color) 94.32%
+  );
 }
 
 .flat-title-page.style3 .mainslider.home .flat-slider,
@@ -7251,7 +7301,11 @@ button.accordion-button {
 }
 
 .heading-fill {
-  background: linear-gradient(178.56deg, var(--main-color) 5.32%, var(--secondary-color) 94.32%);
+  background: linear-gradient(
+    178.56deg,
+    var(--main-color) 5.32%,
+    var(--secondary-color) 94.32%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

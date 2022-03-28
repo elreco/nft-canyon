@@ -674,8 +674,7 @@ button:hover,
 input[type='button']:hover,
 input[type='reset']:hover,
 input[type='submit']:hover
-/* */
-{
+/* */ {
   outline: 0;
   border: 1px solid var(--primary-color3);
   color: var(--primary-color3);
@@ -769,7 +768,12 @@ h6 a {
 /* Extra classes
 -------------------------------------------------------------- */
 .msg-success {
-  background: linear-gradient(to right, var(--main-color), var(--secondary-color), var(--main-color));
+  background: linear-gradient(
+    to right,
+    var(--main-color),
+    var(--secondary-color),
+    var(--main-color)
+  );
   background-clip: text;
   -webkit-background-clip: text;
   font-weight: 700;
@@ -1271,7 +1275,12 @@ a:focus {
 
 .hover-ecfect,
 .exp {
-  background: linear-gradient(to right, var(--main-color), var(--secondary-color), var(--main-color));
+  background: linear-gradient(
+    to right,
+    var(--main-color),
+    var(--secondary-color),
+    var(--main-color)
+  );
   background-clip: text;
   -webkit-background-clip: text;
   font-weight: 700;
@@ -1791,7 +1800,11 @@ header {
   }
 
   .is_dark .main-nav.active ul > li.current-menu-item > a {
-    background: linear-gradient(216.56deg, var(--main-color) 5.32%, var(--secondary-color) 94.32%);
+    background: linear-gradient(
+      216.56deg,
+      var(--main-color) 5.32%,
+      var(--secondary-color) 94.32%
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -1803,7 +1816,11 @@ header {
 
   .is_dark .main-nav.active .current-item > a,
   .is_dark .main-nav.active ul > li > a:hover {
-    background: linear-gradient(216.56deg, var(--main-color) 5.32%, var(--secondary-color) 94.32%);
+    background: linear-gradient(
+      216.56deg,
+      var(--main-color) 5.32%,
+      var(--secondary-color) 94.32%
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -1836,7 +1853,11 @@ header {
   }
 
   .main-nav.active .menu-item-has-children.current-menu-item .arrow:before {
-    background: linear-gradient(216.56deg, var(--main-color) 5.32%, var(--secondary-color) 94.32%);
+    background: linear-gradient(
+      216.56deg,
+      var(--main-color) 5.32%,
+      var(--secondary-color) 94.32%
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -1893,7 +1914,7 @@ header {
     border: none;
   }
   .header_1.header_2 #main-nav {
-    left: 0!important;
+    left: 0 !important;
   }
 }
 

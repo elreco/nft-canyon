@@ -561,7 +561,11 @@
   }
 
   .is_dark .main-nav.active ul > li.current-menu-item > a {
-    background: linear-gradient(216.56deg, var(--main-color) 5.32%, var(--secondary-color) 94.32%);
+    background: linear-gradient(
+      216.56deg,
+      var(--main-color) 5.32%,
+      var(--secondary-color) 94.32%
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -578,7 +582,11 @@
 
   .is_dark .main-nav.active .current-item > a,
   .is_dark .main-nav.active ul > li > a:hover {
-    background: linear-gradient(216.56deg, var(--main-color) 5.32%, var(--secondary-color) 94.32%);
+    background: linear-gradient(
+      216.56deg,
+      var(--main-color) 5.32%,
+      var(--secondary-color) 94.32%
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -614,7 +622,11 @@
   }
 
   .main-nav.active .menu-item-has-children.current-menu-item .arrow:before {
-    background: linear-gradient(216.56deg, var(--main-color) 5.32%, var(--secondary-color) 94.32%);
+    background: linear-gradient(
+      216.56deg,
+      var(--main-color) 5.32%,
+      var(--secondary-color) 94.32%
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
