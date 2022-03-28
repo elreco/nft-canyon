@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { useState } from 'react'
 import sanityClient, { getAssetUrl } from '../../lib/sanityClient'
 
@@ -10,7 +11,7 @@ const Team = (props: { members: Member[] | undefined }) => {
         sanityClient(process.env.NEXT_PUBLIC_TOKEN || ''),
         image
       )
-        .width(300)
+        .width(400)
         .url()
     } else {
       return 'https://dummyimage.com/400x400'
@@ -32,28 +33,28 @@ const Team = (props: { members: Member[] | undefined }) => {
           {members.map((member, index) => (
             <div
               key={index}
-              className="fl-collection fl-item3 col-xl-4 col-md-6"
+              className="fl-collection fl-item3 col-xl-3 col-md-6"
             >
               <div className="sc-card-collection style-2 sc-card-style7">
                 <div
                   className="card-media-h7"
-                  style={{ width: '100%', height: '200px' }}
+                  style={{
+                    width: '100%',
+                    height: '200px',
+                    background: "var('--main-color')"
+                  }}
                 >
                   <img
                     src={getImage(member.image)}
-                    style={{
-                      objectFit: 'cover',
-                      width: '100%',
-                      height: '100%'
-                    }}
+                    className="blur-img w-100 h-100"
+                    alt=""
                   />
                 </div>
                 <div className="card-bottom">
                   <div className="author">
                     <div className="content">
-                      <h5>{member.pseudo}</h5>
+                      <h5 className="mt-2">{member.pseudo}</h5>
                       <div className="infor">
-                        <span>Created by</span>
                         <span className="name">{member.realName}</span>
                       </div>
                     </div>
@@ -63,12 +64,9 @@ const Team = (props: { members: Member[] | undefined }) => {
                   <div className="author-avatar">
                     <img
                       src={getImage(member.image)}
-                      alt="Axies"
+                      alt=""
                       className="avatar"
                     />
-                    <div className="badge">
-                      <i className="ripple"></i>
-                    </div>
                   </div>
                 </div>
               </div>

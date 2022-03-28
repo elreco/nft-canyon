@@ -52,6 +52,10 @@ html {
   cursor: pointer;
 }
 
+.blur-img {
+  filter: blur(1.5rem);
+}
+
 /* Websites */
 
 .website .header_1.header_2 #main-nav.active {
@@ -79,4 +83,8 @@ html {
 
 .website .sc-card-product .card-title {
   justify-content: center;
+}
+
+.website .sc-card-collection.style-2.sc-card-style7 .sc-author-box {
+  top: 15% !important;
 }
