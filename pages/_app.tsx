@@ -74,9 +74,9 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       }
     }
     accountChangedListener(false)
-    window.ethereum.on('accountsChanged', accountChangedListener)
+    window.ethereum?.on('accountsChanged', accountChangedListener)
     return () =>
-      window.ethereum.removeListener('accountsChanged', accountChangedListener)
+      window.ethereum?.removeListener('accountsChanged', accountChangedListener)
   }, [])
 
   const getLayout = Component.getLayout ?? ((page) => page)
