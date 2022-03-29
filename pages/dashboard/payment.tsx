@@ -3,7 +3,7 @@ import { sessionOptions } from '../../lib/session'
 import { withIronSessionSsr } from 'iron-session/next'
 import PaymentForm from '../../components/dashboard/PaymentForm'
 import { useState } from 'react'
-import { paymentMiddleware } from './dashboard'
+import { paymentMiddleware } from '../../lib/dashboard'
 import Subheader from '../../components/header/Subheader'
 import Header from '../../components/header/Header'
 
@@ -35,3 +35,5 @@ export const getServerSideProps = withIronSessionSsr(
   },
   sessionOptions
 )
+
+export default Payment

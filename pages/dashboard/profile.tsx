@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import DashboardHeader from '../../components/dashboard/Header'
-import sanityClient from '../../lib/sanityClient'
 import { sessionOptions } from '../../lib/session'
 import { withIronSessionSsr } from 'iron-session/next'
 import Footer from '../../components/Footer'
@@ -8,7 +7,7 @@ import Header from '../../components/header/Header'
 import Subheader from '../../components/header/Subheader'
 import { useState } from 'react'
 import ProfileForm from '../../components/dashboard/ProfileForm'
-import { middleware } from './dashboard'
+import { middleware } from '../../lib/dashboard'
 
 const Dashboard = (props: { currentUser: User; site: Site }) => {
   const title = 'NFT Canyon - Dashboard'

@@ -1,6 +1,6 @@
 import { IncomingMessage } from 'http'
 import { NextApiRequestCookies } from 'next/dist/server/api-utils'
-import sanityClient from '../../lib/sanityClient'
+import sanityClient from './sanityClient'
 
 export const middleware = async (
   req: IncomingMessage & {

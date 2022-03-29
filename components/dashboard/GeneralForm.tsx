@@ -242,7 +242,7 @@ const GeneralForm = (props: { site: Site }) => {
             >
               {isLoading ? (
                 <>
-                  <FontAwesomeIcon spin icon={faSpinner} className="mr-3" />{' '}
+                  {/* <FontAwesomeIcon spin icon={faSpinner} className="mr-3" /> */}{' '}
                   Loading
                 </>
               ) : (

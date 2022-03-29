@@ -100,13 +100,13 @@ const PaymentForm = (props: { currentUser: User }) => {
               >
                 {isLoading ? (
                   <>
-                    <FontAwesomeIcon spin icon={faSpinner} className="mr-3" />{' '}
+                    {/* <FontAwesomeIcon spin icon={faSpinner} className="mr-3" /> */}{' '}
                     {btnMessage}
                   </>
                 ) : (
                   <>
-                    <FontAwesomeIcon icon={faRocket} className="mr-3" /> Create
-                    my NFT Website
+                    {/* <FontAwesomeIcon icon={faRocket} className="mr-3" /> */}{' '}
+                    Create my NFT Website
                   </>
                 )}
               </button>

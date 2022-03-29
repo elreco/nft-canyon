@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import DashboardHeader from '../../components/dashboard/Header'
 import GeneralForm from '../../components/dashboard/GeneralForm'
-import { middleware } from './dashboard'
+import { middleware } from '../../lib/dashboard'
 import { sessionOptions } from '../../lib/session'
 import { withIronSessionSsr } from 'iron-session/next'
 import Footer from '../../components/Footer'
