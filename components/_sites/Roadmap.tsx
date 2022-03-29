@@ -7,8 +7,8 @@ import CardModal from './CardModal'
 const Roadmap = (props: { milestones: Milestone[] | undefined }) => {
   const [milestones] = useState<Milestone[]>(props.milestones || [])
   const [modalShow, setModalShow] = useState<boolean>(false)
-  const [text, setText] = useState<string>('')
-  const [title, setTitle] = useState<string>('')
+  const [text, setText] = useState<string | undefined>('')
+  const [title, setTitle] = useState<string | undefined>('')
 
   const zeroPad = (num: number | string, places: number) =>
     String(num).padStart(places, '0')
