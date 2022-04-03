@@ -54,7 +54,7 @@ html {
 }
 
 .blur-img {
-  filter: blur(1.5rem);
+  filter: blur(1rem);
 }
 
 /* Websites */
@@ -87,5 +87,28 @@ html {
 }
 
 .website .sc-card-collection.style-2.sc-card-style7 .sc-author-box {
-  top: 15% !important;
+  top: 18% !important;
+}
+
+.website .sc-card-collection .desc {
+  padding-top: 1.5rem;
+}
+
+.website .sc-card-collection .desc p {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.website .card-media-h7 {
+  width: 100% !important;
+  height: 150px;
+  background: var(--bg-section);
+}
+
+.website .card-media-h7 img {
+  object-fit: cover;
+}
+
+.website .card-bottom .author {
+  margin-top: 2rem;
 }

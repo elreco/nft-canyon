@@ -27,6 +27,7 @@ type Milestone = {
 type Member = {
   pseudo: any
   realName: string
+  job: string
   description?: string
   image: string
   linkedin?: string

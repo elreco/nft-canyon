@@ -14,6 +14,11 @@ export default {
       type: 'string',
     },
     {
+      name: 'job',
+      title: 'Job',
+      type: 'string',
+    },
+    {
       name: 'realName',
       title: 'Real Name',
       type: 'string',

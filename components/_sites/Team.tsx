@@ -36,14 +36,7 @@ const Team = (props: { members: Member[] | undefined }) => {
               className="fl-collection fl-item3 col-xl-3 col-md-6"
             >
               <div className="sc-card-collection style-2 sc-card-style7">
-                <div
-                  className="card-media-h7"
-                  style={{
-                    width: '100%',
-                    height: '200px',
-                    background: "var('--main-color')"
-                  }}
-                >
+                <div className="card-media-h7">
                   <img
                     src={getImage(member.image)}
                     className="blur-img w-100 h-100"
@@ -55,7 +48,10 @@ const Team = (props: { members: Member[] | undefined }) => {
                     <div className="content">
                       <h5 className="mt-2">{member.pseudo}</h5>
                       <div className="infor">
-                        <span className="name">{member.realName}</span>
+                        <span className="name">{member.job}</span>
+                      </div>
+                      <div className="desc">
+                        <p>{member.description}</p>
                       </div>
                     </div>
                   </div>
