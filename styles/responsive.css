@@ -29,7 +29,7 @@
 
 @media only screen and (max-width: 1600px) {
   .main-nav {
-    left: 18%;
+    left: 30%;
   }
   .main-nav > ul > li {
     padding: 26px 12px 26px 12px;
@@ -215,7 +215,7 @@
     margin-left: 30px;
   }
   .header_1.header_2 #main-nav {
-    left: 22%;
+    left: 33%;
   }
 }
 
