@@ -18,6 +18,10 @@ const PaymentForm = (props: { currentUser: User }) => {
     try {
       await window.ethereum.request({ method: 'eth_requestAccounts' })
       const provider = new ethers.providers.Web3Provider(window.ethereum)
+      const network = await provider.getNetwork()
+      if (network.chainId != 1) {
+        throw 'Please switch to Ethereum Mainnet'
+      }
       const signer = provider.getSigner()
 
       const tx = await signer.sendTransaction({
