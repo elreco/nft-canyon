@@ -7,13 +7,13 @@ const menus = [
   {
     id: 2,
     name: 'Demo',
-    links: '#'
+    links: 'https://demo.nftcanyon.io'
   },
   {
     id: 3,
     name: 'Features',
-    links: '#',
-    namesub: [
+    links: '#'
+    /* namesub: [
       {
         id: 1,
         sub: 'Authors 01',
@@ -64,7 +64,7 @@ const menus = [
         sub: 'FAQ',
         links: '/faq'
       }
-    ]
+    ] */
   },
   {
     id: 4,

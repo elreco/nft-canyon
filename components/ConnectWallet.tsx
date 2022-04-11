@@ -1,18 +1,21 @@
 import { useState } from 'react'
 import Image from 'next/image'
-import { type ConnectorOptions, useWeb3 } from '@3rdweb/hooks'
 
 import img1 from '../public/images/icon/connect-1.png'
+import { ethers } from 'ethers'
 
 const ConnectWallet = () => {
-  const { connectWallet } = useWeb3()
+  const login = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    await provider.send('eth_requestAccounts', [])
+  }
   const [data] = useState<WalletOptions[]>([
     {
       img: img1,
       title: 'Meta Mask',
       description:
         'A crypto wallet & gateway to blockchain apps. Your key to the world of crypto!',
-      name: 'injected' as keyof ConnectorOptions
+      name: 'injected'
     }
   ])
 
@@ -36,7 +39,7 @@ const ConnectWallet = () => {
                   <div
                     onClick={() => {
                       window.ethereum
-                        ? connectWallet(item.name)
+                        ? login()
                         : (window.location.href =
                             'https://metamask.io/download/')
                     }}
@@ -51,7 +54,7 @@ const ConnectWallet = () => {
                         href="#"
                         onClick={() =>
                           window.ethereum
-                            ? connectWallet(item.name)
+                            ? login()
                             : (window.location.href =
                                 'https://metamask.io/download/')
                         }

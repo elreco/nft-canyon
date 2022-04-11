@@ -1,7 +1,6 @@
 import type { AppProps } from 'next/app'
 import type { NextPage } from 'next'
 import { ReactElement, ReactNode, useEffect } from 'react'
-import { ThirdwebWeb3Provider } from '@3rdweb/hooks'
 import '../styles/style.css'
 import 'swiper/scss'
 import 'swiper/scss/navigation'
@@ -22,11 +21,6 @@ type NextPageWithLayout = NextPage & {
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout
-}
-
-const supportedChainIds = [1, 4]
-const connectors = {
-  injected: {}
 }
 
 Router.events.on('routeChangeStart', () => NProgress.start())
@@ -80,14 +74,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   }, [])
 
   const getLayout = Component.getLayout ?? ((page) => page)
-  return (
-    <ThirdwebWeb3Provider
-      supportedChainIds={supportedChainIds}
-      connectors={connectors}
-    >
-      {getLayout(<Component {...pageProps} />)}
-    </ThirdwebWeb3Provider>
-  )
+  return getLayout(<Component {...pageProps} />)
 }
 
 export default MyApp
