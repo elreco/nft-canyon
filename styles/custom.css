@@ -59,10 +59,6 @@ html {
 
 /* Websites */
 
-.website .header_1.header_2 #main-nav.active {
-  left: 35%;
-}
-
 .website .swiper-slide img {
   border-radius: 25px;
 }
