@@ -7,6 +7,7 @@ import Header from '../../../components/_sites/header/Header'
 import Roadmap from '../../../components/_sites/Roadmap'
 import Slider from '../../../components/_sites/Slider'
 import Team from '../../../components/_sites/Team'
+import Faq from '../../../components/_sites/Faq'
 
 const Home = (props: Site) => {
   const [currentUser, setCurrentUser] = useState<User>(null)
@@ -34,6 +35,7 @@ const Home = (props: Site) => {
         <Slider site={site} />
         <Roadmap milestones={site?.milestones} />
         <Team members={site?.members} />
+        <Faq questions={site?.questions} />
         <Footer site={site} />
       </div>
     </>

@@ -35,6 +35,11 @@ type Member = {
   instagram?: string
 }
 
+type Question = {
+  question: string
+  answer: string
+}
+
 type Menu = {
   name: string
   links: string
@@ -73,4 +78,5 @@ type Site = {
   discord?: string
   milestones?: Milestone[]
   members?: Member[]
+  questions?: Question[]
 } | null

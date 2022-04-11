@@ -23,7 +23,7 @@ const Team = (props: { members: Member[] | undefined }) => {
       className="tf-section live-auctions style4 home4 live-auctions-style7"
       id="team"
     >
-      <div className="themesflat-container">
+      <div className="themesflat-container content-row">
         <div className="row">
           <div className="col-box-12">
             <div className="heading-live-auctions">
@@ -33,28 +33,15 @@ const Team = (props: { members: Member[] | undefined }) => {
           {members.map((member, index) => (
             <div
               key={index}
-              className="fl-collection fl-item3 col-xl-3 col-md-6"
+              className="fl-collection fl-item3 col-xl-3 col-md-6 mb-5"
             >
-              <div className="sc-card-collection style-2 sc-card-style7">
+              <div className="sc-card-collection style-2 sc-card-style7 h-100">
                 <div className="card-media-h7">
                   <img
                     src={getImage(member.image)}
                     className="blur-img w-100 h-100"
                     alt=""
                   />
-                </div>
-                <div className="card-bottom">
-                  <div className="author">
-                    <div className="content">
-                      <h5 className="mt-2">{member.pseudo}</h5>
-                      <div className="infor">
-                        <span className="name">{member.job}</span>
-                      </div>
-                      <div className="desc">
-                        <p>{member.description}</p>
-                      </div>
-                    </div>
-                  </div>
                 </div>
                 <div className="sc-author-box style-2">
                   <div className="author-avatar">
@@ -63,6 +50,61 @@ const Team = (props: { members: Member[] | undefined }) => {
                       alt=""
                       className="avatar"
                     />
+                  </div>
+                </div>
+                <div className="card-bottom">
+                  <div className="author">
+                    <div className="content w-100">
+                      <div className="flex justify-content-between">
+                        <div>
+                          <h5 className="mt-2">{member.pseudo}</h5>
+                          <div className="infor">
+                            <span className="name">{member.job}</span>
+                          </div>
+                        </div>
+                        <div className="widget-social style-2 mt-4">
+                          <ul>
+                            {member.twitter && (
+                              <li>
+                                <a
+                                  href={member.twitter}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                >
+                                  <i className="fab fa-twitter"></i>
+                                </a>
+                              </li>
+                            )}
+                            {member.linkedin && (
+                              <li>
+                                <a
+                                  href={member.linkedin}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                >
+                                  <i className="fab fa-linkedin"></i>
+                                </a>
+                              </li>
+                            )}
+                            {member.instagram && (
+                              <li>
+                                <a
+                                  href={member.instagram}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                >
+                                  <i className="fab fa-instagram"></i>
+                                </a>
+                              </li>
+                            )}
+                          </ul>
+                        </div>
+                      </div>
+
+                      <div className="desc">
+                        <p>{member.description}</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
