@@ -19,10 +19,7 @@ const Team = (props: { members: Member[] | undefined }) => {
   }
 
   return (
-    <section
-      className="tf-section live-auctions style4 home4 live-auctions-style7"
-      id="team"
-    >
+    <section className="tf-section live-auctions style4 home4" id="team">
       <div className="themesflat-container content-row">
         <div className="row">
           <div className="col-box-12">
