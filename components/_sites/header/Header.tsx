@@ -10,7 +10,7 @@ const Header = (props: { currentUser: User; site: Site }) => {
   const router = useRouter()
   const pathname = router.pathname
   const headerRef = useRef(null)
-  const [account] = useState<string>(props.currentUser?.walletAddress || '')
+  const [currentUser, setCurrentUser] = useState<User>(props.currentUser)
   const [site] = useState<Site>(props.site)
 
   const defaultLogo = site?.logo
@@ -49,6 +49,8 @@ const Header = (props: { currentUser: User; site: Site }) => {
       )
     }
   })
+
+  useEffect(() => setCurrentUser(props.currentUser), [props.currentUser])
 
   const isSticky = () => {
     const header = document.querySelector('.js-header')
@@ -137,7 +139,7 @@ const Header = (props: { currentUser: User; site: Site }) => {
                   </ul>
                 </nav>
                 <div className="flat-search-btn flex">
-                  {!account && (
+                  {!currentUser?.walletAddress && (
                     <div className="sc-btn-top mg-r-12" id="site-header">
                       <Link href="/connect">
                         <a className="sc-button header-slider style style-1 wallet fl-button pri-1">
@@ -147,7 +149,7 @@ const Header = (props: { currentUser: User; site: Site }) => {
                     </div>
                   )}
 
-                  {account && (
+                  {currentUser?.walletAddress && (
                     <div
                       id="header_admin"
                       className="cursor"
@@ -156,12 +158,13 @@ const Header = (props: { currentUser: User; site: Site }) => {
                       <div className="header_avatar">
                         <div className="price">
                           <strong>
-                            {account.slice(0, 4)}...{account.slice(-4)}
+                            {currentUser.walletAddress.slice(0, 4)}...
+                            {currentUser.walletAddress.slice(-4)}
                           </strong>
                         </div>
                         <img
                           className="avatar"
-                          src={`https://avatars.dicebear.com/api/identicon/${account}.svg`}
+                          src={`https://avatars.dicebear.com/api/identicon/${currentUser.walletAddress}.svg`}
                           alt="avatar"
                         />
                       </div>

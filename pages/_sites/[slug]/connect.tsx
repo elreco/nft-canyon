@@ -1,13 +1,14 @@
-import type { NextPage } from 'next'
 import Head from 'next/head'
-import Header from '../components/header/Header'
-import Footer from '../components/Footer'
-import ConnectWallet from '../components/ConnectWallet'
-import { withIronSessionSsr } from 'iron-session/next'
-import { sessionOptions } from '../lib/session'
+import type { GetStaticPaths, GetStaticProps } from 'next/types'
+import { useState } from 'react'
+import Footer from '../../../components/_sites/Footer'
+import Header from '../../../components/_sites/header/Header'
+import { siteStaticPaths, siteStaticProps } from '../../../lib/sanityClient'
+import ConnectWallet from '../../../components/ConnectWallet'
 
-const Connect: NextPage = () => {
-  const title = 'NFT Canyon - Connect Wallet'
+const Connect = (props: Site) => {
+  const [site] = useState<Site>(props)
+  const title = site?.name
 
   return (
     <>
@@ -16,7 +17,7 @@ const Connect: NextPage = () => {
         <meta property="og:title" content={title} />
         <meta name="twitter:title" content={title} />
       </Head>
-      <Header currentUser={null} />
+      <Header site={site} currentUser={null} />
       <section className="flat-title-page inner">
         <div className="overlay"></div>
         <div className="themesflat-container">
@@ -38,33 +39,24 @@ const Connect: NextPage = () => {
               </h2>
               <h5 className="sub-title ct style-1 pad-400">
                 Connect your wallet with one of the following gateway to start
-                creating your minting website!
+                minting!
               </h5>
             </div>
             <ConnectWallet />
           </div>
         </div>
       </div>
-      <Footer />
+      <Footer site={site} />
     </>
   )
 }
 
-export const getServerSideProps = withIronSessionSsr(
-  async function getServerSideProps({ req }) {
-    if (req.session.user) {
-      return {
-        redirect: {
-          permanent: false,
-          destination: '/dashboard'
-        }
-      }
-    }
-    return {
-      props: {}
-    }
-  },
-  sessionOptions
-)
+export const getStaticPaths: GetStaticPaths = async (ctx) => {
+  return await siteStaticPaths(ctx)
+}
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  return await siteStaticProps({ params })
+}
 
 export default Connect
