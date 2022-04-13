@@ -23,7 +23,7 @@ const Slider = (props: { site: Site }) => {
   }
 
   return (
-    <section className="flat-title-page home5">
+    <section className="flat-title-page home5" id="home">
       <div className="overlay"></div>
       <div className="themesflat-container">
         <div className="wrap-heading flat-slider flex align-items-center">

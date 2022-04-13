@@ -21,6 +21,78 @@ const Header = (props: { currentUser: User; site: Site }) => {
     : ''
 
   const [logo] = useState<string>(defaultLogo || '/images/logo/logo_dark.png')
+  const [active, setActive] = useState<string>('home')
+  const [categoriesHeights, setCategoriesHeights] = useState<
+    { label: string; height: number }[]
+  >([])
+
+  const getCategoriesHeight = () => {
+    const categories = []
+    const home = document.getElementById('home')
+    if (home) {
+      categories.push({
+        label: 'home',
+        height: home.getBoundingClientRect().top
+      })
+    }
+    const roadmap = document.getElementById('roadmap')
+    if (roadmap) {
+      categories.push({
+        label: 'roadmap',
+        height: roadmap.getBoundingClientRect().top - 150
+      })
+    }
+    const team = document.getElementById('team')
+    if (team) {
+      categories.push({
+        label: 'team',
+        height: team.getBoundingClientRect().top - 150
+      })
+    }
+    const faq = document.getElementById('faq')
+    if (faq) {
+      categories.push({
+        label: 'faq',
+        height: faq.getBoundingClientRect().top - 150
+      })
+    }
+    setCategoriesHeights(categories)
+  }
+
+  useEffect(() => {
+    getCategoriesHeight()
+  }, [])
+
+  const scrollIsHeaderFixed = () => {
+    const currentPosY = window.scrollY
+    for (let i = 0; i < categoriesHeights.length; i++) {
+      if (currentPosY < categoriesHeights[0].height) {
+        setActive('home')
+      }
+
+      if (
+        currentPosY > categoriesHeights[i].height &&
+        categoriesHeights[i + 1] &&
+        currentPosY < categoriesHeights[i + 1].height
+      ) {
+        setActive(categoriesHeights[i].label)
+      }
+
+      if (
+        i + 1 === categoriesHeights.length &&
+        currentPosY > categoriesHeights[i].height
+      ) {
+        setActive(categoriesHeights[i].label)
+      }
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', scrollIsHeaderFixed)
+    return () => {
+      window.removeEventListener('scroll', scrollIsHeaderFixed)
+    }
+  })
 
   useEffect(() => {
     window.addEventListener('scroll', isSticky)
@@ -66,9 +138,12 @@ const Header = (props: { currentUser: User; site: Site }) => {
   const menuLeft = useRef<HTMLDivElement>(null)
   const btnToggle = useRef<HTMLDivElement>(null)
 
-  const menuToggle = () => {
+  const menuToggle = (slug: string | undefined | null) => {
     menuLeft?.current?.classList.toggle('active')
     btnToggle?.current?.classList.toggle('active')
+    if (slug) {
+      setActive(slug)
+    }
   }
 
   return (
@@ -100,7 +175,7 @@ const Header = (props: { currentUser: User; site: Site }) => {
                 <div
                   className="mobile-button"
                   ref={btnToggle}
-                  onClick={menuToggle}
+                  onClick={() => menuToggle(null)}
                 >
                   <span></span>
                 </div>
@@ -110,30 +185,14 @@ const Header = (props: { currentUser: User; site: Site }) => {
                       <li
                         key={index}
                         className={`menu-item ${
-                          data.namesub ? 'menu-item-has-children' : ''
+                          active === data.slug ? 'active' : ''
                         }`}
                       >
                         <Link href={data.links}>
-                          <a onClick={menuToggle}>{data.name}</a>
+                          <a onClick={() => menuToggle(data.slug)}>
+                            {data.name}
+                          </a>
                         </Link>
-                        {data.namesub && (
-                          <ul className="sub-menu">
-                            {data.namesub.map((submenu) => (
-                              <li
-                                key={submenu.id}
-                                className={
-                                  pathname === submenu.links
-                                    ? 'menu-item current-item'
-                                    : 'menu-item'
-                                }
-                              >
-                                <Link href={submenu.links}>
-                                  <a onClick={menuToggle}>{submenu.sub}</a>
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        )}
                       </li>
                     ))}
                   </ul>

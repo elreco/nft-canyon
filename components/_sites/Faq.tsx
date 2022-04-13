@@ -39,7 +39,11 @@ const Faq = (props: { questions: Question[] | undefined }) => {
     )
   }
   return (
-    <section className="tf-section live-auctions bg-style2" id="faq">
+    <section
+      className="tf-section live-auctions bg-style2"
+      id="faq"
+      style={{ minHeight: '1500px' }}
+    >
       <div className="themesflat-container content-row">
         <div className="row">
           <div className="col-md-12">

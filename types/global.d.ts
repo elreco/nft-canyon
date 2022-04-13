@@ -42,6 +42,7 @@ type Question = {
 
 type Menu = {
   name: string
+  slug?: string
   links: string
   namesub?: [
     {

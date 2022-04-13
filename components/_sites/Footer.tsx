@@ -14,44 +14,6 @@ const Footer = (props: { site: Site }) => {
 
   const [logo] = useState<string>(defaultLogo || '/images/logo/logo_dark.png')
 
-  const items = [
-    {
-      title: 'My website',
-      link: '/authors-01'
-    },
-    {
-      title: 'My Collection',
-      link: '/wallet-connect'
-    },
-    {
-      title: 'Author Profile',
-      link: '/edit-profile'
-    },
-    {
-      title: 'Create Item',
-      link: '/create-item'
-    }
-  ]
-
-  const socialList = [
-    {
-      icon: 'fab fa-twitter',
-      link: '#'
-    },
-    {
-      icon: 'fab fa-discord',
-      link: '#'
-    },
-    {
-      icon: 'fab fa-instagram',
-      link: '#'
-    },
-    {
-      icon: 'opensea-icon',
-      link: '#'
-    }
-  ]
-
   const [isVisible, setIsVisible] = useState<boolean>(false)
 
   const scrollToTop = () => {
@@ -79,47 +41,53 @@ const Footer = (props: { site: Site }) => {
     <div>
       <footer id="footer" className="footer-light-style clearfix bg-style">
         <div className="themesflat-container">
-          <div className="row">
-            <div className="col-lg-3 col-md-12 col-12 d-flex">
-              <div className="widget widget-logo my-auto">
-                <div className="logo-footer mb-0" id="logo-footer">
-                  <Link href="/">
-                    <a>
-                      <img
-                        className="logo-dark"
-                        id="logo_footer"
-                        src={logo}
-                        alt="nft-gaming"
-                      />
-                    </a>
-                  </Link>
-                </div>
+          <div className="d-flex justify-content-between">
+            <div className="widget widget-logo my-auto">
+              <div className="logo-footer mb-0" id="logo-footer">
+                <Link href="/">
+                  <a>
+                    <img
+                      className="logo-dark"
+                      id="logo_footer"
+                      src={logo}
+                      alt="nft-gaming"
+                    />
+                  </a>
+                </Link>
               </div>
             </div>
-            <div className="col-lg-6 col-12 d-flex">
-              <div className="widget widget-menu pt-0 my-auto">
+            <div className="widget widget-subcribe p-0 my-auto">
+              <div className="widget-social style-1">
                 <ul>
-                  {items.map((item, index) => (
-                    <li key={index} className="d-inline-block mx-3 mb-0">
-                      <a href={item.link}>{item.title}</a>
+                  {site?.twitter && (
+                    <li>
+                      <a href={site?.twitter}>
+                        <i className="fab fa-twitter"></i>
+                      </a>
                     </li>
-                  ))}
+                  )}
+                  {site?.instagram && (
+                    <li>
+                      <a href={site?.instagram}>
+                        <i className="fab fa-instagram"></i>
+                      </a>
+                    </li>
+                  )}
+                  {site?.discord && (
+                    <li>
+                      <a href={site?.discord}>
+                        <i className="fab fa-discord"></i>
+                      </a>
+                    </li>
+                  )}
+                  {site?.opensea && (
+                    <li>
+                      <a href={site?.opensea}>
+                        <i className="opensea-icon"></i>
+                      </a>
+                    </li>
+                  )}
                 </ul>
-              </div>
-            </div>
-            <div className="col-lg-3 col-md-6 col-sm-7 col-12 d-flex">
-              <div className="widget widget-subcribe p-0 my-auto">
-                <div className="widget-social style-1">
-                  <ul>
-                    {socialList.map((item, index) => (
-                      <li key={index}>
-                        <a href={item.link}>
-                          <i className={item.icon}></i>
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
               </div>
             </div>
           </div>
