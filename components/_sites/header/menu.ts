@@ -26,7 +26,7 @@ const menus = [
   {
     id: 5,
     name: 'Mint',
-    links: '/#mint'
+    links: '/mint'
   }
 ]
 
