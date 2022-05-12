@@ -1,16 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import sanityClient, { getAssetUrl } from '../../lib/sanityClient'
+import { getAssetUrl } from '../../lib/sanityClient'
 
 const Footer = (props: { site: Site }) => {
   const [site] = useState<Site>(props.site)
 
-  const defaultLogo = site?.logo
-    ? getAssetUrl(sanityClient(process.env.NEXT_PUBLIC_TOKEN || ''), site?.logo)
-        .width(200)
-        .url()
-    : ''
+  const defaultLogo = site?.logo ? getAssetUrl(site?.logo).width(200).url() : ''
 
   const [logo] = useState<string>(defaultLogo || '/images/logo/logo_dark.png')
 

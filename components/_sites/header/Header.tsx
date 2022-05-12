@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import menus from './menu'
 import { Toaster } from 'react-hot-toast'
-import sanityClient, { getAssetUrl } from '../../../lib/sanityClient'
+import { getAssetUrl } from '../../../lib/sanityClient'
 
 const Header = (props: { currentUser: User; site: Site }) => {
   const router = useRouter()
@@ -13,12 +13,7 @@ const Header = (props: { currentUser: User; site: Site }) => {
   const [currentUser, setCurrentUser] = useState<User>(props.currentUser)
   const [site] = useState<Site>(props.site)
 
-  const defaultLogo = site?.logo
-    ? getAssetUrl(
-        sanityClient(process.env.NEXT_PUBLIC_TOKEN || ''),
-        site?.logo
-      ).url()
-    : ''
+  const defaultLogo = site?.logo ? getAssetUrl(site?.logo).url() : ''
 
   const [logo] = useState<string>(defaultLogo || '/images/logo/logo_dark.png')
   const [active, setActive] = useState<string>('home')

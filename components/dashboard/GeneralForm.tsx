@@ -1,9 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-import { faSpinner } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ChangeEvent, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
-import sanityClient, { getAssetUrl, getUrlFromId } from '../../lib/sanityClient'
+import { getAssetUrl, getUrlFromId } from '../../lib/sanityClient'
 
 const GeneralForm = (props: { site: Site }) => {
   const form = useRef<HTMLFormElement>(null)
@@ -13,10 +11,7 @@ const GeneralForm = (props: { site: Site }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [slug, setSlug] = useState<string>(site?.slug?.current || '')
 
-  const defaultImage = getAssetUrl(
-    sanityClient(process.env.TOKEN || ''),
-    site?.logo
-  )
+  const defaultImage = getAssetUrl(site?.logo)
 
   const [image, setImage] = useState<string>(
     defaultImage ? defaultImage.width(200).url() : ''

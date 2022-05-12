@@ -2,7 +2,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper'
 import { useState } from 'react'
-import sanityClient, { getAssetUrl } from '../../lib/sanityClient'
+import { getAssetUrl } from '../../lib/sanityClient'
 import CardModal from './CardModal'
 
 const Roadmap = (props: { milestones: Milestone[] | undefined }) => {
@@ -22,12 +22,7 @@ const Roadmap = (props: { milestones: Milestone[] | undefined }) => {
 
   const getImage = (image: any) => {
     if (image) {
-      return getAssetUrl(
-        sanityClient(process.env.NEXT_PUBLIC_TOKEN || ''),
-        image
-      )
-        .width(300)
-        .url()
+      return getAssetUrl(image).width(300).url()
     } else {
       return 'https://dummyimage.com/400x400'
     }

@@ -59,11 +59,9 @@ const client = (token: string) =>
 // Then we like to make a simple function like this that gives the
 // builder an image and returns the builder for you to specify additional
 // parameters:
-export function getAssetUrl(
-  currentClient: SanityClient,
-  source: SanityImageSource
-) {
-  const builder = imageUrlBuilder(currentClient)
+export function getAssetUrl(source: SanityImageSource) {
+  const sanityClient = client(process.env.NEXT_PUBLIC_TOKEN || '')
+  const builder = imageUrlBuilder(sanityClient)
   return builder.image(source)
 }
 

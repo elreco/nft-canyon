@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { Autoplay } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { useState } from 'react'
-import sanityClient, { getAssetUrl } from '../../lib/sanityClient'
+import { getAssetUrl } from '../../lib/sanityClient'
 
 const Slider = (props: { site: Site }) => {
   const [site] = useState<Site>(props.site)
@@ -11,10 +11,7 @@ const Slider = (props: { site: Site }) => {
 
   const getImage = (number: number) => {
     if (images?.length && images[number - 1]) {
-      return getAssetUrl(
-        sanityClient(process.env.NEXT_PUBLIC_TOKEN || ''),
-        images[number - 1]
-      )
+      return getAssetUrl(images[number - 1])
         .width(300)
         .url()
     } else {

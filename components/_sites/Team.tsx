@@ -1,18 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState } from 'react'
-import sanityClient, { getAssetUrl } from '../../lib/sanityClient'
+import { getAssetUrl } from '../../lib/sanityClient'
 
 const Team = (props: { members: Member[] | undefined }) => {
   const [members] = useState<Member[]>(props.members || [])
 
   const getImage = (image: any) => {
     if (image) {
-      return getAssetUrl(
-        sanityClient(process.env.NEXT_PUBLIC_TOKEN || ''),
-        image
-      )
-        .width(400)
-        .url()
+      return getAssetUrl(image).width(400).url()
     } else {
       return 'https://dummyimage.com/400x400'
     }

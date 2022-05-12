@@ -3,7 +3,7 @@ import type { GetStaticPaths, GetStaticProps } from 'next/types'
 import { useEffect, useState } from 'react'
 import Footer from '../../../components/_sites/Footer'
 import Header from '../../../components/_sites/header/Header'
-import sanityClient, {
+import {
   getAssetUrl,
   siteStaticPaths,
   siteStaticProps
@@ -18,12 +18,7 @@ const Mint = (props: Site) => {
 
   const getImage = () => {
     if (image) {
-      return getAssetUrl(
-        sanityClient(process.env.NEXT_PUBLIC_TOKEN || ''),
-        image
-      )
-        .width(800)
-        .url()
+      return getAssetUrl(image).width(800).url()
     } else {
       return 'https://dummyimage.com/300x400'
     }
