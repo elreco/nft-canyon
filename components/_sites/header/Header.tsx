@@ -8,7 +8,6 @@ import { getAssetUrl } from '../../../lib/sanityClient'
 
 const Header = (props: { currentUser: User; site: Site }) => {
   const router = useRouter()
-  const pathname = router.pathname
   const headerRef = useRef(null)
   const [currentUser, setCurrentUser] = useState<User>(props.currentUser)
   const [site] = useState<Site>(props.site)
@@ -57,6 +56,13 @@ const Header = (props: { currentUser: User; site: Site }) => {
   useEffect(() => {
     getCategoriesHeight()
   }, [])
+
+  useEffect(() => {
+    if (router.asPath === '/mint') {
+      setActive('mint')
+      console.log(active)
+    }
+  }, [router.asPath])
 
   const scrollIsHeaderFixed = () => {
     const currentPosY = window.scrollY

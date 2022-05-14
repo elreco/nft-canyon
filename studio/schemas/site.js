@@ -100,6 +100,11 @@ export default {
       title: 'Public Mint Date',
       type: 'datetime',
     },
+    {
+      name: 'status',
+      title: 'Mint Status (0 = close, 1 = wl mint, 2 = public mint)',
+      type: 'number',
+    },
     // social networks
     {
       name: 'twitter',

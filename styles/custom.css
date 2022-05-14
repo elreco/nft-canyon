@@ -108,3 +108,7 @@ html {
 .website .card-bottom .author {
   margin-top: 2rem;
 }
+
+.website .mint-section {
+  padding-bottom: 80px;
+}
