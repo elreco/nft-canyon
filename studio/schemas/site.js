@@ -71,6 +71,16 @@ export default {
     },
     // contract / mint infos
     {
+		  name: 'contractTotalMintedFunction',
+			title: 'Total Minted Function',
+      type: 'string',
+    },
+    {
+		  name: 'contractAlreadyMintedFunction',
+			title: 'Already Minted Function',
+      type: 'string',
+    },
+    {
 		  name: 'contractMintFunction',
 			title: 'Contract Mint Function',
       type: 'string',
@@ -81,7 +91,7 @@ export default {
       type: 'string',
     },
     {
-		  name: 'maxMintNumber',
+		  name: 'maxMint',
 			title: 'Max Mint Number',
       type: 'string',
     },

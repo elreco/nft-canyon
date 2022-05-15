@@ -202,13 +202,13 @@ const GeneralForm = (props: { site: Site }) => {
             <div className="col-lg-6">
               <h4 className="title-create-item">Max Mint Number</h4>
               <input
-                name="maxMintNumber"
+                name="maxMint"
                 type="number"
                 min="0"
                 max="99"
                 step="1"
                 placeholder="e.g. “2” (Optional)"
-                defaultValue={site?.maxMintNumber}
+                defaultValue={site?.maxMint}
               />
             </div>
             <div className="col-lg-6 widget-filter style-1">

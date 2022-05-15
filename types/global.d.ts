@@ -64,13 +64,16 @@ type Site = {
   logo: any
   name: string
   owner: User
+  totalMinted: number
+  alreadyMinted: number
   about?: string
   mainTitle?: string
   mainSubtitle?: string
   mainColor?: string
   secondaryColor?: string
   contractMintFunction?: string
-  maxMintNumber?: number
+  maxMint: number
+  status: number
   contract?: any
   contractParameter?: boolean
   instagram?: string
@@ -81,3 +84,10 @@ type Site = {
   members?: Member[]
   questions?: Question[]
 } | null
+
+type Timeleft = {
+  days: string
+  hours: string
+  minutes: string
+  seconds: string
+}

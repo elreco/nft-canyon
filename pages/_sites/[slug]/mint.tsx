@@ -1,27 +1,23 @@
 import Head from 'next/head'
 import type { GetStaticPaths, GetStaticProps } from 'next/types'
 import { useEffect, useState } from 'react'
+import ConnectWallet from '../../../components/ConnectWallet'
+import Countdown from '../../../components/_sites/Countdown'
 import Footer from '../../../components/_sites/Footer'
 import Header from '../../../components/_sites/header/Header'
-import {
-  getAssetUrl,
-  siteStaticPaths,
-  siteStaticProps
-} from '../../../lib/sanityClient'
-import ConnectWallet from '../../../components/ConnectWallet'
+import MintForm from '../../../components/_sites/MintForm'
+import MintInfo from '../../../components/_sites/MintInfo'
+import { siteStaticPaths, siteStaticProps } from '../../../lib/sanityClient'
 
 const Mint = (props: Site) => {
   const [currentUser, setCurrentUser] = useState<User>(null)
+  const [alreadyMinted, setAlreadyMinted] = useState<number>(0)
+  const [maxSupply, setMaxSupply] = useState<number>(0)
   const [site] = useState<Site>(props)
-  const [image] = useState<string | undefined>(site?.collection[0])
   const title = site?.name
 
-  const getImage = () => {
-    if (image) {
-      return getAssetUrl(image).width(800).url()
-    } else {
-      return 'https://dummyimage.com/300x400'
-    }
+  const increaseMinted = () => {
+    setAlreadyMinted(alreadyMinted + 1)
   }
 
   useEffect(() => {
@@ -42,7 +38,6 @@ const Mint = (props: Site) => {
       </Head>
       <div className="website">
         <Header site={site} currentUser={currentUser} />
-
         <section className="flat-title-page inner">
           <div className="overlay"></div>
           <div className="themesflat-container">
@@ -75,90 +70,85 @@ const Mint = (props: Site) => {
         ) : (
           <div className="tf-section tf-item-details style-2 mint-section">
             <div className="themesflat-container">
-              <div className="row">
-                <div className="col-xl-4 col-md-12">
-                  <div className="content-left">
-                    <div className="media">
-                      <img src={getImage()} alt="" />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-xl-8 col-md-12">
-                  <div className="content-right">
-                    <div className="sc-item-details">
-                      <div className="client-infor sc-card-product">
-                        <div className="meta-info">
-                          <div className="author">
-                            <div className="avatar">
-                              <img src="" alt="Axies" />
+              <div className="row min-vh-100">
+                <div
+                  className={`${
+                    currentUser.walletAddress ? 'col-lg-8' : 'col-lg-12'
+                  } col-12 mb-0 pt-5 mb-lg--100 pt-lg--120 d-flex flex-column flex-grow-1`}
+                >
+                  <h3 className="title text-center">
+                    {site?.status === null && 'CONNECT YOUR WALLET'}
+                    {site?.status === 0 && ''}
+                    {site?.status === 1 && 'WHITELIST MINT'}
+                    {site?.status === 2 && 'PUBLIC SALE'}
+                  </h3>
+                  <h4 className="text-center text-secondary font-tomoe text-lg">
+                    Mint price 0.08 eth
+                  </h4>
+                  {!currentUser.walletAddress && (
+                    <div className="row g-5 justify-content-center mt-3">
+                      <div className="col-xxl-5 col-lg-6 col-12 col-sm-6 sal-animate">
+                        <div className="wallet-wrapper">
+                          <div className="inner">
+                            <div className="icon">
+                              <i className="fa fa-user-lock custom-icon"></i>
                             </div>
-                            <div className="info">
-                              <span>Owned B testy</span>
-                              <h6> test </h6>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="meta-info">
-                          <div className="author">
-                            <div className="avatar">
-                              <img src="" alt="Axies" />
-                            </div>
-                            <div className="info">
-                              <span>Create By</span>
-                              <h6> test </h6>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <p>
-                        Habitant sollicitudin faucibus cursus lectus pulvinar
-                        dolor non ultrices eget. Facilisi lobortisal morbi
-                        fringilla urna amet sed ipsum vitae ipsum malesuada.
-                        Habitant sollicitudin faucibus cursus lectus pulvinar
-                        dolor non ultrices eget. Facilisi lobortisal morbi
-                        fringilla urna amet sed ipsum
-                      </p>
-                      <div className="meta-item-details">
-                        <div className="item-style-2 item-details">
-                          <ul className="list-details">
-                            <li>
-                              <span>Artist : </span>
-                              <h6>Ralph Garraway</h6>{' '}
-                            </li>
-                            <li>
-                              <span>Size : </span>
-                              <h6>3000 x 3000</h6>{' '}
-                            </li>
-                            <li>
-                              <span>Create : </span>
-                              <h6>04 April , 2021</h6>{' '}
-                            </li>
-                            <li>
-                              <span>Collection : </span>
-                              <h6>Cyberpunk City Art</h6>{' '}
-                            </li>
-                          </ul>
-                        </div>
-                        <div className="item-style-2">
-                          <div className="item meta-price">
-                            <span className="heading">Current Bid</span>
-                            <div className="price">
-                              <div className="price-box">
-                                <h5> 4.89 ETH</h5>
-                                <span>= $12.246</span>
+                            <div className="content">
+                              <h4 className="title">You are not connected</h4>
+                              <p className="description">
+                                You must be connected to MetaMask to mint a
+                                Heiki.
+                              </p>
+                              <div className="pt--20 text-center">
+                                <ConnectWallet />
                               </div>
                             </div>
                           </div>
-                          <div className="item count-down">
-                            {/* <Countdown date={Date.now() + 500000000}>
-                                          <span>You are good to go!</span>
-                                      </Countdown> */}
-                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  )}
+
+                  {site && currentUser.walletAddress && site?.status && (
+                    <MintForm
+                      status={site.status}
+                      increaseMinted={increaseMinted}
+                    />
+                  )}
+                  {site && currentUser.walletAddress && site.status === 0 && (
+                    <div
+                      className={`${
+                        site.status && 'mt-auto mb--25'
+                      } text-center`}
+                    >
+                      <h3 className="text-center mb-0">
+                        WHITELIST MINT STARTS IN
+                      </h3>
+                      <Countdown status={site?.status} />
+                    </div>
+                  )}
+                  {site && currentUser.walletAddress && site.status === 1 && (
+                    <div className="mt-md-auto mt--100 mb--25 text-center">
+                      <h5 className="text-center mb-0">
+                        Public Mint starts in:
+                      </h5>
+                      <Countdown status={site.status} />
+                    </div>
+                  )}
                 </div>
+                {site && currentUser.walletAddress && (
+                  <div className="col-lg-4 col-12 pt-5 pb-5">
+                    <h3 className="title text-center">MINT INFOS</h3>
+                    <MintInfo
+                      alreadyMinted={site.alreadyMinted}
+                      status={site.status}
+                      totalMinted={site.totalMinted}
+                      maxSupply={maxSupply}
+                      maxMint={site.maxMint}
+                      setAlreadyMinted={setAlreadyMinted}
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </div>
