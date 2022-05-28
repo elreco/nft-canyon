@@ -101,6 +101,11 @@ export default {
       type: 'number',
     },
     {
+		  name: 'mintPrice',
+			title: 'Mint Price',
+      type: 'number',
+    },
+    {
       name: 'whitelistMintDate',
       title: 'Whitelist Mint Date',
       type: 'datetime',

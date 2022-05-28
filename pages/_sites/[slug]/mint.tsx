@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import type { GetStaticPaths, GetStaticProps } from 'next/types'
 import { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 import ConnectWallet from '../../../components/ConnectWallet'
 import Countdown from '../../../components/_sites/Countdown'
 import Footer from '../../../components/_sites/Footer'
@@ -13,11 +14,47 @@ const Mint = (props: Site) => {
   const [currentUser, setCurrentUser] = useState<User>(null)
   const [alreadyMinted, setAlreadyMinted] = useState<number>(0)
   const [maxSupply, setMaxSupply] = useState<number>(0)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const [site] = useState<Site>(props)
   const title = site?.name
 
-  const increaseMinted = () => {
-    setAlreadyMinted(alreadyMinted + 1)
+  const mintNft = async (number = 1) => {
+    setIsLoading(true)
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL_API}/api/mint`,
+        {
+          body: JSON.stringify({
+            nMint: number
+          }),
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          method: 'POST'
+        }
+      )
+
+      if (res.ok) {
+        toast.success(
+          `You successfully minted your Heiki! (x${number}). You can find it on OpenSea 🙂`,
+          {
+            style: {
+              background: '#04111d',
+              color: '#fff',
+              fontSize: '15px'
+            }
+          }
+        )
+        setAlreadyMinted(alreadyMinted + 1)
+      }
+    } catch (error) {
+      new Noty({
+        type: 'warning',
+        text: 'You transaction has been canceled, please retry.',
+        layout: 'top',
+        timeout: 5000
+      }).show()
+    }
   }
 
   useEffect(() => {
@@ -76,14 +113,16 @@ const Mint = (props: Site) => {
                     currentUser.walletAddress ? 'col-lg-8' : 'col-lg-12'
                   } col-12 mb-0 pt-5 mb-lg--100 pt-lg--120 d-flex flex-column flex-grow-1`}
                 >
-                  <h3 className="title text-center">
-                    {site?.status === null && 'CONNECT YOUR WALLET'}
+                  <h3 className="text-center mb-4">
+                    {!site?.status && 'CONNECT YOUR WALLET'}
                     {site?.status === 0 && ''}
                     {site?.status === 1 && 'WHITELIST MINT'}
                     {site?.status === 2 && 'PUBLIC SALE'}
                   </h3>
                   <h4 className="text-center text-secondary font-tomoe text-lg">
-                    Mint price 0.08 eth
+                    {site?.mintPrice
+                      ? `Mint price ${site?.mintPrice} eth`
+                      : 'Free mint'}
                   </h4>
                   {!currentUser.walletAddress && (
                     <div className="row g-5 justify-content-center mt-3">
@@ -112,7 +151,8 @@ const Mint = (props: Site) => {
                   {site && currentUser.walletAddress && site?.status && (
                     <MintForm
                       status={site.status}
-                      increaseMinted={increaseMinted}
+                      isLoading={isLoading}
+                      mintNft={mintNft}
                     />
                   )}
                   {site && currentUser.walletAddress && site.status === 0 && (
@@ -137,16 +177,20 @@ const Mint = (props: Site) => {
                   )}
                 </div>
                 {site && currentUser.walletAddress && (
-                  <div className="col-lg-4 col-12 pt-5 pb-5">
-                    <h3 className="title text-center">MINT INFOS</h3>
-                    <MintInfo
-                      alreadyMinted={site.alreadyMinted}
-                      status={site.status}
-                      totalMinted={site.totalMinted}
-                      maxSupply={maxSupply}
-                      maxMint={site.maxMint}
-                      setAlreadyMinted={setAlreadyMinted}
-                    />
+                  <div className="col-xl-4 col-md-12">
+                    <div className="content-right">
+                      <div className="sc-item-details">
+                        <h3 className="title text-center">MINT INFOS</h3>
+                        <MintInfo
+                          alreadyMinted={site.alreadyMinted}
+                          status={site.status}
+                          totalMinted={site.totalMinted}
+                          maxSupply={maxSupply}
+                          maxMint={site.maxMint}
+                          setAlreadyMinted={setAlreadyMinted}
+                        />
+                      </div>
+                    </div>
                   </div>
                 )}
               </div>

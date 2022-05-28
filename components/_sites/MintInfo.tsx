@@ -8,30 +8,44 @@ const MintInfo = (props: {
 }) => {
   const displayMinted = () => {
     if (props.status === 0) {
-      return
+      return '-'
     } else if (props.status === 1) {
       return `${props.alreadyMinted} / 2`
     } else {
-      return props.alreadyMinted
+      return props.alreadyMinted || '-'
     }
   }
 
   return (
-    <div className="container">
+    <div className="meta-item-details style2">
       {props.status !== 0 && (
-        <div className="single-counter-up text-center mb--20">
-          <div className="number">{displayMinted()}</div>
-          <div className="botton-title font-tomoe text-xs">You minted</div>
-          {props.status === 2 && `(${props.maxMint} per transactions)`}
+        <div className="item meta-price">
+          <span className="heading">You minted</span>
+          <div className="price">
+            <div className="price-box">
+              <h5>
+                {displayMinted()}{' '}
+                {props.status === 2 && `(${props.maxMint} per transactions)`}
+              </h5>
+            </div>
+          </div>
         </div>
       )}
-      <div className="single-counter-up text-center mt--20 mb--20">
-        <div className="number">{props.maxSupply}</div>
-        <div className="botton-title font-tomoe text-xs">Max supply</div>
+      <div className="item meta-price">
+        <span className="heading">Max supply</span>
+        <div className="price">
+          <div className="price-box">
+            <h5>{props.maxSupply || '-'}</h5>
+          </div>
+        </div>
       </div>
-      <div className="single-counter-up text-center">
-        <div className="number">{props.totalMinted}</div>
-        <div className="botton-title font-tomoe text-xs">Total minted</div>
+      <div className="item meta-price">
+        <span className="heading">Total minted</span>
+        <div className="price">
+          <div className="price-box">
+            <h5> {props.totalMinted || '-'}</h5>
+          </div>
+        </div>
       </div>
     </div>
   )

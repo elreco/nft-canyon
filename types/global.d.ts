@@ -73,6 +73,7 @@ type Site = {
   secondaryColor?: string
   contractMintFunction?: string
   maxMint: number
+  mintPrice: number
   status: number
   contract?: any
   contractParameter?: boolean

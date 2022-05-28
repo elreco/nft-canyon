@@ -112,3 +112,7 @@ html {
 .website .mint-section {
   padding-bottom: 80px;
 }
+
+.website .tf-item-details .content-right .meta-item-details {
+  flex-direction: column;
+}
